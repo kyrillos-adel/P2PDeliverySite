@@ -1,0 +1,97 @@
+<section class="py-5 container">
+    <div class="row">
+      <div class="col-lg-8 col-md-12 mx-auto">
+        <h1>{{deliveryRequestDetails.title}}</h1>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <button class="btn btn btn-primary d-flex ms-auto">Add Application</button>
+      </div>
+    </div>
+    <div class="row py-lg-5 ">
+      <div class="col-lg-8 col-md-12 mx-auto">
+        <h5 class="font-weight-light">request details</h5>
+        <hr style="width:95%">
+          <p [innerHTML]="deliveryRequestDetails.description"></p>
+      </div>
+      <div class="col-lg-4 col-md-4 mx-auto">
+        <h5 class="font-weight-light">Requester</h5>
+        <hr style="width:95%">
+        
+        <div class="d-flex align-items-center mb-5">
+          <img src="https://mdbootstrap.com/img/new/avatars/8.jpg" alt="" style="width: 45px; height: 45px"
+          class="rounded-circle" />
+          <div class="ms-3">
+            <p class="fw-bold mb-1">{{deliveryRequestDetails.userName}}</p>
+            <!-- <p class="text-muted mb-0">john.doe@gmail.com</p> -->
+          </div>
+        </div>
+
+        <h5 class="font-weight-light">Request Details</h5>
+        <hr style="width:95%">            
+        <div class="fw-bold mb-lg-2">Weight: <span class="text-muted">{{deliveryRequestDetails.totalWeight}}kgm</span></div>
+        <div class="fw-bold mb-lg-2">PickUpLocation: <span class="text-muted"> {{deliveryRequestDetails.pickUpLocation}}</span></div>
+        <div class="fw-bold mb-lg-2">DropOffLocation: <span class="text-muted">{{deliveryRequestDetails.dropOffLocation}}</span></div>
+        <div class="fw-bold mb-lg-2">PickUpDate: <span class="text-muted">{{deliveryRequestDetails.pickUpDate}}</span></div>
+        <div class="fw-bold mb-lg-2">price: <span class="text-muted">{{deliveryRequestDetails.minPrice}}-{{deliveryRequestDetails.maxPrice}} EGP </span></div>
+        <div class="fw-bold mb-lg-2">Request Status: <span class="text-muted"> {{deliveryRequestDetails.status}} </span></div>
+    </div>
+    </div>
+    <hr>
+    
+  </section>
+  @if (deliveryRequestDetails.applicationDTOs.length>0) {
+  <section class="container">
+    <h1 class="font-weight-light text-center">Offered Applications</h1>
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <table class="table table-hover mb-1">
+              <thead class="table-light">
+                <tr>
+                  <th>Date</th>
+                  <th>Offered Price</th>
+                  <th>Status</th>
+                  <th>Applicant</th>
+                  <th> </th>
+                </tr>
+              </thead>
+              <tbody>
+                @for(app of deliveryRequestDetails.applicationDTOs; track app){
+                <tr>
+                  <td>{{ app.date }}</td>
+                  <td>EGP {{ app.offeredPrice }}</td>
+                  <td>
+                    <span class="badge bg-success" *ngIf="app.applicationStatus === 'Accepted'">{{ app.applicationStatus }}</span>
+                    <span class="badge bg-warning text-dark" *ngIf="app.applicationStatus === 'Pending'">{{ app.applicationStatus }}</span>
+                    <span class="badge bg-danger" *ngIf="app.applicationStatus === 'Rejected'">{{ app.applicationStatus }}</span>
+                    <span class="badge bg-secondary" *ngIf="!['Accepted','Pending','Rejected'].includes(app.applicationStatus)">
+                      {{ app.applicationStatus }}
+                    </span>
+                  </td>
+                  <td>{{ app.userName }}</td>
+                  <td>
+                    <button class="btn btn-warning me-1">Chat</button>
+                    @if(app.applicationStatus === 'Accepted'){
+                        <button class="btn btn-danger"> Reject</button>
+                    }
+                    @if(app.applicationStatus === 'Rejected'){
+                        <button class="btn btn-primary me-1"> accept</button>
+                    }
+                    @if(app.applicationStatus === 'Pending'){
+                        <button class="btn btn-primary me-1"> accept</button>
+                        <button class="btn btn-danger"> Reject</button>
+                    }
+                    
+                  </td>
+                </tr>
+            }
+              </tbody>
+            </table>
+          </div>
+          <ng-template #noApplications>
+            <div class="p-3 text-muted">No applications submitted yet.</div>
+          </ng-template>
+        </div>
+      
+  </section>
+}
+  
