@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import{ReactiveFormsModule} from '@angular/forms';
-import { AuthService } from '../../services/Register_auth.service'; 
+import { AuthService } from '../../Services/Register_auth.service'; 
 import { NgFor, NgIf } from '@angular/common';
 import { usernameExistsValidator } from '../../../../core/validators/username-exists.validator';
 import { passwordMatchValidator } from '../../../../core/validators/password-match.validator'; 
+import { Router } from '@angular/router';
 @Component({
   imports: [ReactiveFormsModule, NgIf,NgFor],
   selector: 'app-register',
@@ -44,7 +45,7 @@ export class RegisterComponent {
   ];
   
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(private fb: FormBuilder, private authService: AuthService,private router: Router) {
     this.registerForm = this.fb.group({
       natId: [''],
       fullName: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(12),Validators.pattern('^[a-zA-Z ]+$')]],
@@ -80,11 +81,13 @@ export class RegisterComponent {
     if (this.registerForm.valid) {
       this.notvaldemail = '';
       const formData = this.registerForm.value;
+     
 
       this.authService.register(formData).subscribe({
         next: (response) => {
           if (response.isSuccess) {
             alert('Registration successful!');
+            this.router.navigate(['/login']);
           }
           else if (response.isSuccess == false) {
             this.notvaldemail = response.message;
