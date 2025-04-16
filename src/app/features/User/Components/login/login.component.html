@@ -1,0 +1,23 @@
+<form *ngIf="loginForm" [formGroup]="loginForm" (ngSubmit)="login()" class="container mt-4" style="max-width: 400px;">
+  <div class="mb-3">
+      <label for="identifier" class="form-label">Email or Username</label>
+      <input id="identifier" class="form-control" formControlName="identifier" placeholder="Enter email or username" />
+      <span *ngIf="usernError" class="text-danger small">{{ usernError }}</span>
+    </div>
+  
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input id="password" class="form-control" formControlName="password" type="password" placeholder="Enter your password" />
+      <span *ngIf="passwordError" class="text-danger small">{{ passwordError }}</span>
+    </div>
+
+    
+    <div class="form-check mb-3">
+        <input id="rememberMe" class="form-check-input" type="checkbox" formControlName="rememberMe" />
+        <label for="rememberMe" class="form-check-label">Remember Me</label>
+    </div>
+  
+    <button type="submit" class="btn btn-primary w-100">Login</button>
+  </form>
+  
+  
