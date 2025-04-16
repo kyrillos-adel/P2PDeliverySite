@@ -1,0 +1,110 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-header bg-primary text-white text-center rounded-top-4">
+          <h4 class="mb-0"><i class="bi bi-person-plus-fill me-2"></i>Register</h4>
+        </div>
+        <div class="card-body p-4">
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div class="row g-3">
+
+              <!-- National ID -->
+              <div class="col-md-6">
+                <label for="natId" class="form-label">National ID</label>
+                <input type="text" class="form-control" id="natId" formControlName="natId">
+              </div>
+
+              <!-- Full Name -->
+              <div class="col-md-6">
+                <label for="fullName" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="fullName" formControlName="fullName">
+                <div class="text-danger small mt-1" *ngIf="fullName?.invalid && fullName?.touched">
+                  <div *ngIf="fullName?.errors?.['required']">Full Name is required</div>
+                  <div *ngIf="fullName?.errors?.['minlength'] || fullName?.errors?.['maxlength']">
+                    Name must be between 5 and 12 characters
+                  </div>
+                  <div *ngIf="fullName?.errors?.['pattern']">
+                    Only letters and spaces are allowed
+                  </div>
+                </div>
+              </div>
+
+              <!-- Username -->
+              <div class="col-md-6">
+                <label for="userName" class="form-label">Username</label>
+                <input type="text" class="form-control" id="userName" formControlName="userName">
+                <div class="text-info small mt-1" *ngIf="userName?.pending">Checking username...</div>
+                <div class="text-danger small mt-1" *ngIf="userName?.invalid && userName?.touched && !userName?.pending">
+                  <div *ngIf="userName?.errors?.['required']">Username is required</div>
+                  <div *ngIf="userName?.errors?.['minlength'] || userName?.errors?.['maxlength']">
+                    Must be between 4 and 10 characters
+                  </div>
+                  <div *ngIf="userName?.errors?.['usernameExists']">Username already exists</div>
+                </div>
+              </div>
+
+              <!-- Email -->
+              <div class="col-md-6">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" formControlName="email">
+                <div class="text-danger small mt-1" *ngIf="notvaldemail">{{notvaldemail}}</div>
+                <div class="text-danger small mt-1" *ngIf="email?.invalid && email?.touched">
+                  <div *ngIf="email?.errors?.['required']">Email is required</div>
+                  <div *ngIf="email?.errors?.['email']">Enter a valid email</div>
+                </div>
+              </div>
+
+              <!-- Phone -->
+              <div class="col-md-6">
+                <label for="phone" class="form-label">Phone</label>
+                <input type="text" class="form-control" id="phone" formControlName="phone">
+                <div class="text-danger small mt-1" *ngIf="phone?.invalid && phone?.touched">
+                  <div *ngIf="phone?.errors?.['required']">Phone is required</div>
+                  <div *ngIf="phone?.errors?.['pattern']">Invalid phone number</div>
+                </div>
+              </div>
+
+              <!-- Governorate -->
+              <div class="col-md-6">
+                <label for="address" class="form-label">Governorate</label>
+                <select class="form-select" id="address" formControlName="address">
+                  <option value="" disabled selected>Select Governorate</option>
+                  <option *ngFor="let gov of egyptGovernorates" [value]="gov">{{ gov }}</option>
+                </select>
+              </div>
+
+              <!-- Password -->
+              <div class="col-md-6">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" formControlName="password">
+                <div class="text-danger small mt-1" *ngIf="password?.invalid && password?.touched">
+                  <div *ngIf="password?.errors?.['required']">Password is required</div>
+                  <div *ngIf="password?.errors?.['minlength']">At least 6 characters</div>
+                  <div *ngIf="password?.errors?.['pattern']">Must include upper/lowercase, number, and symbol</div>
+                </div>
+              </div>
+
+              <!-- Confirm Password -->
+              <div class="col-md-6">
+                <label for="confirmPassword" class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword">
+                <div class="text-danger small mt-1" *ngIf="confirmPassword?.invalid && confirmPassword?.touched">
+                  <div *ngIf="confirmPassword?.errors?.['required']">Confirmation is required</div>
+                  <div *ngIf="confirmPassword?.errors?.['mismatch']">Passwords do not match</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Submit -->
+            <div class="d-grid mt-4">
+              <button type="submit" class="btn btn-success btn-lg shadow" [disabled]="registerForm.invalid">
+                <i class="bi bi-person-check-fill me-2"></i>Register
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
