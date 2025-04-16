@@ -59,8 +59,8 @@ export class RegisterComponent {
       address: ['', Validators.required],
       password: ['', [
         Validators.required,
-        Validators.minLength(6),
-        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{6,}$/)
+        Validators.minLength(8),
+        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#_]).{6,}$/)
       ]],
       confirmPassword: ['', Validators.required],
     },
@@ -73,13 +73,15 @@ export class RegisterComponent {
     this.registerForm.get('email')?.valueChanges.subscribe(() => {
       const emailControl = this.registerForm.get('email');
       if (emailControl?.valid && this.notvaldemail) {
-        this.notvaldemail = ''; // clear the message
+        this.notvaldemail = ''; 
       }
     });
+    
   }
   onSubmit() {
     if (this.registerForm.valid) {
       this.notvaldemail = '';
+      
       const formData = this.registerForm.value;
      
 
@@ -89,8 +91,12 @@ export class RegisterComponent {
             alert('Registration successful!');
             this.router.navigate(['/login']);
           }
-          else if (response.isSuccess == false) {
-            this.notvaldemail = response.message;
+           else if (response.message == `Email '${this.email?.value}' is already taken.`) {
+             this.notvaldemail = response.message;
+             console.log(response)
+           } 
+           else {
+            alert('Registration failed!');
             console.log(response)
           }
           
