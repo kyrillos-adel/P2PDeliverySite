@@ -9,12 +9,19 @@
           <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
             <div class="row g-3">
 
-              <!-- National ID -->
               <div class="col-md-6">
                 <label for="natId" class="form-label">National ID</label>
-                <input type="text" class="form-control" id="natId" formControlName="natId">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="natId"
+                  formControlName="natId"
+                />
+                <div class="text-danger" *ngIf="natId?.invalid && natId?.touched">
+                  <div *ngIf="natId?.errors?.['required']">National ID is required</div>
+                  <div *ngIf="natId?.errors?.['pattern']">Please enter a valid Egyptian National ID</div>
+                </div>
               </div>
-
               <!-- Full Name -->
               <div class="col-md-6">
                 <label for="fullName" class="form-label">Full Name</label>
@@ -34,13 +41,14 @@
               <div class="col-md-6">
                 <label for="userName" class="form-label">Username</label>
                 <input type="text" class="form-control" id="userName" formControlName="userName">
-                <div class="text-info small mt-1" *ngIf="userName?.pending">Checking username...</div>
-                <div class="text-danger small mt-1" *ngIf="userName?.invalid && userName?.touched && !userName?.pending">
+               
+                <div class="text-danger small mt-1" *ngIf="notvalidusername">{{notvalidusername}}</div> 
+                <div class="text-danger small mt-1" *ngIf="userName?.invalid && userName?.touched">
                   <div *ngIf="userName?.errors?.['required']">Username is required</div>
                   <div *ngIf="userName?.errors?.['minlength'] || userName?.errors?.['maxlength']">
                     Must be between 4 and 10 characters
                   </div>
-                  <div *ngIf="userName?.errors?.['usernameExists']">Username already exists</div>
+                  
                 </div>
               </div>
 
@@ -48,7 +56,7 @@
               <div class="col-md-6">
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" id="email" formControlName="email">
-                <div class="text-danger small mt-1" *ngIf="notvaldemail">{{notvaldemail}}</div>
+                <div class="text-danger small mt-1" *ngIf="notvalidemail">Email Already Exist</div>
                 <div class="text-danger small mt-1" *ngIf="email?.invalid && email?.touched">
                   <div *ngIf="email?.errors?.['required']">Email is required</div>
                   <div *ngIf="email?.errors?.['email']">Enter a valid email</div>

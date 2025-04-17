@@ -15,10 +15,6 @@ export class AuthService {
   register(userData: RegisterModel): Observable<any> {
     return this.http.post(`${this.apiUrl}/register`, userData);
   }
-  findByName(userName: string): Observable<boolean> {
-    return this.http
-      .get<{ data: string | null, isSuccess: boolean }>(`${this.apiUrl}/findbyname?Name=${userName}`)
-      .pipe(map(response => !!response.data)); // true if data is not null or empty
-  }
+  
 }
 

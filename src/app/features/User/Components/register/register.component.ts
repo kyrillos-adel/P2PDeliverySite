@@ -1,110 +1,132 @@
 import { Component } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import{ReactiveFormsModule} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../Services/Register_auth.service'; 
 import { NgFor, NgIf } from '@angular/common';
-import { usernameExistsValidator } from '../../../../core/validators/username-exists.validator';
 import { passwordMatchValidator } from '../../../../core/validators/password-match.validator'; 
 import { Router } from '@angular/router';
+
 @Component({
-  imports: [ReactiveFormsModule, NgIf,NgFor],
+  imports: [ReactiveFormsModule, NgIf, NgFor],
   selector: 'app-register',
   templateUrl: './register.component.html'
 })
 export class RegisterComponent {
   registerForm!: FormGroup;
-  notvaldemail:string="";
+  notvalidemail: string = "";
+  notvalidusername: string = "";
   egyptGovernorates: string[] = [
-    'Cairo',
-    'Giza',
-    'Alexandria',
-    'Qalyubia',
-    'Port Said',
-    'Suez',
-    'Dakahlia',
-    'Sharqia',
-    'Kafr El Sheikh',
-    'Gharbia',
-    'Monufia',
-    'Beheira',
-    'Ismailia',
-    'Fayoum',
-    'Beni Suef',
-    'Minya',
-    'Asyut',
-    'Sohag',
-    'Qena',
-    'Luxor',
-    'Aswan',
-    'Red Sea',
-    'New Valley',
-    'Matrouh',
-    'North Sinai',
-    'South Sinai',
-    'Damietta'
+    'Cairo', 'Giza', 'Alexandria', 'Qalyubia', 'Port Said', 'Suez', 
+    'Dakahlia', 'Sharqia', 'Kafr El Sheikh', 'Gharbia', 'Monufia', 
+    'Beheira', 'Ismailia', 'Fayoum', 'Beni Suef', 'Minya', 'Asyut', 
+    'Sohag', 'Qena', 'Luxor', 'Aswan', 'Red Sea', 'New Valley', 'Matrouh', 
+    'North Sinai', 'South Sinai', 'Damietta'
   ];
-  
 
-  constructor(private fb: FormBuilder, private authService: AuthService,private router: Router) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.registerForm = this.fb.group({
-      natId: [''],
-      fullName: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(12),Validators.pattern('^[a-zA-Z ]+$')]],
-      userName: [
+      natId: [
         '',
-        [Validators.required, Validators.minLength(4), Validators.maxLength(10)],
-        [usernameExistsValidator(this.authService)]
+        [
+          Validators.required,
+          Validators.pattern(/^(2|3)\d{2}(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])\d{2}\d{5}$/)
+        ]
       ],
-      email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required, Validators.pattern(/^01[0125][0-9]{8}$/)]],
+      fullName: [
+        '', 
+        [
+          Validators.required, 
+          Validators.minLength(5), 
+          Validators.maxLength(12),
+          Validators.pattern('^[a-zA-Z ]+$')
+        ]
+      ],
+      userName: [
+        '', 
+        [Validators.required, Validators.minLength(4), Validators.maxLength(10)]
+      ],
+      email: [
+        '', 
+        [Validators.required, Validators.email]
+      ],
+      phone: [
+        '', 
+        [Validators.required, Validators.pattern(/^01[0125][0-9]{8}$/)]
+      ],
       address: ['', Validators.required],
-      password: ['', [
-        Validators.required,
-        Validators.minLength(6),
-        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{6,}$/)
-      ]],
+      password: [
+        '', 
+        [
+          Validators.required, 
+          Validators.minLength(6), 
+          Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{6,}$/)
+        ]
+      ],
       confirmPassword: ['', Validators.required],
-    },
-    {
+    }, {
       validators: passwordMatchValidator('password', 'confirmPassword')
-    
     });
   }
+
   ngOnInit(): void {
+    // Reset error messages on form control value changes
     this.registerForm.get('email')?.valueChanges.subscribe(() => {
       const emailControl = this.registerForm.get('email');
-      if (emailControl?.valid && this.notvaldemail) {
-        this.notvaldemail = ''; // clear the message
+      if (emailControl?.valid) {
+        this.notvalidemail = ''; // Clear email error message
+      }
+    });
+
+    this.registerForm.get('userName')?.valueChanges.subscribe(() => {
+      const userNameControl = this.registerForm.get('userName');
+      if (userNameControl?.valid) {
+        this.notvalidusername = ''; // Clear username error message
       }
     });
   }
+
   onSubmit() {
     if (this.registerForm.valid) {
-      this.notvaldemail = '';
       const formData = this.registerForm.value;
-     
-
       this.authService.register(formData).subscribe({
         next: (response) => {
           if (response.isSuccess) {
             alert('Registration successful!');
             this.router.navigate(['/login']);
           }
-          else if (response.isSuccess == false) {
-            this.notvaldemail = response.message;
-            console.log(response)
-          }
-          
         },
         error: (error) => {
           console.error('Registration failed', error);
+          this.handleErrorResponse(error);
         }
       });
     } else {
       console.log("Form is invalid");
     }
   }
+  private handleErrorResponse(error: any) {
+    const errorMsg = error?.error?.message;
+  
+    if (errorMsg === "user is exist") {
+      this.notvalidusername = errorMsg;
+      this.notvalidemail = '';
+    } else if (errorMsg?.includes("Email")) {
+      this.notvalidemail = errorMsg;
+      this.notvalidusername = '';
+    } else {
+      // Handle other unexpected messages
+      this.notvalidusername = '';
+      this.notvalidemail = '';
+      console.error("Unhandled error message:", errorMsg);
+    }
+  }
+  
 
-  // ✅ Add your form control getters here
+  // Getters for form controls
+  get natId() {
+    return this.registerForm.get('natId');
+  }
+  
   get fullName() {
     return this.registerForm.get('fullName');
   }
