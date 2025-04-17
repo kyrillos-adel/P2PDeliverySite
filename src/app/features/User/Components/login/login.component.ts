@@ -14,8 +14,10 @@ import { jwtDecode } from 'jwt-decode';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
+  formError: string | null = null;
   usernError: string | null = null;
   passwordError: string | null = null;
+  deletedAcountError: string | null = null;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router)
    {
@@ -54,20 +56,16 @@ export class LoginComponent implements OnInit {
     this.loginForm.valueChanges.subscribe(() => {
       this.usernError = null;
       this.passwordError = null;
+      this.deletedAcountError = null;
+      this.formError = null;
     });
-  }
-
-  get identifier() {
-    return this.loginForm.get('identifier');
-  }
-
-  get password() {
-    return this.loginForm.get('password');
   }
 
   login() {
     if (this.loginForm.invalid) {
-      alert('Please fill in all required fields.');
+      this.formError = 'Please fill in all required fields.';
+      this.usernError = this.loginForm.get('identifier')?.hasError('required') ? 'Username or email is required' : null;
+      this.passwordError = this.loginForm.get('password')?.hasError('required') ? 'Password is required' : null;
       return;
     }
   

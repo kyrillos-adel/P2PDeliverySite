@@ -83,6 +83,7 @@ export class RegisterComponent {
         this.notvalidusername = ''; // Clear username error message
       }
     });
+    
   }
 
   onSubmit() {

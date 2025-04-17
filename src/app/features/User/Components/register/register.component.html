@@ -88,7 +88,7 @@
                 <input type="password" class="form-control" id="password" formControlName="password">
                 <div class="text-danger small mt-1" *ngIf="password?.invalid && password?.touched">
                   <div *ngIf="password?.errors?.['required']">Password is required</div>
-                  <div *ngIf="password?.errors?.['minlength']">At least 6 characters</div>
+                  <div *ngIf="password?.errors?.['minlength']">At least 8 characters</div>
                   <div *ngIf="password?.errors?.['pattern']">Must include upper/lowercase, number, and symbol</div>
                 </div>
               </div>
