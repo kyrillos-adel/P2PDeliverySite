@@ -8,7 +8,7 @@ import { DeliveryRequestDetails } from '../../../models/delivery-request/deliver
   providedIn: 'root'
 })
 export class DeliveryRequestService {
-  private endpoint = 'https://localhost:7176/api/deliveryrequest';
+  private endpoint = 'api/deliveryrequest';
   constructor(private http: HttpClient) { }
 
   getById(id: number) {
