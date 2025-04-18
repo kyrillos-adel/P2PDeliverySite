@@ -66,13 +66,15 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.formError = null;
-
-
     this.authService.login(this.loginForm.value).subscribe({
       next: (response) => {
+        this.usernError = '';
+        this.passwordError = '';
+  
         if (response.isSuccess) {
           alert('Login successful!');
-
+          const token = response.data?.token;
+  
           if (this.loginForm.value.rememberMe) {
             localStorage.setItem('token', response.data.token);
             localStorage.setItem('exp', new Date(response.data.expiration).getTime().toString());
@@ -81,24 +83,30 @@ export class LoginComponent implements OnInit {
             sessionStorage.setItem('exp', new Date(response.data.expiration).getTime().toString());
 
           }
-
+  
           this.router.navigate(['/']);
-        } else if (response.message === 'Wrong email or user-name') {
-          this.usernError = response.message;
-        } else if (response.message === 'Wrong password') {
-          this.passwordError = response.message;
-        }else if (response.message === 'Account has been deleted') {
-          this.deletedAcountError = response.message;
-        } else {
-          this.formError = 'User not found, Please check your credentials.';
         }
       },
       error: (error) => {
         console.error('Login error:', error);
-        alert('An error occurred while processing your request. Please try again later.');
+  
+        const message = error?.error?.message;
+  
+        if (message === 'Wrong email or user-name') {
+          this.usernError = message;
+        } else if (message === 'Wrong password') {
+          this.passwordError = message;}
+          else if (message === 'Account has been deleted.') {
+            this.deletedAcountError = message;
+            
+          
+        } else {
+          alert('Login failed: ' + (message || 'Please try again later.'));
+        }
       }
     });
   }
+  
 
   logout() {
     this.authService.logout();

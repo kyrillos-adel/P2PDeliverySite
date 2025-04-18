@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --background: #FFC107; /* Mustard Yellow */
+  --secondary: #E0F7FA; /* Soft Cyan for borders */
+  --accent: #F44336; /* Red for icons */
+  --text: #212121; /* Dark Gray */
+  --neutral: #FFFFFF; /* White */
+  --box: #D7CCC8; /* Light Brown for boxes */
+  --sender: #E64A19; /* Orange for sender */
+  --traveler: #4A6366; /* Teal for traveler */
+}
