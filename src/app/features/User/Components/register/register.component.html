@@ -59,6 +59,7 @@
                 <div class="text-danger small mt-1" *ngIf="notvalidemail">Email Already Exist</div>
                 <div class="text-danger small mt-1" *ngIf="email?.invalid && email?.touched">
                   <div *ngIf="email?.errors?.['required']">Email is required</div>
+                  <div *ngIf="email?.errors?.['pattern']">Invalid email Please try something like <p>"john.doe&commat;example.com" </p></div>
                   <div *ngIf="email?.errors?.['email']">Enter a valid email</div>
                 </div>
               </div>
