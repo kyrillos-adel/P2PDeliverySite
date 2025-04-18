@@ -95,7 +95,11 @@ export class LoginComponent implements OnInit {
         if (message === 'Wrong email or user-name') {
           this.usernError = message;
         } else if (message === 'Wrong password') {
-          this.passwordError = message;
+          this.passwordError = message;}
+          else if (message === 'Account has been deleted.') {
+            this.deletedAcountError = message;
+            
+          
         } else {
           alert('Login failed: ' + (message || 'Please try again later.'));
         }
