@@ -1,0 +1,62 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--neutral);
+  border-bottom: 1px solid var(--accent);
+  padding: 0.5rem 1rem;
+}
+
+.navbar-brand {
+  font-weight: 700;
+  color: var(--text);
+  font-size: 1.25rem;
+}
+
+.nav-link {
+  color: var(--text);
+  font-weight: 400;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.nav-link:hover {
+  background-color: var(--secondary);
+  border-radius: 4px;
+}
+
+.nav-link i {
+  font-size: 1.25rem;
+  vertical-align: middle;
+}
+
+.notification-badge {
+  position: relative;
+  display: inline-block;
+}
+
+.notification-badge .badge {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background-color: var(--accent);
+  color: var(--neutral);
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 50%;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 576px) {
+  .navbar-brand {
+    font-size: 1rem;
+  }
+  .nav-link {
+    font-size: 0.875rem;
+    padding: 0.75rem 1rem;
+  }
+  .nav-link i {
+    font-size: 1rem;
+  }
+}
