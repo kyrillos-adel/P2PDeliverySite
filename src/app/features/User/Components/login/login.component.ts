@@ -29,26 +29,24 @@ export class LoginComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    // 🔐 1. Check for token in localStorage or sessionStorage
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+    const expStr = localStorage.getItem('exp') || sessionStorage.getItem('exp');
 
-    if (token && token.split('.').length === 3) {
-      try {
-        const decoded: any = jwtDecode(token);
-        const exp = decoded.exp * 1000; // Convert to ms
-        const now = Date.now();
-
-        if (now < exp) {
-          this.router.navigate(['/']);
-          return;
-        } else {
-          localStorage.removeItem('token');
-          sessionStorage.removeItem('token');
-        }
-      } catch (err) {
-        console.error('Invalid token:', err);
+    if (token && expStr) {
+      const now = Date.now();
+      const exp = parseInt(expStr);
+    
+      if (now < exp) {
+        this.router.navigate(['/']);
+        return;
+      } else {
         localStorage.removeItem('token');
+        localStorage.removeItem('exp');
         sessionStorage.removeItem('token');
+        sessionStorage.removeItem('exp');
+        this.router.navigate(['/login']);
+        alert('Session expired. Please log in again.');
+
       }
     }
 
@@ -68,7 +66,7 @@ export class LoginComponent implements OnInit {
       this.passwordError = this.loginForm.get('password')?.hasError('required') ? 'Password is required' : null;
       return;
     }
-  
+    this.formError = null;
     this.authService.login(this.loginForm.value).subscribe({
       next: (response) => {
         this.usernError = '';
@@ -79,9 +77,12 @@ export class LoginComponent implements OnInit {
           const token = response.data?.token;
   
           if (this.loginForm.value.rememberMe) {
-            localStorage.setItem('token', token);
+            localStorage.setItem('token', response.data.token);
+            localStorage.setItem('exp', new Date(response.data.expiration).getTime().toString());
           } else {
-            sessionStorage.setItem('token', token);
+            sessionStorage.setItem('token', response.data.token);
+            sessionStorage.setItem('exp', new Date(response.data.expiration).getTime().toString());
+
           }
   
           this.router.navigate(['/']);
