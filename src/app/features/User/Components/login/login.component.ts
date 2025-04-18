@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { Router } from '@angular/router';
 import { AuthService } from '../../Services/Login.auth.service';
 import { CommonModule } from '@angular/common';
-import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-login',
@@ -26,29 +25,27 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required],
       rememberMe: [false]
     });
-   }
+  }
 
   ngOnInit(): void {
-    // 🔐 1. Check for token in localStorage or sessionStorage
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+    const expStr = localStorage.getItem('exp') || sessionStorage.getItem('exp');
 
-    if (token && token.split('.').length === 3) {
-      try {
-        const decoded: any = jwtDecode(token);
-        const exp = decoded.exp * 1000; // Convert to ms
-        const now = Date.now();
-
-        if (now < exp) {
-          this.router.navigate(['/']);
-          return;
-        } else {
-          localStorage.removeItem('token');
-          sessionStorage.removeItem('token');
-        }
-      } catch (err) {
-        console.error('Invalid token:', err);
+    if (token && expStr) {
+      const now = Date.now();
+      const exp = parseInt(expStr);
+    
+      if (now < exp) {
+        this.router.navigate(['/']);
+        return;
+      } else {
         localStorage.removeItem('token');
+        localStorage.removeItem('exp');
         sessionStorage.removeItem('token');
+        sessionStorage.removeItem('exp');
+        this.router.navigate(['/login']);
+        alert('Session expired. Please log in again.');
+
       }
     }
 
@@ -78,8 +75,11 @@ export class LoginComponent implements OnInit {
 
           if (this.loginForm.value.rememberMe) {
             localStorage.setItem('token', response.data.token);
+            localStorage.setItem('exp', new Date(response.data.expiration).getTime().toString());
           } else {
             sessionStorage.setItem('token', response.data.token);
+            sessionStorage.setItem('exp', new Date(response.data.expiration).getTime().toString());
+
           }
 
           this.router.navigate(['/']);
