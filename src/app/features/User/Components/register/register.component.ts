@@ -4,10 +4,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../Services/Register_auth.service'; 
 import { NgFor, NgIf } from '@angular/common';
 import { passwordMatchValidator } from '../../../../core/validators/password-match.validator'; 
-import { Router } from '@angular/router';
+import { Router,RouterLink ,RouterLinkActive } from '@angular/router';
+
 
 @Component({
-  imports: [ReactiveFormsModule, NgIf, NgFor],
+  imports: [ReactiveFormsModule, NgIf, NgFor, RouterLink, RouterLinkActive],
   selector: 'app-register',
   templateUrl: './register.component.html'
 })

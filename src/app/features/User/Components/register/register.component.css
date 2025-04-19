@@ -1,0 +1,68 @@
+.feature-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    transition: transform 0.2s;
+  }
+  
+  .feature-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .feature-icon {
+    font-size: 2.5rem;
+    color: #e64a19;
+  }
+  
+  .btn-primary {
+    background-color: #e64a19;
+    border-color: #e64a19;
+    font-weight: 500;
+    
+  }
+  .button {
+    height: 400px;
+  }
+  
+  .form-label {
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .text-danger {
+    font-size: 0.875rem;
+  }
+  .a{
+    color: #e64a19;
+    text-decoration: none;
+  }
+  .btn-primary {
+        background-color: var(--sender);
+        border-color: var(--sender);
+        font-weight: 700;
+        font-size: 1rem;
+        padding: 0.75rem 1rem;
+        border-radius: 4px;
+        color: var(--neutral);
+      
+  }
+  
+  .btn-primary:hover {
+    background-color: #cc3f17; /* Slightly darker shade of #e64a19 for hover */
+    border-color: #cc3f17;
+    transform: translateY(-2px); /* Subtle lift effect on hover */
+  }
+  
+  .btn-primary:disabled {
+    background-color: #e64a19; /* Keep same color when disabled */
+    border-color: #e64a19;
+    opacity: 0.6; /* Slightly faded when disabled */
+    cursor: not-allowed;
+  }
+  
+  .text-primary {
+    color: #e64a19 !important; /* Match link color to button for consistency */
+  }
+  
+  .text-primary:hover {
+    text-decoration: underline; /* Subtle hover effect for login link */
+  }
