@@ -3,12 +3,12 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { Router } from '@angular/router';
 import { AuthService } from '../../Services/Login.auth.service';
 import { CommonModule } from '@angular/common';
-import { jwtDecode } from 'jwt-decode';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule,RouterLink],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required],
       rememberMe: [false]
     });
-   }
+  }
 
   ngOnInit(): void {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');

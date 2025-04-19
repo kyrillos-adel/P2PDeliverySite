@@ -1,0 +1,51 @@
+.login-form {
+    background-color: var(--neutral);
+    border-radius: 8px;
+    max-width: 400px;
+    font-family: 'Montserrat', sans-serif;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .login-form .form-label {
+    color: var(--text);
+  }
+  
+  .login-form input.form-control {
+    border-radius: 4px;
+    font-size: 0.95rem;
+  }
+  
+  .login-form .btn-primary {
+    background-color: var(--sender);
+    border-color: var(--sender);
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    color: var(--neutral);
+  }
+  
+  .login-form .btn-primary:hover {
+    background-color: #e86b27; /* replace with a darker sender color */
+    border-color: #e86b27;
+  }
+  
+  .login-form .btn-secondary {
+    background-color: var(--traveler);
+    border-color: var(--traveler);
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    color: var(--neutral);
+  }
+  
+  .login-form .btn-secondary:hover {
+    background-color: #23646b; /* replace with a darker traveler color */
+    border-color: #23646b;
+  }
+  
+  .login-form .alert {
+    font-size: 0.875rem;
+  }
+  

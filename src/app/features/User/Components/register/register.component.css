@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .feature-card {
     border: 1px solid #e0e0e0;
     border-radius: 8px;
@@ -66,3 +67,15 @@
   .text-primary:hover {
     text-decoration: underline; /* Subtle hover effect for login link */
   }
+=======
+input.form-control, select.form-select {
+    background-color: #eef4ff;
+    border: 1px solid #ccc;
+  }
+  
+  .card {
+    border: none;
+    border-radius: 10px;
+  }
+  
+>>>>>>> c20e833652d8989c5fe35ae4421e976e7f29c18a
