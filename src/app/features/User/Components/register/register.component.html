@@ -1,119 +1,100 @@
-<div class="container py-5">
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <div class="card shadow-lg border-0 rounded-4">
-        <div class="card-header bg-primary text-white text-center rounded-top-4">
-          <h4 class="mb-0"><i class="bi bi-person-plus-fill me-2"></i>Register</h4>
-        </div>
-        <div class="card-body p-4">
-          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-            <div class="row g-3">
+<form *ngIf="registerForm" [formGroup]="registerForm" (ngSubmit)="onSubmit()"
+  class="card p-4 mx-auto mt-5 shadow-sm rounded" style="max-width: 800px;">
 
-              <div class="col-md-6">
-                <label for="natId" class="form-label">National ID</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="natId"
-                  formControlName="natId"
-                />
-                <div class="text-danger" *ngIf="natId?.invalid && natId?.touched">
-                  <div *ngIf="natId?.errors?.['required']">National ID is required</div>
-                  <div *ngIf="natId?.errors?.['pattern']">Please enter a valid Egyptian National ID</div>
-                </div>
-              </div>
-              <!-- Full Name -->
-              <div class="col-md-6">
-                <label for="fullName" class="form-label">Full Name</label>
-                <input type="text" class="form-control" id="fullName" formControlName="fullName">
-                <div class="text-danger small mt-1" *ngIf="fullName?.invalid && fullName?.touched">
-                  <div *ngIf="fullName?.errors?.['required']">Full Name is required</div>
-                  <div *ngIf="fullName?.errors?.['minlength'] || fullName?.errors?.['maxlength']">
-                    Name must be between 5 and 12 characters
-                  </div>
-                  <div *ngIf="fullName?.errors?.['pattern']">
-                    Only letters and spaces are allowed
-                  </div>
-                </div>
-              </div>
+  <h2 class="text-center mb-4 fw-bold">Create Your Account</h2>
 
-              <!-- Username -->
-              <div class="col-md-6">
-                <label for="userName" class="form-label">Username</label>
-                <input type="text" class="form-control" id="userName" formControlName="userName">
-               
-                <div class="text-danger small mt-1" *ngIf="notvalidusername">{{notvalidusername}}</div> 
-                <div class="text-danger small mt-1" *ngIf="userName?.invalid && userName?.touched">
-                  <div *ngIf="userName?.errors?.['required']">Username is required</div>
-                  <div *ngIf="userName?.errors?.['minlength'] || userName?.errors?.['maxlength']">
-                    Must be between 4 and 10 characters
-                  </div>
-                  
-                </div>
-              </div>
+  <div class="row">
+    <!-- National ID -->
+    <div class="mb-3 col-md-6">
+      <label class="form-label fw-semibold">National ID</label>
+      <input class="form-control bg-light" formControlName="natId" placeholder="Enter your National ID" />
+      <div class="text-danger small" *ngIf="natId?.invalid && natId?.touched">
+        <div *ngIf="natId?.errors?.['required']">Required</div>
+        <div *ngIf="natId?.errors?.['pattern']">Invalid ID</div>
+      </div>
+    </div>
 
-              <!-- Email -->
-              <div class="col-md-6">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" formControlName="email">
-                <div class="text-danger small mt-1" *ngIf="notvalidemail">Email Already Exist</div>
-                <div class="text-danger small mt-1" *ngIf="email?.invalid && email?.touched">
-                  <div *ngIf="email?.errors?.['required']">Email is required</div>
-                  <div *ngIf="email?.errors?.['pattern']">Invalid email Please try something like <p>"john.doe&commat;example.com" </p></div>
-                  <div *ngIf="email?.errors?.['email']">Enter a valid email</div>
-                </div>
-              </div>
+    <!-- Full Name -->
+    <div class="mb-3 col-md-6">
+      <label class="form-label fw-semibold">Full Name</label>
+      <input class="form-control bg-light" formControlName="fullName" placeholder="Enter full name" />
+      <div class="text-danger small" *ngIf="fullName?.invalid && fullName?.touched">
+        <div *ngIf="fullName?.errors?.['required']">Required</div>
+        <div *ngIf="fullName?.errors?.['minlength'] || fullName?.errors?.['maxlength']">5–12 characters</div>
+        <div *ngIf="fullName?.errors?.['pattern']">Letters and spaces only</div>
+      </div>
+    </div>
 
-              <!-- Phone -->
-              <div class="col-md-6">
-                <label for="phone" class="form-label">Phone</label>
-                <input type="text" class="form-control" id="phone" formControlName="phone">
-                <div class="text-danger small mt-1" *ngIf="phone?.invalid && phone?.touched">
-                  <div *ngIf="phone?.errors?.['required']">Phone is required</div>
-                  <div *ngIf="phone?.errors?.['pattern']">Invalid phone number</div>
-                </div>
-              </div>
+    <!-- Username -->
+    <div class="mb-3 col-md-6">
+      <label class="form-label fw-semibold">Username</label>
+      <input class="form-control bg-light" formControlName="userName" placeholder="Choose a username" />
+      <div class="text-danger small" *ngIf="notvalidusername">{{ notvalidusername }}</div>
+      <div class="text-danger small" *ngIf="userName?.invalid && userName?.touched">
+        <div *ngIf="userName?.errors?.['required']">Required</div>
+        <div *ngIf="userName?.errors?.['minlength'] || userName?.errors?.['maxlength']">4–10 characters</div>
+      </div>
+    </div>
 
-              <!-- Governorate -->
-              <div class="col-md-6">
-                <label for="address" class="form-label">Governorate</label>
-                <select class="form-select" id="address" formControlName="address">
-                  <option value="" disabled selected>Select Governorate</option>
-                  <option *ngFor="let gov of egyptGovernorates" [value]="gov">{{ gov }}</option>
-                </select>
-              </div>
+    <!-- Email -->
+    <div class="mb-3 col-md-6">
+      <label class="form-label fw-semibold">Email</label>
+      <input class="form-control bg-light" formControlName="email" placeholder="Enter your email" />
+      <div class="text-danger small" *ngIf="notvalidemail">Email already exists</div>
+      <div class="text-danger small" *ngIf="email?.invalid && email?.touched">
+        <div *ngIf="email?.errors?.['required']">Required</div>
+        <div *ngIf="email?.errors?.['email']">Invalid email</div>
+        <div *ngIf="email?.errors?.['pattern']">Example: "john&commat;example.com"</div>
+      </div>
+    </div>
 
-              <!-- Password -->
-              <div class="col-md-6">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" formControlName="password">
-                <div class="text-danger small mt-1" *ngIf="password?.invalid && password?.touched">
-                  <div *ngIf="password?.errors?.['required']">Password is required</div>
-                  <div *ngIf="password?.errors?.['minlength']">At least 8 characters</div>
-                  <div *ngIf="password?.errors?.['pattern']">Must include upper/lowercase, number, and symbol</div>
-                </div>
-              </div>
+    <!-- Phone -->
+    <div class="mb-3 col-md-6">
+      <label class="form-label fw-semibold">Phone</label>
+      <input class="form-control bg-light" formControlName="phone" placeholder="Enter phone number" />
+      <div class="text-danger small" *ngIf="phone?.invalid && phone?.touched">
+        <div *ngIf="phone?.errors?.['required']">Required</div>
+        <div *ngIf="phone?.errors?.['pattern']">Invalid phone number</div>
+      </div>
+    </div>
 
-              <!-- Confirm Password -->
-              <div class="col-md-6">
-                <label for="confirmPassword" class="form-label">Confirm Password</label>
-                <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword">
-                <div class="text-danger small mt-1" *ngIf="confirmPassword?.invalid && confirmPassword?.touched">
-                  <div *ngIf="confirmPassword?.errors?.['required']">Confirmation is required</div>
-                  <div *ngIf="confirmPassword?.errors?.['mismatch']">Passwords do not match</div>
-                </div>
-              </div>
-            </div>
+    <!-- Address -->
+    <div class="mb-3 col-md-6">
+      <label class="form-label fw-semibold">Governorate</label>
+      <select class="form-select bg-light" formControlName="address">
+        <option value="" disabled selected>Select Governorate</option>
+        <option *ngFor="let gov of egyptGovernorates" [value]="gov">{{ gov }}</option>
+      </select>
+    </div>
 
-            <!-- Submit -->
-            <div class="d-grid mt-4">
-              <button type="submit" class="btn btn-success btn-lg shadow" [disabled]="registerForm.invalid">
-                <i class="bi bi-person-check-fill me-2"></i>Register
-              </button>
-            </div>
-          </form>
-        </div>
+    <!-- Password -->
+    <div class="mb-3 col-md-6">
+      <label class="form-label fw-semibold">Password</label>
+      <input type="password" class="form-control bg-light" formControlName="password" placeholder="Create a password" />
+      <div class="text-danger small" *ngIf="password?.invalid && password?.touched">
+        <div *ngIf="password?.errors?.['required']">Required</div>
+        <div *ngIf="password?.errors?.['minlength']">At least 8 characters</div>
+        <div *ngIf="password?.errors?.['pattern']">Include uppercase, lowercase, number, symbol</div>
+      </div>
+    </div>
+
+    <!-- Confirm Password -->
+    <div class="mb-3 col-md-6">
+      <label class="form-label fw-semibold">Confirm Password</label>
+      <input type="password" class="form-control bg-light" formControlName="confirmPassword" placeholder="Confirm your password" />
+      <div class="text-danger small" *ngIf="confirmPassword?.invalid && confirmPassword?.touched">
+        <div *ngIf="confirmPassword?.errors?.['required']">Required</div>
+        <div *ngIf="confirmPassword?.errors?.['mismatch']">Passwords do not match</div>
       </div>
     </div>
   </div>
-</div>
+
+  <div class="d-flex flex-column align-items-center mt-4 gap-2">
+    <button type="submit" class="btn text-white w-75 py-2" style="background-color: #dc3c14;">
+      Register
+    </button>
+    <a routerLink="/login" class="btn text-white w-75 py-2" style="background-color: #3c4c4b;">
+      Back to Login
+    </a>
+  </div>
+</form>

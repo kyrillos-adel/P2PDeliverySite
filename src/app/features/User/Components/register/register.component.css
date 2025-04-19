@@ -1,0 +1,10 @@
+input.form-control, select.form-select {
+    background-color: #eef4ff;
+    border: 1px solid #ccc;
+  }
+  
+  .card {
+    border: none;
+    border-radius: 10px;
+  }
+  
