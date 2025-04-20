@@ -4,12 +4,12 @@
     <div class="col-12 col-md-8">
       <div class="card feature-card p-4 text-center">
         <i class="bi bi-box-seam me-1"></i>
-        <h4 style="font-weight: 700;">Wellcom To P2P </h4>
+        <h2 style="font-weight: 700;">Welcome To P2P </h2>
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="registerForm">
           <div class="row g-3">
             <!-- National ID -->
             <div class="col-md-6 text-start">
-              <label for="natId" class="form-label" style="font-weight: 500;">National ID</label>
+              <label for="natId" class="form-label" style="font-weight: 600;">National ID</label>
               <input type="text" class="form-control" id="natId" formControlName="natId" />
               <div class="text-danger small mt-1" *ngIf="natId?.invalid && natId?.touched">
                 <div *ngIf="natId?.errors?.['required']">National ID is required</div>
@@ -18,7 +18,7 @@
             </div>
             <!-- Full Name -->
             <div class="col-md-6 text-start">
-              <label for="fullName" class="form-label" style="font-weight: 500;">Full Name</label>
+              <label for="fullName" class="form-label" style="font-weight: 600;">Full Name</label>
               <input type="text" class="form-control" id="fullName" formControlName="fullName" />
               <div class="text-danger small mt-1" *ngIf="fullName?.invalid && fullName?.touched">
                 <div *ngIf="fullName?.errors?.['required']">Full Name is required</div>
@@ -30,7 +30,7 @@
             </div>
             <!-- Username -->
             <div class="col-md-6 text-start">
-              <label for="userName" class="form-label" style="font-weight: 500;">Username</label>
+              <label for="userName" class="form-label" style="font-weight: 600;">Username</label>
               <input type="text" class="form-control" id="userName" formControlName="userName" />
               <div class="text-danger small mt-1" *ngIf="notvalidusername">{{ notvalidusername }}</div>
               <div class="text-danger small mt-1" *ngIf="userName?.invalid && userName?.touched">
@@ -42,7 +42,7 @@
             </div>
             <!-- Email -->
             <div class="col-md-6 text-start">
-              <label for="email" class="form-label" style="font-weight: 500;">Email</label>
+              <label for="email" class="form-label" style="font-weight: 600;">Email</label>
               <input type="email" class="form-control" id="email" formControlName="email" />
               <div class="text-danger small mt-1" *ngIf="notvalidemail">Email Already Exists</div>
               <div class="text-danger small mt-1" *ngIf="email?.invalid && email?.touched">
@@ -55,7 +55,7 @@
             </div>
             <!-- Phone -->
             <div class="col-md-6 text-start">
-              <label for="phone" class="form-label" style="font-weight: 500;">Phone</label>
+              <label for="phone" class="form-label" style="font-weight: 600;">Phone</label>
               <input type="text" class="form-control" id="phone" formControlName="phone" />
               <div class="text-danger small mt-1" *ngIf="phone?.invalid && phone?.touched">
                 <div *ngIf="phone?.errors?.['required']">Phone is required</div>
@@ -64,7 +64,7 @@
             </div>
             <!-- Governorate -->
             <div class="col-md-6 text-start">
-              <label for="address" class="form-label" style="font-weight: 500;">Governorate</label>
+              <label for="address" class="form-label" style="font-weight: 600;">Governorate</label>
               <select class="form-select" id="address" formControlName="address">
                 <option value="" disabled selected>Select Governorate</option>
                 <option *ngFor="let gov of egyptGovernorates" [value]="gov">{{ gov }}</option>
@@ -72,7 +72,7 @@
             </div>
             <!-- Password -->
             <div class="col-md-6 text-start">
-              <label for="password" class="form-label" style="font-weight: 500;">Password</label>
+              <label for="password" class="form-label" style="font-weight: 600;">Password</label>
               <input type="password" class="form-control" id="password" formControlName="password" />
               <div class="text-danger small mt-1" *ngIf="password?.invalid && password?.touched">
                 <div *ngIf="password?.errors?.['required']">Password is required</div>
@@ -84,7 +84,7 @@
             </div>
             <!-- Confirm Password -->
             <div class="col-md-6 text-start">
-              <label for="confirmPassword" class="form-label" style="font-weight: 500;">Confirm Password</label>
+              <label for="confirmPassword" class="form-label" style="font-weight: 600;">Confirm Password</label>
               <input
                 type="password"
                 class="form-control"

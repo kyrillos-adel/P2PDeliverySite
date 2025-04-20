@@ -1,19 +1,23 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, tap, throwError } from 'rxjs';
+import { BehaviorSubject,catchError, Observable, tap, throwError } from 'rxjs';
 import{ LoginDTO } from '../../../models/Login/login-dto';
-
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private isLoggedInSubject = new BehaviorSubject<boolean>(this.hasToken());
+  isLoggedIn$ = this.isLoggedInSubject.asObservable();
+
   private apiUrl = 'api/Auth';
 
   constructor(private http: HttpClient) {}
 
   login(loginData: LoginDTO): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, loginData).pipe(
-      tap(response => console.log('Login response:', response)),
+      tap(response => { console.log('Login response:', response);
+        this.isLoggedInSubject.next(true);}
+        ),
       catchError(error => {
         console.error('Login error:', error);
         return throwError(error);
@@ -23,5 +27,9 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('token');
     sessionStorage.removeItem('token');
+    this.isLoggedInSubject.next(false);
+  }
+  private hasToken(): boolean {
+    return !!localStorage.getItem('token') || !!sessionStorage.getItem('token');
   }
 }

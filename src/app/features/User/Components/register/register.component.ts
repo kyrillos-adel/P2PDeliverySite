@@ -5,7 +5,6 @@ import { AuthService } from '../../Services/Register_auth.service';
 import { NgFor, NgIf } from '@angular/common';
 import { passwordMatchValidator } from '../../../../core/validators/password-match.validator'; 
 import { Router,RouterLink 
-  
  } from '@angular/router';
 
 

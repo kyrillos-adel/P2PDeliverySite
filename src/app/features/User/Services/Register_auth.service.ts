@@ -10,6 +10,7 @@ export class AuthService {
   private apiUrl = 'api/auth';  
   
   constructor(private http: HttpClient) { }
+ 
 
   register(userData: RegisterModel): Observable<any> {
     return this.http.post(`${this.apiUrl}/register`, userData);
