@@ -6,6 +6,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { passwordMatchValidator } from '../../../../core/validators/password-match.validator'; 
 import { Router,RouterLink 
  } from '@angular/router';
+import { egyptGovernorates } from '../../../../models/Register/register.model';
 
 
 @Component({
@@ -17,13 +18,7 @@ export class RegisterComponent {
   registerForm!: FormGroup;
   notvalidemail: string = "";
   notvalidusername: string = "";
-  egyptGovernorates: string[] = [
-    'Cairo', 'Giza', 'Alexandria', 'Qalyubia', 'Port Said', 'Suez', 
-    'Dakahlia', 'Sharqia', 'Kafr El Sheikh', 'Gharbia', 'Monufia', 
-    'Beheira', 'Ismailia', 'Fayoum', 'Beni Suef', 'Minya', 'Asyut', 
-    'Sohag', 'Qena', 'Luxor', 'Aswan', 'Red Sea', 'New Valley', 'Matrouh', 
-    'North Sinai', 'South Sinai', 'Damietta'
-  ];
+  egyptGovernorates = egyptGovernorates;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.registerForm = this.fb.group({
