@@ -1,42 +1,71 @@
-<nav class="navbar navbar-expand-lg">
+<nav class="navbar navbar-expand-lg bg-white shadow-sm py-3">
   <div class="container-fluid">
-    <a class="navbar-brand" routerLink="/" routerLinkActive="active">
-      <i class="bi bi-box-seam me-1"></i>P2P Delivery
+    <!-- Brand -->
+    <a class="navbar-brand d-flex align-items-center" routerLink="/" routerLinkActive="active">
+      <i class="bi bi-box-seam me-2 fs-4"></i>
+      <span class="fw-bold fs-5">P2P Delivery</span>
     </a>
-      <a *ngIf="isLoggedIn" class="navbar-brand" routerLink="/" routerLinkActive="active">
-        <h6>Delivery Request</h6> 
-       </a>
-       <a *ngIf="isLoggedIn" class="navbar-brand" routerLink="/" routerLinkActive="active">
-        <h6>My Applacations</h6> 
-       </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+
+   
+    <form *ngIf="isLoggedIn" class="d-flex align-items-center ms-3 me-auto" (submit)="onSearch($event)">
+      <input 
+        type="text" 
+        class="form-control me-2 rounded-pill px-3" 
+        placeholder="Search..." 
+        aria-label="Search" 
+        [(ngModel)]="searchQuery"
+        name="search"
+      />
+      <button id = "searchBtn" 
+      
+       class="btn btn-outline-denger rounded-pill px-3" type="submit" style="border-color: rgb(255, 237, 237);">
+        <i class="bi bi-search"></i>
+      </button>
+    </form>
+    
+
+    <!-- Toggler -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
+    <!-- Nav Links -->
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto align-items-center">
-        <li class="nav-item">
-          <a class="nav-link" *ngIf="!isLoggedIn" routerLink="/Register" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Register</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" *ngIf="!isLoggedIn" routerLink="/login" routerLinkActive="active">Login</a>
-        </li>
-        <li class="nav-item">
-          <a *ngIf="isLoggedIn" class="nav-link" routerLink="/" routerLinkActive="active">
-            <i class="bi bi-chat-dots"></i> Chats
-          </a>
-        </li>
-        <li class="nav-item">
-          <a *ngIf="isLoggedIn" class="nav-link notification-badge" routerLink="/" routerLinkActive="active">
-            <i class="bi bi-bell"></i> Notifications
-            <span class="badge">3</span>
-          </a>
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-3">
+        <!-- Logged In Links -->
+        <ng-container *ngIf="isLoggedIn">
           <li class="nav-item">
-            <div>
-              <button *ngIf="isLoggedIn" (click)="logout()" class="btn btn-outline-danger ms-3">
-                Logout
-              </button>
-            </div>
-        </li>
+            <a class="nav-link custom-link" routerLink="/" routerLinkActive="active">Delivery Request</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link custom-link" routerLink="/" routerLinkActive="active">My Applications</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link custom-link d-flex align-items-center gap-1" routerLink="/" routerLinkActive="active">
+              <i class="bi bi-chat-dots fs-5"></i> Chats
+            </a>
+          </li>
+          <li class="nav-item position-relative">
+            <a class="nav-link custom-link d-flex align-items-center gap-1" routerLink="/" routerLinkActive="active">
+              <i class="bi bi-bell fs-5"></i> 
+              <span class="badge bg-danger position-absolute top-0 start-100 translate-middle rounded-pill px-2">3</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <button (click)="logout()" class="btn btn-danger px-3">Logout</button>
+          </li>
+        </ng-container>
+
+        <!-- Logged Out Links -->
+        <ng-container *ngIf="!isLoggedIn">
+          <li class="nav-item">
+            <a class="nav-link custom-link" routerLink="/Register" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link custom-link" routerLink="/login" routerLinkActive="active">Login</a>
+          </li>
+        </ng-container>
       </ul>
     </div>
   </div>

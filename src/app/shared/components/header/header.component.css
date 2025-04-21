@@ -46,6 +46,47 @@
   padding: 0.25rem 0.5rem;
   border-radius: 50%;
 }
+.navbar {
+  transition: background-color 0.3s ease;
+}
+
+.navbar .navbar-brand:hover {
+  color: #0d6efd !important;
+}
+
+.navbar .custom-link {
+  font-weight: 500;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.navbar .custom-link:hover {
+  color: #0d6efd;
+  transform: translateY(-1px);
+}
+
+.navbar .badge {
+  font-size: 0.75rem;
+  padding: 0.3em 0.5em;
+  box-shadow: 0 0 0 2px #fff;
+}
+
+form input.form-control::placeholder {
+  color: #6c757d;
+}
+
+form input.form-control {
+  border: 1px solid #ced4da;
+  transition: box-shadow 0.2s;
+}
+
+form input.form-control:focus {
+  box-shadow: 0 0 0 0.15rem rgba(13, 110, 253, 0.25);
+}
+#searchBtn:hover {
+  background-color: #FFC107 !important;
+}
+
+
 
 /* Mobile Optimizations */
 @media (max-width: 576px) {
@@ -60,3 +101,5 @@
     font-size: 1rem;
   }
 }
+
+
