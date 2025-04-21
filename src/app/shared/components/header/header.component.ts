@@ -3,11 +3,12 @@ import { RouterLink ,RouterLinkActive} from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../features/User/Services/Login.auth.service';
 import { NgIf } from '@angular/common';
+import { UserProfileComponent } from '../../../features/User/Components/user-profile/user-profile.component';
 
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink,RouterLinkActive,NgIf],
+  imports: [RouterLink,RouterLinkActive,NgIf,UserProfileComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
@@ -22,7 +23,5 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  logout() {
-    this.authService.logout();
-  }
+  
 }

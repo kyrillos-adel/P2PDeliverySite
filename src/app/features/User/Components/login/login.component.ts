@@ -84,7 +84,6 @@ export class LoginComponent implements OnInit {
             sessionStorage.setItem('exp', new Date(response.data.expiration).getTime().toString());
 
           }
-  
           this.router.navigate(['/']);
         }
       },
@@ -111,6 +110,7 @@ export class LoginComponent implements OnInit {
 
   logout() {
     this.authService.logout();
+
     this.router.navigate(['/login']);
   }
 }

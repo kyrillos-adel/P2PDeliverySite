@@ -26,8 +26,8 @@
   }
   
   .login-form .btn-primary:hover {
-    background-color: #e86b27; /* replace with a darker sender color */
-    border-color: #e86b27;
+    background-color: #f8a426 ; 
+    border-color: #f8a426 ;
   }
   
   .login-form .btn-secondary {
@@ -41,7 +41,7 @@
   }
   
   .login-form .btn-secondary:hover {
-    background-color: #23646b; /* replace with a darker traveler color */
+    background-color: #23646b; 
     border-color: #23646b;
   }
   

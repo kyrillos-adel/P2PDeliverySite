@@ -1,42 +1,56 @@
-<nav class="navbar navbar-expand-lg">
+<nav class="navbar navbar-expand-lg bg-light shadow-sm px-4">
   <div class="container-fluid">
-    <a class="navbar-brand" routerLink="/" routerLinkActive="active">
-      <i class="bi bi-box-seam me-1"></i>P2P Delivery
+    <!-- Brand -->
+    <a class="navbar-brand fw-bold" routerLink="/">
+      <i class="bi bi-box-seam me-1"></i> P2P Delivery
     </a>
-      <a *ngIf="isLoggedIn" class="navbar-brand" routerLink="/" routerLinkActive="active">
-        <h6>Delivery Request</h6> 
-       </a>
-       <a *ngIf="isLoggedIn" class="navbar-brand" routerLink="/" routerLinkActive="active">
-        <h6>My Applacations</h6> 
-       </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+
+    <!-- Toggler for mobile -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
+
+    <!-- Navbar content -->
     <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item" *ngIf="isLoggedIn">
+          <a class="nav-link" routerLink="/delivery-requests">Delivery Requests</a>
+        </li>
+        <li class="nav-item" *ngIf="isLoggedIn">
+          <a class="nav-link" routerLink="/applications">My Applications</a>
+        </li>
+      </ul>
+
+      <!-- Right-side actions -->
       <ul class="navbar-nav ms-auto align-items-center">
-        <li class="nav-item">
-          <a class="nav-link" *ngIf="!isLoggedIn" routerLink="/Register" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Register</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" *ngIf="!isLoggedIn" routerLink="/login" routerLinkActive="active">Login</a>
-        </li>
-        <li class="nav-item">
-          <a *ngIf="isLoggedIn" class="nav-link" routerLink="/" routerLinkActive="active">
-            <i class="bi bi-chat-dots"></i> Chats
-          </a>
-        </li>
-        <li class="nav-item">
-          <a *ngIf="isLoggedIn" class="nav-link notification-badge" routerLink="/" routerLinkActive="active">
-            <i class="bi bi-bell"></i> Notifications
-            <span class="badge">3</span>
-          </a>
+        <!-- Not logged in -->
+        <ng-container *ngIf="!isLoggedIn">
           <li class="nav-item">
-            <div>
-              <button *ngIf="isLoggedIn" (click)="logout()" class="btn btn-outline-danger ms-3">
-                Logout
-              </button>
-            </div>
-        </li>
+            <a class="nav-link" routerLink="/Register">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/login">Login</a>
+          </li>
+        </ng-container>
+
+        <!-- Logged in -->
+        <ng-container *ngIf="isLoggedIn">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/chats">
+              <i class="bi bi-chat-dots"></i> Chats
+            </a>
+          </li>
+          <li class="nav-item position-relative">
+            <a class="nav-link" routerLink="/notifications">
+              <i class="bi bi-bell"></i>
+              <span class="badge bg-danger position-absolute top-0 start-100 translate-middle">3</span>
+            </a>
+          </li>
+          <li class="nav-item ms-3">
+            <!-- 👇 Your profile circle component -->
+            <app-user-profile></app-user-profile>
+          </li>
+        </ng-container>
       </ul>
     </div>
   </div>
