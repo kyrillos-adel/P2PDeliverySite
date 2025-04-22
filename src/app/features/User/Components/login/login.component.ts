@@ -73,9 +73,8 @@ export class LoginComponent implements OnInit {
         this.passwordError = '';
   
         if (response.isSuccess) {
-          alert('Login successful!');
-          const token = response.data?.token;
-  
+          alert(' Welcome To P2P Login successful!');
+          
           if (this.loginForm.value.rememberMe) {
             localStorage.setItem('token', response.data.token);
             localStorage.setItem('exp', new Date(response.data.expiration).getTime().toString());
