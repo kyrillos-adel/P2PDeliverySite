@@ -60,6 +60,7 @@ export class AuthService {
   
 
   getUserProfile(): Observable<any> {
+    console.log('Fetching user profile...');
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
     if (!token) {
       console.error('Token not found!');

@@ -3,12 +3,14 @@ import { RouterLink ,RouterLinkActive} from '@angular/router';
 import { Component,OnInit } from '@angular/core';
 import { AuthService } from '../../../features/User/Services/Login.auth.service';
 import { NgIf } from '@angular/common';
-import { UserProfileComponent } from '../../../features/User/Components/user-profile/user-profile.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { UserProfileComponent } from '../../../features/User/Components/user-profile/user-profile.component';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink,NgIf,UserProfileComponent],
+  imports: [RouterLink,RouterLinkActive,NgIf,FormsModule,UserProfileComponent,HttpClientModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
@@ -40,5 +42,4 @@ export class HeaderComponent implements OnInit {
       });
     }
   }
-  
 }
