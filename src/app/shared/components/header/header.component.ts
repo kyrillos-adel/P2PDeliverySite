@@ -8,7 +8,7 @@ import { UserProfileComponent } from '../../../features/User/Components/user-pro
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink,RouterLinkActive,NgIf,UserProfileComponent],
+  imports: [RouterLink,NgIf,UserProfileComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })

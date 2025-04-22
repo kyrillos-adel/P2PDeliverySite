@@ -119,5 +119,18 @@ export class UserProfileComponent implements OnInit {
   cancelEdit() {
     this.editingProfile = false; 
   }
-  deleteAccount() {}
+  deleteAccount() {
+    this.authService.deleteUser().subscribe({
+      next: () => {
+        alert('Account deleted successfully!');
+        this.logout();
+        // Redirect to login page after deletion
+        this.router.navigate(['/login']);
+      },
+      error: (err) => {
+        console.error('Failed to delete account:', err);
+      }
+    });
+    
+  }
 }

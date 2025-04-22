@@ -59,7 +59,16 @@ export class AuthService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.put<any>('https://localhost:7176/api/Auth/update-profile', data, { headers });
   }
+  deleteUser(): Observable<any> {
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+    if (!token) {
+      console.error('Token not found!');
+      return throwError(() => new Error('Token missing'));
+    }
   
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.delete<any>('https://localhost:7176/api/Auth/delete-account', { headers });
+  }
   
   
 }
