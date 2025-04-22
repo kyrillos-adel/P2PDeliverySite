@@ -24,7 +24,9 @@
   <button type="submit" class="btn btn-primary w-100 mb-2">Login</button>
   <a routerLink="/Register"  class="btn btn-secondary w-100" role="button">Create Account</a>
 
-  <span *ngIf="deletedAcountError" class="text-danger small d-block mt-2">{{ deletedAcountError }}</span>
+  <div *ngIf="deletedAcountError" class="alert alert-danger mt-2">
+    {{ deletedAcountError }}
+  </div>
 
   <div *ngIf="formError" class="alert alert-danger mt-3">
     {{ formError }}
