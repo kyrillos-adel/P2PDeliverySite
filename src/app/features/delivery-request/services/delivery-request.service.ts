@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { DeliveryRequestUpdateDto } from '../../../models/delivery-request/delivery-request-update.dto';
 import { ApiResponse } from '../../../models/api-response';
 import { DeliveryRequestDetails } from '../../../models/delivery-request/delivery-request-details';
+import { DeliveryRequestCreateDto } from '../../../models/delivery-request/delivery-request-create.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,12 @@ import { DeliveryRequestDetails } from '../../../models/delivery-request/deliver
 export class DeliveryRequestService {
   private endpoint = 'api/deliveryrequest';
   constructor(private http: HttpClient) { }
+ 
+
+  create(data: DeliveryRequestCreateDto) {
+    return this.http.post(`${this.endpoint}`, data);
+  }
+
 
   getById(id: number) {
     return this.http.get<DeliveryRequestUpdateDto>(`${this.endpoint}/${id}`);
