@@ -2,7 +2,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: var(--sender);
+  background-color:var(--yellow);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12,7 +12,7 @@
 }
 
 .profile-popup {
-  background-color: var(--neutral);
+  background-color: #f0f0f0 !important;
   border-radius: 8px;
   font-family: 'Montserrat', sans-serif;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -28,7 +28,7 @@
   font-size: 0.95rem;
 }
 
-.profile-popup .btn-primary {
+.profile-popup .btn-primaryy {
   background-color: var(--sender);
   border-color: var(--sender);
   font-weight: 700;
@@ -38,7 +38,7 @@
   color: var(--neutral);
 }
 
-.profile-popup .btn-primary:hover {
+.profile-popup .btn-primaryy:hover {
   background-color: #f8a426 ;
   border-color:#f8a426 ;
 }

@@ -1,105 +1,35 @@
-.navbar {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background-color: var(--neutral);
-  border-bottom: 1px solid var(--accent);
-  padding: 0.5rem 1rem;
+/* start navbar */
+.navbar{
+  background-color: var(--dark);
+}
+.navbar .navbar-nav .nav-link{
+  color: white;
 }
 
-.navbar-brand {
-  font-weight: 700;
-  color: var(--text);
-  font-size: 1.25rem;
+.navbar .navbar-nav .nav-link:active,
+.navbar .navbar-nav .nav-link .active,
+.navbar .navbar-nav .nav-link:focus,
+.navbar .navbar-nav .nav-link:hover{
+  color: var(--yellow);
+  
 }
 
-.nav-link {
-  color: var(--text);
-  font-weight: 400;
-  font-size: 1rem;
-  padding: 0.5rem 1rem;
-  transition: background-color 0.3s ease;
+.navbar .left-border{
+  border-left: 1px solid var(--yellow);
+}
+.navbar .notification svg{
+  color: var(--yellow);
 }
 
-.nav-link:hover {
-  background-color: var(--secondary);
-  border-radius: 4px;
+.btn-main{
+  padding: 5px 20px;
+  background-color:var(--yellow);
+  color: var(--dark);
 }
 
-.nav-link i {
-  font-size: 1.25rem;
-  vertical-align: middle;
+.btn-main:hover{
+  opacity: 0.9;
+  background-color:var(--yellow);
+  color: var(--dark);
 }
-
-.notification-badge {
-  position: relative;
-  display: inline-block;
-}
-
-.notification-badge .badge {
-  position: absolute;
-  top: -5px;
-  right: -10px;
-  background-color: var(--accent);
-  color: var(--neutral);
-  font-size: 0.75rem;
-  padding: 0.25rem 0.5rem;
-  border-radius: 50%;
-}
-.navbar {
-  transition: background-color 0.3s ease;
-}
-
-.navbar .navbar-brand:hover {
-  color: #0d6efd !important;
-}
-
-.navbar .custom-link {
-  font-weight: 500;
-  transition: color 0.3s ease, transform 0.2s ease;
-}
-
-.navbar .custom-link:hover {
-  color: #0d6efd;
-  transform: translateY(-1px);
-}
-
-.navbar .badge {
-  font-size: 0.75rem;
-  padding: 0.3em 0.5em;
-  box-shadow: 0 0 0 2px #fff;
-}
-
-form input.form-control::placeholder {
-  color: #6c757d;
-}
-
-form input.form-control {
-  border: 1px solid #ced4da;
-  transition: box-shadow 0.2s;
-}
-
-form input.form-control:focus {
-  box-shadow: 0 0 0 0.15rem rgba(13, 110, 253, 0.25);
-}
-#searchBtn:hover {
-  background-color: #FFC107 !important;
-}
-
-
-
-/* Mobile Optimizations */
-@media (max-width: 576px) {
-  .navbar-brand {
-    font-size: 1rem;
-  }
-  .nav-link {
-    font-size: 0.875rem;
-    padding: 0.75rem 1rem;
-  }
-  .nav-link i {
-    font-size: 1rem;
-  }
-}
-
-
+/* end navbar */

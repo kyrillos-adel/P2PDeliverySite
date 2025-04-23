@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject,catchError, Observable, tap, throwError } from 'rxjs';
 import{ LoginDTO } from '../../../models/Login/login-dto';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,11 @@ export class AuthService {
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
   response: any= "";
   private apiUrl = 'api/user';
+  isAuthRoute: boolean = false;
 
-  constructor(private http: HttpClient) {}
+
+  constructor(private router:Router, private http: HttpClient) 
+  {}
   login(loginData: LoginDTO): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, loginData).pipe(
       tap(response => { console.log('Login response:', response);

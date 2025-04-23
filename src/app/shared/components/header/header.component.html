@@ -1,56 +1,47 @@
-<nav class="navbar navbar-expand-lg bg-light shadow-sm px-4">
-  <div class="container-fluid">
-    <!-- Brand -->
-    <a class="navbar-brand fw-bold" routerLink="/">
-      <i class="bi bi-box-seam me-1"></i> P2P Delivery
+<nav class="navbar navbar-expand-lg sticky-top shadow-sm">
+  <div class="container">
+    <a class="navbar-brand" href="#">
+      <img src="logocopy.png" width="90px" alt="Logo">
     </a>
 
-    <!-- Toggler for mobile -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
+    <button class="navbar-toggler text-light border-0" type="button" data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+      aria-label="Toggle navigation">
+      <i class="fa-solid fa-bars fs-4"></i>
     </button>
 
-    <!-- Navbar content -->
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item" *ngIf="isLoggedIn">
-          <a class="nav-link" routerLink="/delivery-requests">Delivery Requests</a>
-        </li>
-        <li class="nav-item" *ngIf="isLoggedIn">
-          <a class="nav-link" routerLink="/applications">My Applications</a>
-        </li>
-      </ul>
-
-      <!-- Right-side actions -->
-      <ul class="navbar-nav ms-auto align-items-center">
-        <!-- Not logged in -->
-        <ng-container *ngIf="!isLoggedIn">
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/Register">Register</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/login">Login</a>
-          </li>
-        </ng-container>
-
-        <!-- Logged in -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto align-items-center gap-2 pe-3">
         <ng-container *ngIf="isLoggedIn">
           <li class="nav-item">
-            <a class="nav-link" routerLink="/chats">
-              <i class="bi bi-chat-dots"></i> Chats
+            <a class="nav-link custom-link" routerLink="/" routerLinkActive="active">Delivery Request</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link custom-link" routerLink="/" routerLinkActive="active">My Applications</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link custom-link d-flex align-items-center gap-1" routerLink="/" routerLinkActive="active">
+              <i class="bi bi-chat-dots fs-5"></i> Chats
             </a>
           </li>
           <li class="nav-item position-relative">
-            <a class="nav-link" routerLink="/notifications">
-              <i class="bi bi-bell"></i>
-              <span class="badge bg-danger position-absolute top-0 start-100 translate-middle">3</span>
+            <a class="nav-link custom-link d-flex align-items-center gap-1" routerLink="/" routerLinkActive="active">
+              <i class="bi bi-bell fs-5"></i>
+              <span class="badge bg-danger position-absolute top-0 start-100 translate-middle rounded-pill px-2">3</span>
             </a>
           </li>
-          <li class="nav-item ms-3">
+          <li class="nav-item ms-2">
             <app-user-profile></app-user-profile>
           </li>
         </ng-container>
       </ul>
+
+      <ng-container *ngIf="!isLoggedIn">
+        <div class="d-flex gap-2 ps-3">
+          <a routerLink="/login" routerLinkActive="active-link" class="btn btn-main rounded-pill px-4 py-1">Login</a>
+          <a routerLink="/Register" routerLinkActive="active-link" class="btn btn-main rounded-pill px-4 py-1">Register</a>
+        </div>
+      </ng-container>
     </div>
   </div>
 </nav>
