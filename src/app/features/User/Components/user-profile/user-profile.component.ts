@@ -21,7 +21,7 @@ export class UserProfileComponent implements OnInit {
   loading = false;
   egyptGovernorates = egyptGovernorates;
   notvalidemail: string | null = null;
-  editingProfile = false; // Whether the user is editing their profile
+  editingProfile = false; 
 
 
 
@@ -90,7 +90,7 @@ export class UserProfileComponent implements OnInit {
         alert('User updated successfully!');
         this.loading = false;
         this.loadUser();
-        this.editingProfile = false; // Stop editing after successful update
+        this.editingProfile = false;
       },
       error: (err) => {
         console.error('Update failed:', err);
