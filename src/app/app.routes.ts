@@ -6,6 +6,8 @@ import { RegisterComponent } from './features/User/Components/register/register.
 import { LoginComponent } from './features/User/Components/login/login.component';
 import { HomeComponent } from './features/home/home/home.component';
 import { UserDetailsComponent } from './features/User/Components/user-details/user-details.component';
+import { EditUserComponent } from './features/User/Components/edit-user/edit-user.component';
+import { AuthGuard } from './guards/auth.guard';
 export const routes: Routes = [
   { path: '',component: HomeComponent},
   {
@@ -27,4 +29,12 @@ export const routes: Routes = [
     component: LoginComponent,
     pathMatch: 'full'
   },
+  { 
+    path: 'edit-profile',
+     component: EditUserComponent,
+     canActivate: [AuthGuard],
+     pathMatch: 'full'
+
+  }
+
 ];

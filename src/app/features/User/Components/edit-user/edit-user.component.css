@@ -1,0 +1,70 @@
+.auth-background {
+    background-image: url(../../../../../../public/delivering.jpg);
+    background-color: var(--dark);
+    background-blend-mode: soft-light;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .registerForm {
+    background-color: white;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 70%;
+    max-width: 800px;
+  }
+  
+  .registerForm .form-label {
+    color: var(--dark);
+    font-weight: 600;
+  }
+  
+  .registerForm input.form-control,
+  .registerForm select.form-select {
+    border-radius: 4px;
+    font-size: 0.95rem;
+  }
+  
+  .registerForm .btn-warning {
+    background-color: var(--yellow);
+    border-color: var(--yellow);
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    color: var(--dark);
+    width: 50%;
+    align-items: center;
+    display: flex;               
+    justify-content: center;     
+    align-items: center;      
+    margin: 0 auto;         
+  }
+
+  
+  .registerForm .btn-warning:hover {
+    background-color: var(--dark);
+    border-color: var(--dark);
+    color: var(--yellow);
+  }
+  .btn-outline-secondary
+  {
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    width: 50%;
+    align-items: center;
+    display: flex;               
+    justify-content: center;     
+    align-items: center;      
+    margin: 0 auto;         
+  }
+  
+  

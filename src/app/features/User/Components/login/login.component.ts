@@ -29,6 +29,11 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    if (this.authService.hasToken()) {
+      this.router.navigate(['/']);
+      return;
+    }
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
     const expStr = localStorage.getItem('exp') || sessionStorage.getItem('exp');
 
@@ -109,7 +114,6 @@ export class LoginComponent implements OnInit {
 
   logout() {
     this.authService.logout();
-
     this.router.navigate(['/login']);
   }
 }

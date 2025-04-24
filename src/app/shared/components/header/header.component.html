@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg sticky-top shadow-sm">
-  <div class="container">
-    <a class="navbar-brand" href="#">
+  <div class="container-fluid">
+        <a class="navbar-brand" href="#">
       <img src="logocopy.png" width="90px" alt="Logo">
     </a>
 
@@ -37,15 +37,7 @@
         </ng-container>
 
         <!-- Logged Out Links -->
-        <ng-container *ngIf="!isLoggedIn">
-          <li class="nav-item">
-            <a class="nav-link custom-link" routerLink="/Register" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Register</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link custom-link" routerLink="/login" routerLinkActive="active">Login</a>
-          </li>
-          
-        </ng-container>
+       
       </ul>
 
       <ng-container *ngIf="!isLoggedIn">

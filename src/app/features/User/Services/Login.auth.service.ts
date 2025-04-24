@@ -17,6 +17,7 @@ export class AuthService {
 
   constructor(private router:Router, private http: HttpClient) 
   {}
+
   login(loginData: LoginDTO): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, loginData).pipe(
       tap(response => { console.log('Login response:', response);
@@ -33,13 +34,14 @@ export class AuthService {
     localStorage.removeItem('token');
     sessionStorage.removeItem('token');
     this.isLoggedInSubject.next(false);
+    this.router.navigate(['/login']);
   }
 
   
-  private hasToken(): boolean {
+   hasToken(): boolean {
     return !!localStorage.getItem('token') || !!sessionStorage.getItem('token');
   }
-
+ 
 
   getUser(name: string): Observable<any> {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');

@@ -9,7 +9,7 @@
       <h5 class="card-title text-center mb-3" style="font-weight: 700;">Profile</h5>
   
       <div *ngIf="!editingProfile">
-        <button class="btn btn-outline-primary w-100 mb-2" (click)="editingProfile = true">Edit Profile</button>
+        <button class="btn btn-outline-primary w-100 mb-2"(click)="togglePopup()" [routerLink]="['/edit-profile']">{{user.userName}}'s Profile</button>
         <button class="btn btn-outline-warning w-100 mb-2" (click)="deleteAccount()">Delete Account</button>
         <button class="btn btn-outline-danger w-100 mb-2" (click)="logout()">Logout</button>
       </div>

@@ -8,7 +8,6 @@
     <h2 class="text-center mb-4 text-dark fw-bold">Ma'ak</h2>
 
     <div class="row g-3">
-      <!-- National ID -->
       <div class="col-md-6">
         <label for="natId" class="form-label fw-semibold">National ID</label>
         <input type="text" class="form-control" id="natId" formControlName="natId" />
@@ -18,7 +17,6 @@
         </div>
       </div>
 
-      <!-- Full Name -->
       <div class="col-md-6">
         <label for="fullName" class="form-label fw-semibold">Full Name</label>
         <input type="text" class="form-control" id="fullName" formControlName="fullName" />
@@ -31,7 +29,6 @@
         </div>
       </div>
 
-      <!-- Username -->
       <div class="col-md-6">
         <label for="userName" class="form-label fw-semibold">Username</label>
         <input type="text" class="form-control" id="userName" formControlName="userName" />
@@ -44,7 +41,6 @@
         </div>
       </div>
 
-      <!-- Email -->
       <div class="col-md-6">
         <label for="email" class="form-label fw-semibold">Email</label>
         <input type="email" class="form-control" id="email" formControlName="email" />
@@ -56,7 +52,6 @@
         </div>
       </div>
 
-      <!-- Phone -->
       <div class="col-md-6">
         <label for="phone" class="form-label fw-semibold">Phone</label>
         <input type="text" class="form-control" id="phone" formControlName="phone" />
@@ -66,7 +61,6 @@
         </div>
       </div>
 
-      <!-- Governorate -->
       <div class="col-md-6">
         <label for="address" class="form-label fw-semibold">Governorate</label>
         <select class="form-select" id="address" formControlName="address">
@@ -75,7 +69,6 @@
         </select>
       </div>
 
-      <!-- Password -->
       <div class="col-md-6">
         <label for="password" class="form-label fw-semibold">Password</label>
         <input type="password" class="form-control" id="password" formControlName="password" />
@@ -88,7 +81,6 @@
         </div>
       </div>
 
-      <!-- Confirm Password -->
       <div class="col-md-6">
         <label for="confirmPassword" class="form-label fw-semibold">Confirm Password</label>
         <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword" />
@@ -99,7 +91,6 @@
       </div>
     </div>
 
-    <!-- Submit Button -->
     <div class="d-flex flex-column justify-content-center gap-2 mt-4">
       <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">
         Register
