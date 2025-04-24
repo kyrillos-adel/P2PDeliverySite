@@ -1,0 +1,113 @@
+<div class="auth-background d-flex justify-content-center align-items-center py-5 px-3">
+  <form
+    [formGroup]="registerForm"
+    (ngSubmit)="onSubmit()"
+    class="registerForm w-100 bg-white p-4 p-md-5 shadow rounded"
+    style="max-width: 800px;"
+  >
+    <h2 class="text-center mb-4 text-dark fw-bold">Ma'ak</h2>
+
+    <div class="row g-3">
+      <!-- National ID -->
+      <div class="col-md-6">
+        <label for="natId" class="form-label fw-semibold">National ID</label>
+        <input type="text" class="form-control" id="natId" formControlName="natId" />
+        <div class="text-danger small mt-1" *ngIf="natId?.invalid && natId?.touched">
+          <div *ngIf="natId?.errors?.['required']">National ID is required</div>
+          <div *ngIf="natId?.errors?.['pattern']">Please enter a valid Egyptian National ID</div>
+        </div>
+      </div>
+
+      <!-- Full Name -->
+      <div class="col-md-6">
+        <label for="fullName" class="form-label fw-semibold">Full Name</label>
+        <input type="text" class="form-control" id="fullName" formControlName="fullName" />
+        <div class="text-danger small mt-1" *ngIf="fullName?.invalid && fullName?.touched">
+          <div *ngIf="fullName?.errors?.['required']">Full Name is required</div>
+          <div *ngIf="fullName?.errors?.['minlength'] || fullName?.errors?.['maxlength']">
+            Name must be between 5 and 12 characters
+          </div>
+          <div *ngIf="fullName?.errors?.['pattern']">Only letters and spaces are allowed</div>
+        </div>
+      </div>
+
+      <!-- Username -->
+      <div class="col-md-6">
+        <label for="userName" class="form-label fw-semibold">Username</label>
+        <input type="text" class="form-control" id="userName" formControlName="userName" />
+        <div class="text-danger small mt-1" *ngIf="notvalidusername">{{ notvalidusername }}</div>
+        <div class="text-danger small mt-1" *ngIf="userName?.invalid && userName?.touched">
+          <div *ngIf="userName?.errors?.['required']">Username is required</div>
+          <div *ngIf="userName?.errors?.['minlength'] || userName?.errors?.['maxlength']">
+            Must be between 4 and 10 characters
+          </div>
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="col-md-6">
+        <label for="email" class="form-label fw-semibold">Email</label>
+        <input type="email" class="form-control" id="email" formControlName="email" />
+        <div class="text-danger small mt-1" *ngIf="notvalidemail">Email Already Exists</div>
+        <div class="text-danger small mt-1" *ngIf="email?.invalid && email?.touched">
+          <div *ngIf="email?.errors?.['required']">Email is required</div>
+          <div *ngIf="email?.errors?.['pattern']">Invalid email format</div>
+          <div *ngIf="email?.errors?.['email']">Enter a valid email</div>
+        </div>
+      </div>
+
+      <!-- Phone -->
+      <div class="col-md-6">
+        <label for="phone" class="form-label fw-semibold">Phone</label>
+        <input type="text" class="form-control" id="phone" formControlName="phone" />
+        <div class="text-danger small mt-1" *ngIf="phone?.invalid && phone?.touched">
+          <div *ngIf="phone?.errors?.['required']">Phone is required</div>
+          <div *ngIf="phone?.errors?.['pattern']">Invalid phone number</div>
+        </div>
+      </div>
+
+      <!-- Governorate -->
+      <div class="col-md-6">
+        <label for="address" class="form-label fw-semibold">Governorate</label>
+        <select class="form-select" id="address" formControlName="address">
+          <option value="" disabled selected>Select Governorate</option>
+          <option *ngFor="let gov of egyptGovernorates" [value]="gov">{{ gov }}</option>
+        </select>
+      </div>
+
+      <!-- Password -->
+      <div class="col-md-6">
+        <label for="password" class="form-label fw-semibold">Password</label>
+        <input type="password" class="form-control" id="password" formControlName="password" />
+        <div class="text-danger small mt-1" *ngIf="password?.invalid && password?.touched">
+          <div *ngIf="password?.errors?.['required']">Password is required</div>
+          <div *ngIf="password?.errors?.['minlength']">At least 8 characters</div>
+          <div *ngIf="password?.errors?.['pattern']">
+            Must include uppercase, lowercase, number, and symbol
+          </div>
+        </div>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="col-md-6">
+        <label for="confirmPassword" class="form-label fw-semibold">Confirm Password</label>
+        <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword" />
+        <div class="text-danger small mt-1" *ngIf="confirmPassword?.invalid && confirmPassword?.touched">
+          <div *ngIf="confirmPassword?.errors?.['required']">Confirmation is required</div>
+          <div *ngIf="confirmPassword?.errors?.['mismatch']">Passwords do not match</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="d-flex flex-column justify-content-center gap-2 mt-4">
+      <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">
+        Register
+      </button>
+      <p class="mt-2 text-center">
+        Already have an account?
+        <a routerLink="/login" class="fw-bold" style="text-decoration: none; color: var(--dark);">Login</a>
+      </p>
+    </div>
+  </form>
+</div>

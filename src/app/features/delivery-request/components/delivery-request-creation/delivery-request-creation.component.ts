@@ -55,7 +55,7 @@ export class DeliveryRequestCreationComponent implements OnInit {
 ({
         next: (response) => {
           console.log(response);
-          this.router.navigate(['/home']);
+          this.router.navigate(['deliveryrequests/getMyDeliveryRequests']);
         },
         error: (error) => {
           console.error('Error creating delivery request:', error);

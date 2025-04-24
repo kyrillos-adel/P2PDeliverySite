@@ -5,6 +5,10 @@ import {
 import { DeliveryRequestDetailsComponent } from './features/delivery-request/components/delivery-request-details/delivery-request-details.component';
 import { DeliveryRequestCreationComponent } from './features/delivery-request/components/delivery-request-creation/delivery-request-creation.component';
 import { HomeComponent } from './features/home/home/home.component';
+import { DeliveryRequestsRetriveComponent } from './features/delivery-request/components/delivery-requests-retrive/delivery-requests-retrive.component';
+import { RegisterComponent } from './features/User/Components/register/register.component';
+import { LoginComponent } from './features/User/Components/login/login.component';
+import { DeliveryRequestsByUserIdComponent } from './features/delivery-request/components/delivery-requests-by-user-id/delivery-requests-by-user-id.component';
 
 export const routes: Routes = [
   {
@@ -23,7 +27,29 @@ export const routes: Routes = [
   { path: 'deliveryrequests/Create',
     pathMatch: 'full',
      component: DeliveryRequestCreationComponent 
+  },
+  {
+    path:'deliveryrequests/getallDRs',
+    pathMatch: 'full',
+    component:DeliveryRequestsRetriveComponent
+  },
+  {
+    path: 'Register',
+    component: RegisterComponent,
+    pathMatch: 'full'
+ },
+ {
+    path: 'login',
+    component: LoginComponent,
+    pathMatch: 'full'
+  },
+  {
+    path:'deliveryrequests/getMyDeliveryRequests',
+    pathMatch: 'full',
+    component:DeliveryRequestsByUserIdComponent
   }
+
+
 
   
 

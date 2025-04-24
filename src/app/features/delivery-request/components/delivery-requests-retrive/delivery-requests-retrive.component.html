@@ -1,0 +1,28 @@
+
+<div class="container mt-4">
+    <div class="row">
+      <div class="col-md-4 mb-3" *ngFor="let request of deliveryRequests">
+        <div class="card h-100 shadow-sm border-primary">
+          <div class="card-body">
+            <h5 class="card-title">{{ request.userName }}</h5>
+            <h4 class="card-title">{{ request.title }}</h4>
+            <!-- <p class="card-text">{{ request.description }}</p> -->
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><strong>Weight:</strong> {{ request.totalWeight }} kg</li>
+              <li class="list-group-item"><strong>From:</strong> {{ request.pickUpLocation }}</li>
+              <li class="list-group-item"><strong>To:</strong> {{ request.dropOffLocation }}</li>
+              <li class="list-group-item"><strong>Date:</strong> {{ request.pickUpDate | date }}</li>
+              <!-- <li class="list-group-item"><strong>Price:</strong> {{ request.minPrice }} - {{ request.maxPrice }} EGP</li> -->
+              <!-- <li class="list-group-item"><strong>Status:</strong> {{ request.status }}</li> -->
+
+
+            </ul>
+            <!-- <div class="d-flex justify-content-between mt-3">
+              <button class="btn btn-primary" (click)="viewDetails(request)">View Details</button>
+              
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  

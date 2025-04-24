@@ -1,0 +1,73 @@
+.profile-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color:var(--yellow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.profile-popup {
+  background-color: #f0f0f0 !important;
+  border-radius: 8px;
+  font-family: 'Montserrat', sans-serif;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.profile-popup .form-label {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.profile-popup input.form-control {
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
+
+.profile-popup .btn-primaryy {
+  background-color: var(--sender);
+  border-color: var(--sender);
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.5rem;
+  border-radius: 4px;
+  color: var(--neutral);
+}
+
+.profile-popup .btn-primaryy:hover {
+  background-color: #f8a426 ;
+  border-color:#f8a426 ;
+}
+
+.profile-popup .btn-outline-secondary {
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border-color: var(--traveler);
+  background-color: var(--traveler);
+  border-color: var(--traveler);
+  color: var(--neutral);
+}
+
+.profile-popup .btn-outline-secondary:hover {
+  background-color: #f0f0f0;
+  border-color: #23646b;
+  color: #23646b;
+}
+.profile-popup {
+  background-color: var(--neutral);
+  border-radius: 8px;
+  font-family: 'Montserrat', sans-serif;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-height: 80vh; /* Set max height */
+  overflow-y: auto;  /* Enable vertical scrolling */
+}
+.error {
+  color: red;
+  font-size: 0.8em;
+}

@@ -1,0 +1,34 @@
+<div class="container mt-5">
+    <div *ngIf="user; else errorTpl" class="card mx-auto shadow" style="width: 22rem;">
+      <!-- User Image -->
+      <i class="bi bi-person-fill" style="font-size: 150px; color: #F44336; text-align: center; border-radius:10px ;"></i>
+  
+      <!-- Card Body -->
+      <div class="card-body text-center">
+        <h5 class="card-title" style="color: #000000;">{{ user.userName }}</h5>
+  
+        <p *ngIf="user.fullName" class="card-text mb-1">
+          <strong>Full Name:</strong> {{ user.fullName }}
+        </p>
+        <p *ngIf="user.address" class="card-text mb-1">
+          <strong>Address:</strong> {{ user.address }}
+        </p>
+        <p *ngIf="user.phone" class="card-text mb-1">
+          <strong>Phone:</strong> {{ user.phone }}
+        </p>
+  
+        <button class="btn btn-danger mt-3 bg-danger" >
+          <i class="bi bi-envelope-fill me-1"></i>
+          Send Message
+        </button>
+      </div>
+    </div>
+  
+    <!-- Error Template -->
+    <ng-template #errorTpl>
+      <div class="alert alert-danger text-center mt-4" role="alert">
+        {{ error }}
+      </div>
+    </ng-template>
+  </div>
+  
