@@ -10,7 +10,7 @@ export class AuthService {
   private isLoggedInSubject = new BehaviorSubject<boolean>(this.hasToken());
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
   response: any= "";
-  private apiUrl = 'api/Auth';
+  private apiUrl = 'api/user';
 
   constructor(private http: HttpClient) {
     
@@ -52,7 +52,7 @@ export class AuthService {
       'Authorization': `Bearer ${token}`,
     });
     const params = new HttpParams().set('Name', name);
-    return this.http.get('https://localhost:7176/api/Auth/findbyname', { headers , params }); 
+    return this.http.get(`${this.apiUrl}/findbyname`, { headers , params }); 
   } 
   getToken(): string | null {
     return localStorage.getItem('token') || sessionStorage.getItem('token');
@@ -68,7 +68,7 @@ export class AuthService {
     }
   
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<any>('https://localhost:7176/api/Auth/get-user-profile', { headers });
+    return this.http.get<any>('https://localhost:7176/api/user/profile', { headers });
   }
   
   updateUser(data: any): Observable<any> {
@@ -79,7 +79,7 @@ export class AuthService {
     }
   
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.put<any>('https://localhost:7176/api/Auth/update-profile', data, { headers });
+    return this.http.put<any>('https://localhost:7176/api/user/update', data, { headers });
   }
   deleteUser(): Observable<any> {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
@@ -89,7 +89,7 @@ export class AuthService {
     }
   
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.delete<any>('https://localhost:7176/api/Auth/delete-account', { headers });
+    return this.http.delete<any>('https://localhost:7176/api/user/delete', { headers });
   }
   
   

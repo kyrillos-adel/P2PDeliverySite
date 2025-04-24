@@ -7,7 +7,7 @@ import { RegisterModel } from '../../../models/Register/register.model';
 })
 export class AuthService {
  
-  private apiUrl = 'api/auth';  
+  private apiUrl = 'api/user';  
   
   constructor(private http: HttpClient) { }
  
