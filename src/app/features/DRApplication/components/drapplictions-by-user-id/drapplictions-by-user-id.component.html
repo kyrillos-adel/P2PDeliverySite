@@ -1,47 +1,36 @@
-<p>drapplictions-by-user-id works!</p>
-
-
-
 <div class="container mt-5">
-    <h2 class="mb-4 text-center text-primary">My Delivery Applications</h2>
-    <div class="row">
-      <div
-        class="col-md-6 col-lg-4 mb-4"
-        *ngFor="let application of DrApplications"
-      >
-        <div class="card application-card h-100 shadow-lg border-0">
-          <div class="card-body">
-            <!-- <h5 class="card-title text-muted mb-2">
-              Request #{{ application.deliveryRequestId }}
-            </h5> -->
-            <h4 class="card-title text-dark fw-bold">
-              {{ application.deliveryTitle }}
-            </h4>
-            <ul class="list-group list-group-flush mt-3">
-              <li class="list-group-item border-0 ps-0">
-                <strong>📅 Date:</strong>
-                {{ application.date | date: 'mediumDate' }}
-              </li>
-              <li class="list-group-item border-0 ps-0">
-                <strong>📌 Status:</strong>
-                <span
-                  class="badge"
-                  [ngClass]="{
-                    'bg-warning text-dark': application.applicationStatus === 'Pending',
-                    'bg-success': application.applicationStatus === 'Accepted',
-                    'bg-danger': application.applicationStatus === 'Rejected'
-                  }"
-                >
-                  {{ application.applicationStatus }}
-                </span>
-              </li>
-              <li class="list-group-item border-0 ps-0">
-                <strong>💰 Offerd Price:</strong> {{ application.offeredPrice }} EGP
-              </li>
-            </ul>
+  <h2 class="mb-4 text-center text-primary">My Delivery Applications</h2>
+
+  <!-- Scrollable Feed -->
+  <div class="scrollable-feed p-3 bg-light rounded shadow-sm">
+    <div *ngFor="let application of DrApplications" class="card post-card mb-4 shadow-sm border-0">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <div>
+            <h5 class="fw-bold text-primary mb-1">{{ application.deliveryTitle }}</h5>
+            <small class="text-muted">
+              <i class="bi bi-calendar-event"></i>
+              {{ application.date | date: 'mediumDate' }}
+            </small>
           </div>
+          <span
+            class="badge px-3 py-2"
+            [ngClass]="{
+              'bg-warning text-dark': application.applicationStatus === 'Pending',
+              'bg-success': application.applicationStatus === 'Accepted',
+              'bg-danger': application.applicationStatus === 'Rejected'
+            }"
+          >
+            {{ application.applicationStatus }}
+          </span>
         </div>
+
+        <hr />
+
+        <p class="mb-2">
+          <strong>💰 Offered Price:</strong> {{ application.offeredPrice }} EGP
+        </p>
       </div>
     </div>
   </div>
-  
+</div>

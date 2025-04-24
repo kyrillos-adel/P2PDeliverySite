@@ -14,7 +14,7 @@
       <ul class="navbar-nav ms-auto align-items-center gap-2 pe-3">
         <ng-container *ngIf="isLoggedIn">
           <li class="nav-item">
-            <a class="nav-link custom-link" href="deliveryrequests/getallDRs" routerLinkActive="active">Delivery Requests</a>
+            <a class="nav-link custom-link" routerLink="deliveryrequests/getallDRs" routerLinkActive="active">Delivery Requests</a>
           </li>
           <li class="nav-item">
             <a class="nav-link custom-link" routerLink="DRApplications/GetMyApplications" routerLinkActive="active">My Applications</a>
@@ -29,10 +29,12 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link custom-link d-flex align-items-center gap-1" href="deliveryrequests/Create" routerLinkActive="active">
-              <i class="bi bi-chat-dots fs-5"></i> Create
+            <a class="nav-link custom-link d-flex align-items-center gap-1" routerLink="deliveryrequests/Create" routerLinkActive="active">
+              <i class="bi bi-pencil-square fs-5"></i> Create
             </a>
           </li>
+          
+          
           <li class="nav-item position-relative">
             <a class="nav-link custom-link d-flex align-items-center gap-1" routerLink="/" routerLinkActive="active">
               <i class="bi bi-bell fs-5"></i> 

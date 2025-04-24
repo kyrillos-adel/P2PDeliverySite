@@ -1,21 +1,27 @@
-.application-card {
-    border-left: 6px solid #0d6efd;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    border-radius: 1rem;
-  }
-  
-  .application-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-  }
-  
-  .card-title {
-    font-size: 1.25rem;
-  }
-  
-  .badge {
-    font-size: 0.9rem;
-    padding: 0.4em 0.6em;
-    border-radius: 0.5rem;
-  }
-  
+.scrollable-feed {
+  max-height: 75vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #ccc transparent;
+}
+
+/* Optional scrollbar for WebKit browsers */
+.scrollable-feed::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollable-feed::-webkit-scrollbar-thumb {
+  background-color: #bbb;
+  border-radius: 4px;
+}
+
+.post-card {
+  border-radius: 12px;
+  background-color: #fff;
+  padding: 1rem;
+  transition: transform 0.2s ease-in-out;
+}
+
+.post-card:hover {
+  transform: translateY(-3px);
+}
