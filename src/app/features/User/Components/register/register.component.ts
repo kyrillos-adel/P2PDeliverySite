@@ -12,7 +12,9 @@ import { egyptGovernorates } from '../../../../models/Register/register.model';
 @Component({
   imports: [ReactiveFormsModule, NgIf, NgFor, RouterLink],
   selector: 'app-register',
-  templateUrl: './register.component.html'
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css'],
+
 })
 export class RegisterComponent {
   registerForm!: FormGroup;

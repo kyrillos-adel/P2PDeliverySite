@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject,catchError, Observable, tap, throwError } from 'rxjs';
 import{ LoginDTO } from '../../../models/Login/login-dto';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +12,11 @@ export class AuthService {
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
   response: any= "";
   private apiUrl = 'api/user';
+  isAuthRoute: boolean = false;
 
-  constructor(private http: HttpClient) {
-    
 
-  }
-
+  constructor(private router:Router, private http: HttpClient) 
+  {}
 
   login(loginData: LoginDTO): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, loginData).pipe(
@@ -34,13 +34,14 @@ export class AuthService {
     localStorage.removeItem('token');
     sessionStorage.removeItem('token');
     this.isLoggedInSubject.next(false);
+    this.router.navigate(['/login']);
   }
 
   
-  private hasToken(): boolean {
+   hasToken(): boolean {
     return !!localStorage.getItem('token') || !!sessionStorage.getItem('token');
   }
-
+ 
 
   getUser(name: string): Observable<any> {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
@@ -68,7 +69,7 @@ export class AuthService {
     }
   
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<any>('https://localhost:7176/api/user/profile', { headers });
+    return this.http.get<any>(`${this.apiUrl}/profile`, { headers });
   }
   
   updateUser(data: any): Observable<any> {
@@ -79,7 +80,7 @@ export class AuthService {
     }
   
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.put<any>('https://localhost:7176/api/user/update', data, { headers });
+    return this.http.put<any>(`${this.apiUrl}/update`, data, { headers });
   }
   deleteUser(): Observable<any> {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
@@ -89,7 +90,7 @@ export class AuthService {
     }
   
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.delete<any>('https://localhost:7176/api/user/delete', { headers });
+    return this.http.delete<any>(`${this.apiUrl}/delete`, { headers });
   }
   
   

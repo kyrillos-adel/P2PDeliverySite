@@ -6,6 +6,8 @@ import { RegisterComponent } from './features/User/Components/register/register.
 import { LoginComponent } from './features/User/Components/login/login.component';
 import { HomeComponent } from './features/home/home/home.component';
 import { UserDetailsComponent } from './features/User/Components/user-details/user-details.component';
+import { EditUserComponent } from './features/User/Components/edit-user/edit-user.component';
+import { AuthGuard } from './guards/auth.guard';
 export const routes: Routes = [
   { 
     path: '',
@@ -18,7 +20,8 @@ export const routes: Routes = [
   },
   { 
     path: 'user-details', 
-    component: UserDetailsComponent 
+    component: UserDetailsComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'Register',
@@ -30,4 +33,12 @@ export const routes: Routes = [
     component: LoginComponent,
     pathMatch: 'full'
   },
+  { 
+    path: 'edit-profile',
+     component: EditUserComponent,
+     canActivate: [AuthGuard],
+     pathMatch: 'full'
+
+  }
+
 ];

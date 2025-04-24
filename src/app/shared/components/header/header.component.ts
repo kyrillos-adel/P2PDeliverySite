@@ -29,12 +29,14 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+  
   logout() {
     this.authService.logout();
-  }
+    this.router.navigate(['/login']);
 
+  }
   onSearch(event: Event) {
-    event.preventDefault(); // Prevent form from reloading the page
+    event.preventDefault();
   
     if (this.searchQuery?.trim()) {
       this.router.navigate(['/user-details'], {

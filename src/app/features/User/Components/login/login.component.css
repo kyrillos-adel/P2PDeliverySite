@@ -1,51 +1,68 @@
+.auth-background {
+ background-image: url(../../../../../../public/delivering.jpg);
+ background-color: var(--dark);
+  background-blend-mode: soft-light;
+ background-size: cover;
+ background-position: center;
+ background-repeat: no-repeat;
+ min-height: 100vh;
+ position: relative;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+}
+
+
 .login-form {
-    background-color: var(--neutral);
-    border-radius: 8px;
-    max-width: 400px;
-    font-family: 'Montserrat', sans-serif;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .login-form .form-label {
-    color: var(--text);
-  }
-  
-  .login-form input.form-control {
-    border-radius: 4px;
-    font-size: 0.95rem;
-  }
-  
-  .login-form .btn-primary {
-    background-color: var(--sender);
-    border-color: var(--sender);
-    font-weight: 700;
-    font-size: 1rem;
-    padding: 0.75rem 1rem;
-    border-radius: 4px;
-    color: var(--neutral);
-  }
-  
-  .login-form .btn-primary:hover {
-    background-color: #f8a426 ; 
-    border-color: #f8a426 ;
-  }
-  
-  .login-form .btn-secondary {
-    background-color: var(--traveler);
-    border-color: var(--traveler);
-    font-weight: 700;
-    font-size: 1rem;
-    padding: 0.75rem 1rem;
-    border-radius: 4px;
-    color: var(--neutral);
-  }
-  
-  .login-form .btn-secondary:hover {
-    background-color: #23646b; 
-    border-color: #23646b;
-  }
-  
-  .login-form .alert {
-    font-size: 0.875rem;
-  }
-  
+  background-color: white;
+  border-radius: 8px;
+  font-family: 'Montserrat', sans-serif;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 30%;
+}
+.login-form .form-label {
+  color: var(--dark); 
+}
+
+.login-form input.form-control {
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
+
+.login-form .btn-primary {
+  background-color: var(--yellow);
+  border-color: var(--yellow);
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  color: var(--dark);
+}
+
+.login-form .btn-primary:hover {
+  opacity: 0.9;
+  background-color: var(--dark);
+  border-color: var(--dark);
+  color: var(--yellow);
+}
+
+.login-form .btn-secondary {
+  background-color: var(--dark);     
+  border: 1px solid var(--dark); 
+  color:  var(--yellow);
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+}
+
+.login-form .btn-secondary:hover {
+  background-color:var(--yellow);
+  border-color: var(--yellow);
+  color: var(--dark);
+}
+
+.login-form .alert {
+  font-size: 0.875rem;
+  color: var(--yellow);
+}
