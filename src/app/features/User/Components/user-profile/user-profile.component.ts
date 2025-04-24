@@ -24,9 +24,6 @@ export class UserProfileComponent implements OnInit {
   notvalidemail: string | null = null;
   editingProfile = false; 
 
-
-
-  // Error tracking
   errors = {
     fullName: '',
     email: '',
@@ -130,7 +127,6 @@ export class UserProfileComponent implements OnInit {
       next: () => {
         alert('Account deleted successfully!');
         this.logout();
-        // Redirect to login page after deletion
         this.router.navigate(['/login']);
       },
       error: (err) => {
