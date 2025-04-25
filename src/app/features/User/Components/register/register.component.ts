@@ -21,6 +21,7 @@ export class RegisterComponent {
   notvalidemail: string = "";
   notvalidusername: string = "";
   egyptGovernorates = egyptGovernorates;
+  
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.registerForm = this.fb.group({
@@ -68,8 +69,9 @@ export class RegisterComponent {
     }, {
       validators: passwordMatchValidator('password', 'confirmPassword')
     });
+    
   }
-
+ 
   ngOnInit(): void {
     // Reset error messages on form control value changes
     this.registerForm.get('email')?.valueChanges.subscribe(() => {

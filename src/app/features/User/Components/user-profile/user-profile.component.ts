@@ -23,12 +23,14 @@ export class UserProfileComponent implements OnInit {
   egyptGovernorates = egyptGovernorates;
   notvalidemail: string | null = null;
   editingProfile = false; 
-
   errors = {
     fullName: '',
     email: '',
     phone: ''
   };
+  showPasswordModal: boolean = false;
+  confirmPassword: string = '';
+  deleteError: string = '';
 
   ngOnInit(): void {
     this.authService.getUserProfile().subscribe({
@@ -122,17 +124,33 @@ export class UserProfileComponent implements OnInit {
   cancelEdit() {
     this.editingProfile = false; 
   }
-  deleteAccount() {
-    this.authService.deleteUser().subscribe({
-      next: () => {
-        alert('Account deleted successfully!');
-        this.logout();
-        this.router.navigate(['/login']);
-      },
-      error: (err) => {
-        console.error('Failed to delete account:', err);
-      }
-    });
-    
-  }
+ 
+
+openDeleteModal() {
+  this.togglePopup();
+  this.showPasswordModal = true;
+  this.confirmPassword = '';
+  this.deleteError = '';
+}
+
+cancelDelete() {
+  this.showPasswordModal = false;
+  this.confirmPassword = '';
+  this.deleteError = '';
+}
+
+confirmDelete() {
+  this.deleteError = '';
+  
+  this.authService.deleteUser(this.confirmPassword).subscribe({
+    next: () => {
+      this.showPasswordModal = false;
+      this.authService.logout();
+    },
+    error: (err) => {
+      this.deleteError = err.error?.message || 'Incorrect password or server error.';
+    }
+  });
+}
+
 }

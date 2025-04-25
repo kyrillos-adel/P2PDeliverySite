@@ -31,7 +31,10 @@
     <button type="submit" class="btn btn-primary w-100 mb-2">Login</button>
     <a routerLink="/Register" class="btn btn-secondary w-100">Create Account</a>
 
-    <div *ngIf="deletedAcountError" class="alert alert-danger mt-3">{{ deletedAcountError }}</div>
+    <div *ngIf="deletedAcountError" class="alert alert-danger mt-3">{{ deletedAcountError }}
+      <a href="javascript:void(0)" (click)="recoveraccount()" class="small text-decoration-none ms-2" style="color: black; font-weight: 500;">Recover Account</a>
+    </div>
+    
     <div *ngIf="formError" class="alert alert-danger mt-3">{{ formError }}</div>
   </form>
 </div>
