@@ -41,15 +41,15 @@
 
 .login-form .btn-primary:hover {
   opacity: 0.9;
-  background-color: var(--yellow);
-  border-color: var(--yellow);
-  color: var(--dark);
+  background-color: var(--dark);
+  border-color: var(--dark);
+  color: var(--yellow);
 }
 
 .login-form .btn-secondary {
   background-color: var(--dark);     
   border: 1px solid var(--dark); 
-  color:  #f0f0f0;
+  color:  var(--yellow);
   font-weight: 600;
   font-size: 1rem;
   padding: 0.75rem 1rem;
@@ -57,8 +57,8 @@
 }
 
 .login-form .btn-secondary:hover {
-  background-color: #f0f0f0;
-  border-color: var(--dark);
+  background-color:var(--yellow);
+  border-color: var(--yellow);
   color: var(--dark);
 }
 

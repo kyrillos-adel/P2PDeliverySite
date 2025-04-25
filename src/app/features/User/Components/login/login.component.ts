@@ -97,16 +97,39 @@ export class LoginComponent implements OnInit {
           this.passwordError = message;}
           else if (message === 'Account has been deleted.') {
             this.deletedAcountError = message;
-            
-          
         } else {
           alert('Login failed: ' + (message || 'Please try again later.'));
         }
       }
     });
   }
-  
 
+  recoveraccount() {
+    const identifier = this.loginForm.get('identifier')?.value;
+    if (!identifier) {
+      this.formError = 'Please enter a username or email to recover the account.';
+      return;
+    }
+    console.log(identifier)
+  
+    this.formError = null;
+    this.authService.recoverAccount(identifier).subscribe({
+      next: (response) => {
+        console.log('Recover account response:', response);
+        if (response.isSuccess) {
+          alert('Account recovery initiated successfully! Please check your email for further instructions.');
+          this.deletedAcountError = null;
+        } else {
+          alert('Account recovery failed: ' + (response.message || 'Please try again later.'));
+        }
+      },
+      error: (error) => {
+        console.error('Recover account error:', error);
+        alert('Account recovery failed: ' + (error?.error?.message || 'Please try again later.'));
+      }
+    });
+  }
+  
   logout() {
     this.authService.logout();
 
@@ -121,5 +144,4 @@ export class LoginComponent implements OnInit {
     const payload = JSON.parse(atob(token.split('.')[1]));
     return payload?.UserId || payload?.userId || null;
   }
-  
 }

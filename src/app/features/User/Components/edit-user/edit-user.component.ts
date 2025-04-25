@@ -1,41 +1,44 @@
-import { Component, ElementRef, HostListener, inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { AuthService } from '../../Services/Login.auth.service';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { egyptGovernorates } from '../../../../models/Register/register.model';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { RouterLinkActive } from '@angular/router';
+
 
 @Component({
-  selector: 'app-user-profile',
-  standalone: true,
-  imports: [CommonModule, FormsModule,RouterLink],
-  templateUrl: './user-profile.component.html',
-  styleUrl: './user-profile.component.css'
+  selector: 'app-edit-user',
+  imports: [CommonModule, FormsModule,RouterLink, RouterLinkActive],
+  templateUrl: './edit-user.component.html',
+  styleUrl: './edit-user.component.css'
 })
-export class UserProfileComponent implements OnInit {
+export class EditUserComponent  implements OnInit {
   private authService = inject(AuthService);
-  constructor(private router: Router, private eRef: ElementRef) {}
-
+  constructor(private router: Router) {}
 
   user: any = {};
-  showPopup = false;
   loading = false;
-  egyptGovernorates = egyptGovernorates;
   notvalidemail: string | null = null;
-  editingProfile = false; 
+  editingProfile: boolean = false;
+
+
   errors = {
     fullName: '',
     email: '',
     phone: ''
   };
-  
-  showPasswordModal: boolean = false;
-  confirmPassword: string = '';
-  deleteError: string = '';
 
+  showPopup = false;
+  egyptGovernorates = egyptGovernorates;
 
   ngOnInit(): void {
+    if (!this.authService.hasToken()) {
+      this.router.navigate(['/login']);
+      return;
+    }
+  
     this.authService.getUserProfile().subscribe({
       next: (data) => {
         this.user = data;
@@ -47,9 +50,12 @@ export class UserProfileComponent implements OnInit {
         }
       }
     });
+    
   }
+  
 
   loadUser() {
+    if (this.authService.hasToken()) {
     this.authService.getUserProfile().subscribe({
       next: (res) => {
         this.user = res;
@@ -59,7 +65,10 @@ export class UserProfileComponent implements OnInit {
       }
     });
   }
-
+  else {
+    this.router.navigate(['/login']);
+  return;}
+  }
   validate(): boolean {
     let isValid = true;
     this.errors = { fullName: '', email: '', phone: '' };
@@ -81,9 +90,12 @@ export class UserProfileComponent implements OnInit {
     }
     return isValid;
   }
-
+  startEdit() {
+    this.editingProfile = true;
+  }
   saveProfile() {
     if (!this.validate()) {
+      
       return;
     }
   
@@ -115,45 +127,9 @@ export class UserProfileComponent implements OnInit {
     this.showPopup = !this.showPopup;
   }
 
-  @HostListener('document:click', ['$event'])
-  clickOutside(event: Event) {
-    if (this.showPopup && !this.eRef.nativeElement.contains(event.target)) {
-      this.showPopup = false;
-    }}
-
-  logout() {
-    this.authService.logout();
-    this.togglePopup();
-
-  }
   cancelEdit() {
     this.editingProfile = false; 
+    this.loadUser(); 
+
   }
- 
-openDeleteModal() {
-  this.togglePopup();
-  this.showPasswordModal = true;
-  this.confirmPassword = '';
-  this.deleteError = '';
-}
-
-cancelDelete() {
-  this.showPasswordModal = false;
-  this.confirmPassword = '';
-  this.deleteError = '';
-}
-
-confirmDelete() {
-  this.deleteError = '';
-  
-  this.authService.deleteUser(this.confirmPassword).subscribe({
-    next: () => {
-      this.showPasswordModal = false;
-      this.authService.logout();
-    },
-    error: (err) => {
-      this.deleteError = err.error?.message || 'Incorrect password or server error.';
-    }
-  });
-}
 }
