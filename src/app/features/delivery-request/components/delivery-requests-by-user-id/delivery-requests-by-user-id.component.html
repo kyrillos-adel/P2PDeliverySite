@@ -1,0 +1,43 @@
+<div class="container mt-5">
+  <h2 class="mb-4 text-center text-primary">My Delivery Requests</h2>
+
+  <div class="scrollable-feed bg-light p-3 rounded shadow-sm" style="max-height: 75vh; overflow-y: auto;">
+    <div *ngFor="let request of deliveryRequests" class="card post-card mb-4 shadow border-0">
+      <div class="card-body">
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <div>
+            
+            <h4 class="fw-bold text-dark">{{ request.title }}</h4>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <p class="text-muted mb-3">{{ request.description }}</p>
+
+        <!-- Meta Info -->
+        <ul class="list-unstyled mb-3">
+          <li><strong>⚖️ Weight:</strong> {{ request.totalWeight }} kg</li>
+          <li><strong>📍 From:</strong> {{ request.pickUpLocation }}</li>
+          <li><strong>📦 To:</strong> {{ request.dropOffLocation }}</li>
+          <li><strong>📅 Pickup Date:</strong> {{ request.pickUpDate | date: 'mediumDate' }}</li>
+          <li><strong>💰 Price Range:</strong> {{ request.minPrice }} - {{ request.maxPrice }} EGP</li>
+        </ul>
+
+        <!-- Status Badge -->
+        <div class="d-flex justify-content-end">
+          <span class="badge px-3 py-2"
+            [ngClass]="{
+              'bg-warning text-dark': request.status === 'Pending',
+              'bg-success': request.status === 'Accepted' || request.status === 'Delivered',
+              'bg-secondary': request.status === 'Completed',
+              'bg-danger': request.status === 'Cancelled'
+            }"
+          >
+            {{ request.status }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

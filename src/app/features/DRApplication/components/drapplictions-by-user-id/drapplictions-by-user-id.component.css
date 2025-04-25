@@ -1,0 +1,27 @@
+.scrollable-feed {
+  max-height: 75vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #ccc transparent;
+}
+
+/* Optional scrollbar for WebKit browsers */
+.scrollable-feed::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollable-feed::-webkit-scrollbar-thumb {
+  background-color: #bbb;
+  border-radius: 4px;
+}
+
+.post-card {
+  border-radius: 12px;
+  background-color: #fff;
+  padding: 1rem;
+  transition: transform 0.2s ease-in-out;
+}
+
+.post-card:hover {
+  transform: translateY(-3px);
+}

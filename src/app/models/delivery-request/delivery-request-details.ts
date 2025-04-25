@@ -1,5 +1,5 @@
 export interface DeliveryRequestDetails {
-    title: string;
+  title: string;
   description: string;
   totalWeight: number;
   pickUpLocation: string;
