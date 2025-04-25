@@ -87,3 +87,29 @@
   color: red;
   font-size: 0.8em;
 }
+
+@media (max-width: 576px) {
+  .profile-popup {
+    width: 90vw; /* Use 90% of viewport width for better fit */
+    max-width: 320px; /* Cap at 320px for readability */
+    right: auto; /* Remove right alignment */
+    left: 50%; /* Center the popup */
+    transform: translateX(-50%); /* Center horizontally */
+    padding: 1rem; /* Reduce padding for smaller screens */
+  }
+
+
+  .profile-popup .btn {
+    font-size: 0.9rem; /* Slightly smaller font for mobile */
+    padding: 0.4rem 0.8rem;
+  }
+
+  .profile-popup .form-label,
+  .profile-popup .form-control,
+  .profile-popup .form-select {
+    font-size: 0.9rem; /* Adjust font size for mobile */
+  }
+
+  .profile-popup h5.card-title {
+    font-size: 1.2rem; /* Smaller title on mobile */
+  }}
