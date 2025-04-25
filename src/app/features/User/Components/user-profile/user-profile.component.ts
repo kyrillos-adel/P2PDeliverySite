@@ -17,6 +17,7 @@ export class UserProfileComponent implements OnInit {
   private authService = inject(AuthService);
   constructor(private router: Router, private eRef: ElementRef) {}
 
+
   user: any = {};
   showPopup = false;
   loading = false;
@@ -28,9 +29,11 @@ export class UserProfileComponent implements OnInit {
     email: '',
     phone: ''
   };
+  
   showPasswordModal: boolean = false;
   confirmPassword: string = '';
   deleteError: string = '';
+
 
   ngOnInit(): void {
     this.authService.getUserProfile().subscribe({
@@ -111,11 +114,13 @@ export class UserProfileComponent implements OnInit {
   togglePopup() {
     this.showPopup = !this.showPopup;
   }
+
   @HostListener('document:click', ['$event'])
   clickOutside(event: Event) {
     if (this.showPopup && !this.eRef.nativeElement.contains(event.target)) {
       this.showPopup = false;
     }}
+
   logout() {
     this.authService.logout();
     this.togglePopup();
@@ -125,7 +130,6 @@ export class UserProfileComponent implements OnInit {
     this.editingProfile = false; 
   }
  
-
 openDeleteModal() {
   this.togglePopup();
   this.showPasswordModal = true;
@@ -152,5 +156,4 @@ confirmDelete() {
     }
   });
 }
-
 }

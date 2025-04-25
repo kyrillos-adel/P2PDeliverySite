@@ -1,4 +1,3 @@
-
 import { RouterLink ,RouterLinkActive} from '@angular/router';
 import { Component,OnInit } from '@angular/core';
 import { AuthService } from '../../../features/User/Services/Login.auth.service';
@@ -33,7 +32,6 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.authService.logout();
     this.router.navigate(['/login']);
-
   }
   onSearch(event: Event) {
     event.preventDefault();

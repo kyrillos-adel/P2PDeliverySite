@@ -13,6 +13,7 @@ export class AuthService {
   response: any= "";
   private apiUrl = 'api/user';
   isAuthRoute: boolean = false;
+
   _confirmPassword: string = '';
 
   constructor(private router:Router, private http: HttpClient) 
@@ -21,6 +22,7 @@ export class AuthService {
   login(loginData: LoginDTO): Observable<any> {
     this._confirmPassword = loginData.password;
     localStorage.setItem('password', this._confirmPassword);
+    
     return this.http.post(`${this.apiUrl}/login`, loginData).pipe(
       tap(response => { console.log('Login response:', response);
         this.isLoggedInSubject.next(true);}
@@ -31,6 +33,8 @@ export class AuthService {
       })
     );
   }
+
+  
   recoverAccount(username: string): Observable<any> {
     const params = new HttpParams().set('user', username);
     return this.http.put(`${this.apiUrl}/Recover`, null, { params }).pipe(
@@ -42,10 +46,12 @@ export class AuthService {
     );
   }
 
+
   logout(): void {
     localStorage.removeItem('token');
     sessionStorage.removeItem('token');
     this.isLoggedInSubject.next(false);
+
     this.router.navigate(['/login']);
   }
 
@@ -94,6 +100,7 @@ export class AuthService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.put<any>(`${this.apiUrl}/update`, data, { headers });
   }
+
   deleteUser(password: string): Observable<any> {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
     if (!token )  {

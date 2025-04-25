@@ -26,15 +26,9 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required],
       rememberMe: [false]
     });
-    
   }
 
   ngOnInit(): void {
-
-    if (this.authService.hasToken()) {
-      this.router.navigate(['/']);
-      return;
-    }
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
     const expStr = localStorage.getItem('exp') || sessionStorage.getItem('exp');
 
@@ -89,7 +83,7 @@ export class LoginComponent implements OnInit {
             sessionStorage.setItem('exp', new Date(response.data.expiration).getTime().toString());
 
           }
-          this.router.navigate(['/']);
+          this.router.navigate(['/deliveryrequests/getallDRs']);
         }
       },
       error: (error) => {
@@ -135,8 +129,19 @@ export class LoginComponent implements OnInit {
       }
     });
   }
+  
   logout() {
     this.authService.logout();
+
     this.router.navigate(['/login']);
+  }
+
+
+  getUserIdFromToken(): number | null {
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+    if (!token) return null;
+  
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload?.UserId || payload?.userId || null;
   }
 }

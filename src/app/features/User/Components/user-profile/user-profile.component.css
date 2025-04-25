@@ -74,6 +74,7 @@
   background-color:rgb(235, 40, 40);
   border-color:rgb(235, 40, 40);
   color: white;
+
 }
 .profile-popup {
   background-color: var(--neutral);
@@ -83,10 +84,12 @@
   max-height: 80vh; 
   overflow-y: auto; 
 }
+
 .error {
   color: red;
   font-size: 0.8em;
 }
+
 .custom-modal {
   position: fixed;
   top: 0;

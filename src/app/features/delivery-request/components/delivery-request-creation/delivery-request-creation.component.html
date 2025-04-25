@@ -1,0 +1,146 @@
+<div class="container mt-5">
+  <form [formGroup]="createForm" (ngSubmit)="onSubmit()" novalidate>
+    
+    <div class="card shadow rounded-4 p-4">
+      <h3 class="mb-4 text-center text-primary">Create Delivery Request</h3>
+
+      <!-- Basic Info -->
+      
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label for="title" class="form-label fw-semibold">Title</label>
+          <input type="text" class="form-control" id="title" formControlName="title">
+          @if (createForm.get('title')?.invalid && (createForm.get('title')?.dirty || createForm.get('title')?.touched)) {
+            <div class="text-danger">
+              @if (createForm.get('title')?.errors?.['required']) {
+                <small>Title is required</small>
+              }
+              @if (createForm.get('title')?.errors?.['maxlength']) {
+                <small>Title must be less than 100 characters</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="col-md-6">
+          <label for="totalWeight" class="form-label fw-semibold">Total Weight (kg)</label>
+          <input type="number" class="form-control" id="totalWeight" formControlName="totalWeight">
+          @if (createForm.get('totalWeight')?.invalid && (createForm.get('totalWeight')?.dirty || createForm.get('totalWeight')?.touched)) {
+            <div class="text-danger">
+              @if (createForm.get('totalWeight')?.errors?.['required']) {
+                <small>Total weight is required</small>
+              }
+              @if (createForm.get('totalWeight')?.errors?.['min']) {
+                <small>Must be at least 1 kg</small>
+              }
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="mb-3 mt-3">
+        <label for="description" class="form-label fw-semibold">Description</label>
+        <textarea class="form-control" id="description" rows="3" formControlName="description"></textarea>
+        @if (createForm.get('description')?.invalid && (createForm.get('description')?.dirty || createForm.get('description')?.touched)) {
+          <div class="text-danger">
+            @if (createForm.get('description')?.errors?.['required']) {
+              <small>Description is required</small>
+            }
+            @if (createForm.get('description')?.errors?.['maxlength']) {
+              <small>Must be less than 500 characters</small>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Location -->
+      <h5 class="mt-4 mb-3 border-bottom pb-2">Location</h5>
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label for="pickUpLocation" class="form-label fw-semibold">Pickup Location</label>
+          <input type="text" class="form-control" id="pickUpLocation" formControlName="pickUpLocation">
+          @if (createForm.get('pickUpLocation')?.invalid && (createForm.get('pickUpLocation')?.dirty || createForm.get('pickUpLocation')?.touched)) {
+            <div class="text-danger">
+              @if (createForm.get('pickUpLocation')?.errors?.['required']) {
+                <small>Pickup location is required</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="col-md-6">
+          <label for="dropOffLocation" class="form-label fw-semibold">Dropoff Location</label>
+          <input type="text" class="form-control" id="dropOffLocation" formControlName="dropOffLocation">
+          @if (createForm.get('dropOffLocation')?.invalid && (createForm.get('dropOffLocation')?.dirty || createForm.get('dropOffLocation')?.touched)) {
+            <div class="text-danger">
+              @if (createForm.get('dropOffLocation')?.errors?.['required']) {
+                <small>Dropoff location is required</small>
+              }
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Schedule -->
+      
+      <div class="mb-3">
+        <label for="pickUpDate" class="form-label fw-semibold">Pickup Date</label>
+        <input type="date" class="form-control" id="pickUpDate" formControlName="pickUpDate">
+        @if (createForm.get('pickUpDate')?.invalid && (createForm.get('pickUpDate')?.dirty || createForm.get('pickUpDate')?.touched)) {
+          <div class="text-danger">
+            @if (createForm.get('pickUpDate')?.errors?.['required']) {
+              <small>Pickup date is required</small>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Price Info -->
+      
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label for="minPrice" class="form-label fw-semibold">Minimum Price </label>
+          <input type="number" class="form-control" id="minPrice" formControlName="minPrice">
+          @if (createForm.get('minPrice')?.invalid && (createForm.get('minPrice')?.dirty || createForm.get('minPrice')?.touched)) {
+            <div class="text-danger">
+              @if (createForm.get('minPrice')?.errors?.['required']) {
+                <small>Minimum price is required</small>
+              }
+              @if (createForm.get('minPrice')?.errors?.['min']) {
+                <small>Must be 0 or more</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="col-md-6">
+          <label for="maxPrice" class="form-label fw-semibold">Maximum Price </label>
+          <input type="number" class="form-control" id="maxPrice" formControlName="maxPrice">
+          @if (createForm.get('maxPrice')?.invalid && (createForm.get('maxPrice')?.dirty || createForm.get('maxPrice')?.touched)) {
+            <div class="text-danger">
+              @if (createForm.get('maxPrice')?.errors?.['required']) {
+                <small>Maximum price is required</small>
+              }
+              @if (createForm.get('maxPrice')?.errors?.['min']) {
+                <small>Must be 0 or more</small>
+              }
+            </div>
+          }
+        </div>
+      </div>
+
+      @if (createForm.errors?.['priceRange']) {
+        <div class="alert alert-danger mt-3">
+          Maximum price must be greater than minimum price
+        </div>
+      }
+
+      <div class="d-grid gap-2 mt-4">
+        <button type="submit" class="btn btn-primary btn-lg" [disabled]="createForm.invalid">
+          <i class="bi bi-truck"></i> Create Delivery Request
+        </button>
+      </div>
+    </div>
+
+  </form>
+</div>
