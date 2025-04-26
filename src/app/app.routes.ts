@@ -13,7 +13,7 @@ import { DeliveryRequestsByUserIdComponent } from './features/delivery-request/c
 import { DRApplictionsByUserIdComponent } from './features/DRApplication/components/drapplictions-by-user-id/drapplictions-by-user-id.component';
 
 export const routes: Routes = [
-  { 
+  {
     path: '',
     component: HomeComponent
   },
@@ -26,8 +26,8 @@ export const routes: Routes = [
     pathMatch: 'full',
     component: DeliveryRequestUpdateComponent,
   },
-  { 
-    path: 'user-details', 
+  {
+    path: 'user-details',
     component: UserDetailsComponent,
     canActivate: [AuthGuard],
   },
@@ -37,7 +37,7 @@ export const routes: Routes = [
   },
   { path: 'deliveryrequests/Create',
     pathMatch: 'full',
-     component: DeliveryRequestCreationComponent 
+     component: DeliveryRequestCreationComponent
   },
   {
     path:'deliveryrequests/getallDRs',
@@ -54,7 +54,7 @@ export const routes: Routes = [
     component: LoginComponent,
     pathMatch: 'full'
   },
-  { 
+  {
     path: 'edit-profile',
      component: EditUserComponent,
      canActivate: [AuthGuard],
