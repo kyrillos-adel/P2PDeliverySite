@@ -29,11 +29,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    if (this.authService.hasToken()) {
-      this.router.navigate(['/']);
-      return;
-    }
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
     const expStr = localStorage.getItem('exp') || sessionStorage.getItem('exp');
 
@@ -88,7 +83,7 @@ export class LoginComponent implements OnInit {
             sessionStorage.setItem('exp', new Date(response.data.expiration).getTime().toString());
 
           }
-          this.router.navigate(['/']);
+          this.router.navigate(['/deliveryrequests/getallDRs']);
         }
       },
       error: (error) => {
@@ -102,18 +97,51 @@ export class LoginComponent implements OnInit {
           this.passwordError = message;}
           else if (message === 'Account has been deleted.') {
             this.deletedAcountError = message;
-            
-          
         } else {
           alert('Login failed: ' + (message || 'Please try again later.'));
         }
       }
     });
   }
-  
 
+  recoveraccount() {
+    const identifier = this.loginForm.get('identifier')?.value;
+    if (!identifier) {
+      this.formError = 'Please enter a username or email to recover the account.';
+      return;
+    }
+    console.log(identifier)
+  
+    this.formError = null;
+    this.authService.recoverAccount(identifier).subscribe({
+      next: (response) => {
+        console.log('Recover account response:', response);
+        if (response.isSuccess) {
+          alert('Account recovery initiated successfully! Please check your email for further instructions.');
+          this.deletedAcountError = null;
+        } else {
+          alert('Account recovery failed: ' + (response.message || 'Please try again later.'));
+        }
+      },
+      error: (error) => {
+        console.error('Recover account error:', error);
+        alert('Account recovery failed: ' + (error?.error?.message || 'Please try again later.'));
+      }
+    });
+  }
+  
   logout() {
     this.authService.logout();
+
     this.router.navigate(['/login']);
+  }
+
+
+  getUserIdFromToken(): number | null {
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+    if (!token) return null;
+  
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload?.UserId || payload?.userId || null;
   }
 }

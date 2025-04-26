@@ -14,11 +14,15 @@ export class AuthService {
   private apiUrl = 'api/user';
   isAuthRoute: boolean = false;
 
+  _confirmPassword: string = '';
 
   constructor(private router:Router, private http: HttpClient) 
   {}
 
   login(loginData: LoginDTO): Observable<any> {
+    this._confirmPassword = loginData.password;
+    localStorage.setItem('password', this._confirmPassword);
+    
     return this.http.post(`${this.apiUrl}/login`, loginData).pipe(
       tap(response => { console.log('Login response:', response);
         this.isLoggedInSubject.next(true);}
@@ -30,10 +34,24 @@ export class AuthService {
     );
   }
 
+  
+  recoverAccount(username: string): Observable<any> {
+    const params = new HttpParams().set('user', username);
+    return this.http.put(`${this.apiUrl}/Recover`, null, { params }).pipe(
+      tap(response => console.log('Recover response:', response)),
+      catchError(error => {
+        console.error('Recover error:', error);
+        return throwError(error);
+      })
+    );
+  }
+
+
   logout(): void {
     localStorage.removeItem('token');
     sessionStorage.removeItem('token');
     this.isLoggedInSubject.next(false);
+
     this.router.navigate(['/login']);
   }
 
@@ -82,15 +100,22 @@ export class AuthService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.put<any>(`${this.apiUrl}/update`, data, { headers });
   }
-  deleteUser(): Observable<any> {
+
+  deleteUser(password: string): Observable<any> {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-    if (!token) {
+    if (!token )  {
       console.error('Token not found!');
       return throwError(() => new Error('Token missing'));
     }
-  
+    else if (password == localStorage.getItem('password')) {
+   
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.delete<any>(`${this.apiUrl}/delete`, { headers });
+    }
+    else {
+      console.error('Password does not match!');
+      return throwError(() => new Error('Password does not match'));
+    }
   }
   
   

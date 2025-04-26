@@ -67,7 +67,7 @@ export class RegisterComponent {
       confirmPassword: ['', Validators.required],
     }, {
       validators: passwordMatchValidator('password', 'confirmPassword')
-    });
+    }); 
   }
 
   ngOnInit(): void {

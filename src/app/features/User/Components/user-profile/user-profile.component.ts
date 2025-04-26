@@ -17,18 +17,23 @@ export class UserProfileComponent implements OnInit {
   private authService = inject(AuthService);
   constructor(private router: Router, private eRef: ElementRef) {}
 
+
   user: any = {};
   showPopup = false;
   loading = false;
   egyptGovernorates = egyptGovernorates;
   notvalidemail: string | null = null;
   editingProfile = false; 
-
   errors = {
     fullName: '',
     email: '',
     phone: ''
   };
+  
+  showPasswordModal: boolean = false;
+  confirmPassword: string = '';
+  deleteError: string = '';
+
 
   ngOnInit(): void {
     this.authService.getUserProfile().subscribe({
@@ -109,11 +114,13 @@ export class UserProfileComponent implements OnInit {
   togglePopup() {
     this.showPopup = !this.showPopup;
   }
+
   @HostListener('document:click', ['$event'])
   clickOutside(event: Event) {
     if (this.showPopup && !this.eRef.nativeElement.contains(event.target)) {
       this.showPopup = false;
     }}
+
   logout() {
     this.authService.logout();
     this.togglePopup();
@@ -122,17 +129,31 @@ export class UserProfileComponent implements OnInit {
   cancelEdit() {
     this.editingProfile = false; 
   }
-  deleteAccount() {
-    this.authService.deleteUser().subscribe({
-      next: () => {
-        alert('Account deleted successfully!');
-        this.logout();
-        this.router.navigate(['/login']);
-      },
-      error: (err) => {
-        console.error('Failed to delete account:', err);
-      }
-    });
-    
-  }
+ 
+openDeleteModal() {
+  this.togglePopup();
+  this.showPasswordModal = true;
+  this.confirmPassword = '';
+  this.deleteError = '';
+}
+
+cancelDelete() {
+  this.showPasswordModal = false;
+  this.confirmPassword = '';
+  this.deleteError = '';
+}
+
+confirmDelete() {
+  this.deleteError = '';
+  
+  this.authService.deleteUser(this.confirmPassword).subscribe({
+    next: () => {
+      this.showPasswordModal = false;
+      this.authService.logout();
+    },
+    error: (err) => {
+      this.deleteError = err.error?.message || 'Incorrect password or server error.';
+    }
+  });
+}
 }

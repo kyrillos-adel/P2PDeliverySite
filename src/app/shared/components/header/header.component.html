@@ -1,6 +1,7 @@
+<!-- Navbar with responsive behavior -->
 <nav class="navbar navbar-expand-lg sticky-top shadow-sm">
-  <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+  <div class="container">
+    <a class="navbar-brand" href="#">
       <img src="logocopy.png" width="90px" alt="Logo">
     </a>
 
@@ -14,16 +15,28 @@
       <ul class="navbar-nav ms-auto align-items-center gap-2 pe-3">
         <ng-container *ngIf="isLoggedIn">
           <li class="nav-item">
-            <a class="nav-link custom-link" routerLink="/" routerLinkActive="active">Delivery Request</a>
+            <a class="nav-link custom-link" routerLink="deliveryrequests/getallDRs" routerLinkActive="active">Delivery Requests</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link custom-link" routerLink="/" routerLinkActive="active">My Applications</a>
+            <a class="nav-link custom-link" routerLink="DRApplications/GetMyApplications" routerLinkActive="active">My Applications</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link custom-link" routerLink="deliveryrequests/getMyDeliveryRequests" routerLinkActive="active">My Delivery Requests</a>
+          </li>
+
           <li class="nav-item">
             <a class="nav-link custom-link d-flex align-items-center gap-1" routerLink="/" routerLinkActive="active">
               <i class="bi bi-chat-dots fs-5"></i> Chats
             </a>
           </li>
+
+          <li class="nav-item">
+            <a class="nav-link custom-link d-flex align-items-center gap-1" routerLink="deliveryrequests/Create" routerLinkActive="active">
+              <i class="bi bi-pencil-square fs-5"></i> Create
+            </a>
+          </li>
+          
+          
           <li class="nav-item position-relative">
             <a class="nav-link custom-link d-flex align-items-center gap-1" routerLink="/" routerLinkActive="active">
               <i class="bi bi-bell fs-5"></i> 
@@ -37,7 +50,15 @@
         </ng-container>
 
         <!-- Logged Out Links -->
-       
+        <ng-container *ngIf="!isLoggedIn">
+          <li class="nav-item">
+            <a class="nav-link custom-link" routerLink="/Register" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link custom-link" routerLink="/login" routerLinkActive="active">Login</a>
+          </li>
+          
+        </ng-container>
       </ul>
 
       <ng-container *ngIf="!isLoggedIn">
@@ -49,3 +70,4 @@
     </div>
   </div>
 </nav>
+
