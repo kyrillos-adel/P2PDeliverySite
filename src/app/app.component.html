@@ -1,10 +1,12 @@
 <ng-container *ngIf="!isAuthRoute">
     <app-header></app-header>
   </ng-container>
-  
+
   <router-outlet></router-outlet>
-  
+
+  <app-chats-panel></app-chats-panel>
+  <app-chat-window></app-chat-window>
+
   <ng-container *ngIf="!isAuthRoute">
     <app-footer></app-footer>
   </ng-container>
-  
