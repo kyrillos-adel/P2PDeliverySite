@@ -116,7 +116,5 @@ export class AuthService {
       console.error('Password does not match!');
       return throwError(() => new Error('Password does not match'));
     }
-  }
-  
-  
+  } 
 }
