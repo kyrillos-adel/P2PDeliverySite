@@ -4,3 +4,15 @@
   --dark:#19283f;
   --yellow: #e99a42;
 }
+
+.btn-main{
+  padding: 5px 20px;
+  background-color:var(--yellow);
+  color: var(--dark);
+}
+
+.btn-main:hover{
+  opacity: 0.9;
+  background-color:var(--yellow);
+  color: var(--dark);
+}

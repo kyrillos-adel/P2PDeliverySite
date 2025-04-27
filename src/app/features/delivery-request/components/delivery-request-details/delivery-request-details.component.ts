@@ -4,6 +4,8 @@ import { DeliveryRequestDetails } from '../../../../models/delivery-request/deli
 import { ApiResponse } from '../../../../models/api-response';
 import { NgFor, NgIf } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AddApplicationComponent } from '../../../DRApplication/components/add-application/add-application.component';
 
 
 @Component({
@@ -16,8 +18,9 @@ export class DeliveryRequestDetailsComponent {
 
   deliveryRequestService = inject(DeliveryRequestService);
   route = inject(ActivatedRoute);
-  deliveryRequestDetails !: DeliveryRequestDetails; // You can strongly type it if you have an interface
+  deliveryRequestDetails !: DeliveryRequestDetails; 
   errorMessage: string = '';
+  constructor(private modalService: NgbModal) {}
 
   ngOnInit(){
     const id = Number(this.route.snapshot.paramMap.get('id')); // gets ID from URL
@@ -28,7 +31,8 @@ export class DeliveryRequestDetailsComponent {
 
     this.deliveryRequestService
     .getRequestDetails(id)
-    .subscribe((response:ApiResponse<DeliveryRequestDetails>)=> {
+    .subscribe({
+      next: (response)=> {
       console.log(response);
       if (response.isSuccess) {
         this.deliveryRequestDetails = response.data;
@@ -37,9 +41,17 @@ export class DeliveryRequestDetailsComponent {
         this.errorMessage = response.message || 'An error occurred while fetching request details.';
         console.error(this.errorMessage);
       }
-    });
+    }});
 
   }
 
 
+  openPopup() {
+    const modalRef = this.modalService.open(AddApplicationComponent, {
+      centered: true, 
+      size: 'm'
+    });
+
+    modalRef.componentInstance.deliveryRequestID = this.deliveryRequestDetails.id;
+  }
 }
