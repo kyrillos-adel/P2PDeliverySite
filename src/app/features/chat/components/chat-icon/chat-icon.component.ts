@@ -23,6 +23,6 @@ export class ChatIconComponent {
   }
 
   toggleChatsPanel() {
-    this.chatService.toggleChatWindow();
+    this.chatService.toggleChatsPanel();
   }
 }

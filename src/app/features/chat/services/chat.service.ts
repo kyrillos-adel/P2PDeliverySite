@@ -53,10 +53,15 @@ export class ChatService {
   }
 
   loadChats(): Observable<ChatDto[]> {
-    this.http.get<ApiResponse<ChatDto[]>>(`${this.apiUrl}/list`)
+    this.http.get<ApiResponse<ChatDto[]>>(`${this.apiUrl}/user`)
       .subscribe({
         next: (response) => {
           if (response.isSuccess) {
+            response.data.forEach(chat => {
+              chat.unreadMessagesCount = 0;
+              chat.lastMessage = chat.messages?.length > 0 ? chat.messages[chat.messages.length - 1] : null;
+              chat.lastMessageTime = chat.lastMessage?.date ?? null;
+            })
             this.chatsSubject.next(response.data);
           } else {
             console.error(`Error loading chats: ${response.message}`, response.errorCode);
@@ -83,7 +88,7 @@ export class ChatService {
       const updatedChats = [...currentChats];
       updatedChats[chatIndex] = {
         ...updatedChats[chatIndex],
-        lastMessage: message.message,
+        lastMessage: message,
         lastMessageTime: message.date,
         unreadMessagesCount: this.activeChatSubject.value?.id === message.chatId ? 0 :
           (updatedChats[chatIndex].unreadMessagesCount || 0) + 1

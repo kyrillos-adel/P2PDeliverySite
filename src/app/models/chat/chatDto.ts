@@ -8,7 +8,7 @@ export interface ChatDto {
   userBId : number;
   userBName : string;
   messages : Array<ChatMessageDto>;
-  lastMessage : string;
-  lastMessageTime : Date;
+  lastMessage : ChatMessageDto | null;
+  lastMessageTime : Date | null;
   unreadMessagesCount : number;
 }
