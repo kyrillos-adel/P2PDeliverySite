@@ -11,9 +11,10 @@ import { RegisterComponent } from './features/User/Components/register/register.
 import { LoginComponent } from './features/User/Components/login/login.component';
 import { DeliveryRequestsByUserIdComponent } from './features/delivery-request/components/delivery-requests-by-user-id/delivery-requests-by-user-id.component';
 import { DRApplictionsByUserIdComponent } from './features/DRApplication/components/drapplictions-by-user-id/drapplictions-by-user-id.component';
+import { AddApplicationComponent } from './features/DRApplication/components/add-application/add-application.component';
 
 export const routes: Routes = [
-  { 
+  {
     path: '',
     component: HomeComponent
   },
@@ -26,8 +27,8 @@ export const routes: Routes = [
     pathMatch: 'full',
     component: DeliveryRequestUpdateComponent,
   },
-  { 
-    path: 'user-details', 
+  {
+    path: 'user-details',
     component: UserDetailsComponent,
     canActivate: [AuthGuard],
   },
@@ -38,7 +39,7 @@ export const routes: Routes = [
   },
   { path: 'deliveryrequests/Create',
     pathMatch: 'full',
-     component: DeliveryRequestCreationComponent 
+     component: DeliveryRequestCreationComponent
   },
   {
     path:'deliveryrequests/getallDRs',
@@ -55,7 +56,7 @@ export const routes: Routes = [
     component: LoginComponent,
     pathMatch: 'full'
   },
-  { 
+  {
     path: 'edit-profile',
      component: EditUserComponent,
      canActivate: [AuthGuard],
@@ -72,5 +73,9 @@ export const routes: Routes = [
     pathMatch: 'full',
     component:DRApplictionsByUserIdComponent
 
+  },
+  {
+    path:"Application/add",
+    component:AddApplicationComponent
   }
 ];
