@@ -1,0 +1,179 @@
+.profile-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color:var(--yellow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.profile-popup {
+  background-color: #f0f0f0 !important;
+  border-radius: 8px;
+  font-family: 'Montserrat', sans-serif;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.profile-popup .form-label {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.profile-popup input.form-control {
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
+
+.profile-popup .btn-outline-primary {
+  background-color: var(--sender);
+  border-color: var(--dark);
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.5rem;
+  border-radius: 4px;
+  color: var(--neutral);
+}
+
+.profile-popup .btn-outline-primary:hover {
+  background-color: var(--dark);
+  border-color: var(--dark);
+  color: var(--yellow);
+}
+
+.profile-popup .btn-outline-warning {
+  background-color: var(--traveler);
+  border-color: var(--yellow);
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.5rem;
+  border-radius: 4px;
+  color: var(--yellow);
+}
+
+.profile-popup .btn-outline-warning:hover {
+  background-color: var(--yellow);
+  border-color: var(--yellow);
+  color: var(--dark);
+}
+
+.profile-popup .btn-outline-danger {
+  background-color: var(--traveler);
+  border-color:rgb(235, 40, 40);
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.5rem;
+  border-radius: 4px;
+  color: rgb(235, 40, 40);
+}
+
+.profile-popup .btn-outline-danger:hover {
+  background-color:rgb(235, 40, 40);
+  border-color:rgb(235, 40, 40);
+  color: white;
+
+}
+.profile-popup {
+  background-color: var(--neutral);
+  border-radius: 8px;
+  font-family: 'Montserrat', sans-serif;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-height: 80vh; 
+  overflow-y: auto; 
+}
+
+.error {
+  color: red;
+  font-size: 0.8em;
+}
+
+.custom-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1055;
+}
+
+.custom-modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+
+
+}
+
+
+/*هنا اخر تغيير لبوباب*/
+/* Make the profile popup take full width on smaller screens */
+.profile-popup {
+  width: 100%;
+  max-width: 400px; /* Set a max-width for larger screens */
+  padding: 1.5rem; /* Add padding */
+}
+
+/* Base styles for the popup (assumed, adjust if needed) */
+.profile-popup {
+  width: 400px; /* Already set inline, keeping for clarity */
+  z-index: 999;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem; /* Matches p-4 */
+}
+
+/* Ensure buttons and text wrap properly */
+.profile-popup .btn {
+  white-space: normal; /* Allow text to wrap */
+  text-align: center;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}
+
+/* Ensure form elements are readable */
+.profile-popup .form-label,
+.profile-popup .form-control,
+.profile-popup .form-select {
+  font-size: 1rem;
+}
+
+/* Mobile adjustments */
+@media (max-width: 576px) {
+  .profile-popup {
+    width: 90vw; /* Use 90% of viewport width for better fit */
+    max-width: 320px; /* Cap at 320px for readability */
+    right: auto; /* Remove right alignment */
+    left: 50%; /* Center the popup */
+    transform: translateX(-50%); /* Center horizontally */
+    padding: 1rem; /* Reduce padding for smaller screens */
+  }
+
+  .profile-popup .btn {
+    font-size: 0.9rem; /* Slightly smaller font for mobile */
+    padding: 0.4rem 0.8rem;
+  }
+
+  .profile-popup .form-label,
+  .profile-popup .form-control,
+  .profile-popup .form-select {
+    font-size: 0.9rem; /* Adjust font size for mobile */
+  }
+
+  .profile-popup h5.card-title {
+    font-size: 1.2rem; /* Smaller title on mobile */
+  }
+}

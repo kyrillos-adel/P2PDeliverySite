@@ -1,0 +1,84 @@
+<div class="position-relative">
+  <div class="profile-icon text-white text-center fw-bold" (click)="togglePopup()">
+    {{ user.userName?.charAt(0).toUpperCase() }}
+  </div>
+
+  <div class="card profile-popup registerForm shadow position-absolute end-0 mt-2 p-4" *ngIf="showPopup"
+    style="width: 400px; z-index: 999;">
+    
+    <h5 class="card-title text-center mb-3" style="font-weight: 700;">Profile</h5>
+
+    <div *ngIf="!editingProfile">
+      <button class="btn btn-outline-primary w-100 mb-2" (click)="togglePopup()" [routerLink]="['/edit-profile']">{{user.userName}}'s Profile</button>
+      <button class="btn btn-outline-warning w-100 mb-2" (click)="openDeleteModal()">Delete Account</button>
+      <button class="btn btn-outline-danger w-100 mb-2" (click)="logout()">Logout</button>
+    </div>
+
+    <div *ngIf="editingProfile">
+      <div class="mb-3 text-start">
+        <label class="form-label">Username (not editable)</label>
+        <input type="text" class="form-control" [value]="user.userName" disabled>
+      </div>
+
+      <div class="mb-3 text-start">
+        <label class="form-label">Full Name</label>
+        <input type="text" class="form-control" [(ngModel)]="user.fullName">
+      </div>
+      <span class="error" *ngIf="errors.fullName">{{ errors.fullName }}</span>
+
+      <div class="mb-3 text-start">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-control" [(ngModel)]="user.email">
+      </div>
+      <span class="error" *ngIf="errors.email">{{ errors.email }}</span>
+      <span class="error" *ngIf="notvalidemail">{{ notvalidemail }}</span>
+
+      <div class="mb-3 text-start">
+        <label class="form-label">Phone</label>
+        <input type="text" class="form-control" [(ngModel)]="user.phone">
+      </div>
+      <span class="error" *ngIf="errors.phone">{{ errors.phone }}</span>
+
+      <div class="mb-3 text-start">
+        <label class="form-label">Address</label>
+        <select class="form-select" [(ngModel)]="user.address" name="address">
+          <option value="" disabled>Select Governorate</option>
+          <option *ngFor="let gov of egyptGovernorates" [value]="gov">{{ gov }}</option>
+        </select>
+      </div>
+
+      <div class="mb-3 text-start">
+        <label class="form-label">National ID (not editable)</label>
+        <input type="text" class="form-control" [value]="user.natId" disabled>
+      </div>
+
+      <div class="d-flex justify-content-between gap-2">
+        <button class="btn btn-primary w-100" (click)="saveProfile()" [disabled]="loading">
+          <span *ngIf="!loading">Save</span>
+          <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        </button>
+        <button class="btn btn-outline-secondary w-100" (click)="cancelEdit()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Custom Password Confirmation Modal -->
+<div class="custom-modal" *ngIf="showPasswordModal">
+  <div class="custom-modal-content">
+    <h5 class="text-center mb-3">Confirm Account Deletion</h5>
+    <p class="text-center">Please enter your password to confirm:</p>
+    <input
+      type="password"
+      class="form-control mb-2"
+      [(ngModel)]="confirmPassword"
+      placeholder="Enter password"
+    />
+    <div class="text-danger mb-2 text-center" *ngIf="deleteError">{{ deleteError }}</div>
+    <div class="d-flex justify-content-between">
+      <button class="btn btn-secondary w-50 me-2" (click)="cancelDelete()">Cancel</button>
+      <button class="btn btn-danger w-50" (click)="confirmDelete()">Delete</button>
+    </div>
+  </div>
+</div>

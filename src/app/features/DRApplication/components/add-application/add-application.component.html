@@ -1,0 +1,18 @@
+<div class="container add-application my-1 mb-5">
+    <div class="modal-header">
+        <h3 class="modal-title">Apply</h3>
+        <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.close()"></button>
+    </div>
+    <form >
+        <p class="text-muted">Please add your offered price to get in touch with requester.</p>
+        <div class="form-floating">
+            <input type="number" class="form-control" name ="offeredPrice" id="offeredPrice" [(ngModel)]="offeredPrice">
+            <label for="offeredPrice">offered Price (EGP)</label>
+        </div>
+        <div class="gap-2 mt-4">
+            <button type="submit" class="btn btn-main px-4 py-1 text-white" (click)="Apply()">Apply</button>
+            <button type="button" class="btn btn-danger px-4 py-1 mx-3" aria-label="Close" (click)="activeModal.close()">Close</button>
+          </div>
+    </form>
+</div>
+
