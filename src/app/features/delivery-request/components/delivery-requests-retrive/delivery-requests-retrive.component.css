@@ -1,27 +1,35 @@
+html {
+  scroll-behavior: smooth;
+}
+
+
 .scrollable-feed {
-    max-height: 75vh;
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: #ccc transparent;
-  }
-  
-  .scrollable-feed::-webkit-scrollbar {
-    width: 6px;
-  }
-  
-  .scrollable-feed::-webkit-scrollbar-thumb {
-    background-color: #bbb;
-    border-radius: 4px;
-  }
-  
-  .post-card {
-    border-radius: 12px;
-    background-color: #fff;
-    padding: 1rem;
-    transition: transform 0.2s ease-in-out;
-  }
-  
-  .post-card:hover {
-    transform: translateY(-3px);
-  }
-  
+  padding: 1rem;
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.card {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.btn {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.btn-success:hover {
+  background-color: #28a745;
+  color: #fff;
+}

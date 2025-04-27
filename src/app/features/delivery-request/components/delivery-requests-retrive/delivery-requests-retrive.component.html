@@ -1,28 +1,50 @@
 <div class="container mt-5">
-  <h2 class="mb-4 text-center text-primary">Available Delivery Requests</h2>
+  <h3 class="mb-4 text-center" style="color: #19283f; font-weight: bold; font-size: 2rem;">Available Delivery Requests</h3>
 
-  <div class="scrollable-feed p-3 bg-light rounded shadow-sm">
+  <div class="scrollable-feed p-4 bg-white rounded shadow-lg">
     <div *ngFor="let request of deliveryRequests" class="card post-card mb-4 shadow-sm border-0">
       <div class="card-body">
-        <div class="d-flex justify-content-between align-items-center mb-2">
+        <div class="d-flex justify-content-between align-items-center mb-3">
           <div>
-            <h5 class="text-muted mb-1">{{ request.userName }}</h5>
-            <h4 class="fw-bold text-dark">{{ request.title }}</h4>
+            <h5 class="text-primary mb-1" style="font-size: 1.1rem;">{{ request.userName }}</h5>
+            <h4 class="fw-bold text-dark" style="font-size: 1.5rem;">{{ request.title }}</h4>
           </div>
+          
         </div>
 
-         <!-- Meta Info -->
-         <ul class="list-unstyled mt-3">
-          <li class="mb-1"><strong>⚖️ Weight:</strong> {{ request.totalWeight }} kg</li>
-          <li class="mb-1"><strong>📍 From:</strong> {{ request.pickUpLocation }}</li>
-          <li class="mb-1"><strong>📦 To:</strong> {{ request.dropOffLocation }}</li>
-          <li class="mb-1"><strong>📅 Pickup Date:</strong> {{ request.pickUpDate | date: 'mediumDate' }}</li>
+        <!-- Meta Info -->
+        <ul class="list-unstyled mt-3">
+          <li class="mb-2">
+            <strong class="text-dark">Description:</strong>
+            <span class="text-muted">{{ request.description }}</span>
+          </li>
+          <li class="mb-2"><strong>⚖️ Weight:</strong> {{ request.totalWeight }} kg</li>
+          <li class="mb-2"><strong>📍 From:</strong> {{ request.pickUpLocation }}</li>
+          <li class="mb-2"><strong>📦 To:</strong> {{ request.dropOffLocation }}</li>
+          <li class="mb-2"><strong>📅 Pickup Date:</strong> {{ request.pickUpDate | date: 'mediumDate' }}</li>
         </ul>
-        <div class="mt-3 d-flex justify-content-end gap-2">
-          <!-- <button class="btn btn-outline-primary btn-sm me-2" (click)="viewDetails(request)">View Details</button>
-          <button class="btn btn-primary btn-sm" (click)="applyToRequest(request)">Apply</button> -->
-          <button class="btn btn-outline-primary btn-sm me-2"  >View Details</button>
-          <button class="btn btn-success btn-sm" >Apply</button>
+
+        <div class="mt-4 d-flex justify-content-end gap-3">
+          <button class="btn btn-outline-primary btn-sm px-4 py-2" style="border-radius: 20px;" >
+            View Details
+          </button>
+
+          
+          <!-- //Router link to create application   -->
+          <button class="btn btn-success btn-sm px-4 py-2" style="border-radius: 20px;" [routerLink]="['/deliveryrequests', 'Create']">
+            Apply
+          </button>
+          
+          
+
+
+
+          <!-- <button class="btn btn-outline-primary btn-sm px-4 py-2" style="border-radius: 20px;" (click)="viewDetails(request)">
+            View Details
+          </button>
+          <button class="btn btn-success btn-sm px-4 py-2" style="border-radius: 20px;" (click)="applyToRequest(request)">
+            Apply
+          </button> -->
         </div>
       </div>
     </div>
