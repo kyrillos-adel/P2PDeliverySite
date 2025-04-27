@@ -76,6 +76,7 @@ export const routes: Routes = [
   },
   {
     path:"Application/add",
+    pathMatch:'full',
     component:AddApplicationComponent
   }
 ];
