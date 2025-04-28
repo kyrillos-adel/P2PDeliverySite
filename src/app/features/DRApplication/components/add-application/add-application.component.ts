@@ -8,6 +8,7 @@ import { ApiResponse } from '../../../../models/api-response';
 
 @Component({
   selector: 'app-add-application',
+  standalone: true,
   imports: [NgbModule,FormsModule ],
   templateUrl: './add-application.component.html',
   styleUrl: './add-application.component.css'
