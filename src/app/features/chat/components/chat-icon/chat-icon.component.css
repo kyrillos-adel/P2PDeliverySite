@@ -1,0 +1,23 @@
+.chat-icon {
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  justify-content: center;
+}
+.chat-icon i {
+  color: var(--yellow);
+  font-size: 20px;
+}
+.badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: var(--yellow);
+  color: var(--dark);
+  width: 18px;
+  height: 18px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
