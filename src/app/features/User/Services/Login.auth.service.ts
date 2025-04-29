@@ -29,7 +29,7 @@ export class AuthService {
         ),
       catchError(error => {
         console.error('Login error:', error);
-        return throwError(error);
+        return throwError(()=>error);
       })
     );
   }

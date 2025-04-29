@@ -5,13 +5,15 @@ import { ApiResponse } from '../../../../models/api-response';
 import { NgFor, NgIf } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { RouterModule,Router,RouterLink } from '@angular/router';
 import { AddApplicationComponent } from '../../../DRApplication/components/add-application/add-application.component';
 
 
 @Component({
   selector: 'app-delivery-request-details',
-  imports: [NgIf],
-  templateUrl: './delivery-request-details.component.html',
+  standalone: true,
+  imports: [NgIf,RouterModule,RouterLink],
+  templateUrl:'./delivery-request-details.component.html',
   styleUrl: './delivery-request-details.component.css'
 })
 export class DeliveryRequestDetailsComponent {
@@ -20,6 +22,7 @@ export class DeliveryRequestDetailsComponent {
   route = inject(ActivatedRoute);
   deliveryRequestDetails !: DeliveryRequestDetails; 
   errorMessage: string = '';
+  router = inject(Router);
   constructor(private modalService: NgbModal) {}
 
   ngOnInit(){
@@ -46,12 +49,20 @@ export class DeliveryRequestDetailsComponent {
   }
 
 
-  openPopup() {
-    const modalRef = this.modalService.open(AddApplicationComponent, {
-      centered: true, 
-      size: 'm'
-    });
-
-    modalRef.componentInstance.deliveryRequestID = this.deliveryRequestDetails.id;
-  }
+  openPopup(deliveryRequestId: number) {
+     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+ 
+     if (token) {
+      
+       const modalRef = this.modalService.open(AddApplicationComponent, {
+         centered: true,
+         size: 'm'
+       });
+ 
+       modalRef.componentInstance.deliveryRequestID = deliveryRequestId;
+     } else {
+       
+       this.router.navigate(['/login']);
+     }
+   }
 }

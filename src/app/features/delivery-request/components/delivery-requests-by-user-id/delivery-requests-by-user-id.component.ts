@@ -14,7 +14,8 @@ export class DeliveryRequestsByUserIdComponent implements OnInit {
   deliveryRequests: DeliveryRequestDto[] = [];
 
   constructor(private deliveryRequestService: DeliveryRequestService
-, private authService: AuthService
+, private authService: AuthService,
+  
   ) {}
 
   ngOnInit() {
