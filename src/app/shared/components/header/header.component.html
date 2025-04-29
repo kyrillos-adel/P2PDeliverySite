@@ -48,17 +48,6 @@
           </li>
 
         </ng-container>
-
-        <!-- Logged Out Links -->
-        <ng-container *ngIf="!isLoggedIn">
-          <li class="nav-item">
-            <a class="nav-link custom-link" routerLink="/Register" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Register</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link custom-link" routerLink="/login" routerLinkActive="active">Login</a>
-          </li>
-
-        </ng-container>
       </ul>
 
       <ng-container *ngIf="!isLoggedIn">
