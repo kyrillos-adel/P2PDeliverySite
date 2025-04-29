@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 import { DeliveryRequestService } from '../../services/delivery-request.service';
 import { DeliveryRequestDto } from '../../../../models/delivery-request/delivery-request.dto';
 import { AuthService } from '../../../User/Services/Login.auth.service';
+import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-delivery-requests-by-user-id',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './delivery-requests-by-user-id.component.html',
   styleUrl: './delivery-requests-by-user-id.component.css'
 })
@@ -13,7 +14,8 @@ export class DeliveryRequestsByUserIdComponent implements OnInit {
   deliveryRequests: DeliveryRequestDto[] = [];
 
   constructor(private deliveryRequestService: DeliveryRequestService
-, private authService: AuthService
+, private authService: AuthService,
+  
   ) {}
 
   ngOnInit() {

@@ -1,0 +1,11 @@
+.add-application{
+    width: 92%;
+}
+.add-application h3{
+    color: var(--dark);
+}
+
+.form-floating .form-control:focus{
+    border-color: var(--yellow) !important;
+    box-shadow: none;
+}
