@@ -50,7 +50,7 @@ export class DeliveryRequestDetailsComponent {
 
 
   openPopup(deliveryRequestId: number) {
-     const token = localStorage.getItem('token') || sessionStorage.getItem('token'); // ✅ Check token
+     const token = localStorage.getItem('token') || sessionStorage.getItem('token'); 
  
      if (token) {
       
