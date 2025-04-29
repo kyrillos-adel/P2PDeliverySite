@@ -24,7 +24,7 @@ export const routes: Routes = [
   },
   {
     path: 'deliveryrequests/update/:id',
-    pathMatch: 'full',
+     pathMatch: 'full',
     component: DeliveryRequestUpdateComponent,
   },
   {
