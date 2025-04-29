@@ -11,6 +11,7 @@ import { RegisterComponent } from './features/User/Components/register/register.
 import { LoginComponent } from './features/User/Components/login/login.component';
 import { DeliveryRequestsByUserIdComponent } from './features/delivery-request/components/delivery-requests-by-user-id/delivery-requests-by-user-id.component';
 import { DRApplictionsByUserIdComponent } from './features/DRApplication/components/drapplictions-by-user-id/drapplictions-by-user-id.component';
+import { AddApplicationComponent } from './features/DRApplication/components/add-application/add-application.component';
 
 export const routes: Routes = [
   {
@@ -71,5 +72,9 @@ export const routes: Routes = [
     pathMatch: 'full',
     component:DRApplictionsByUserIdComponent
 
+  },
+  {
+    path:"Application/add",
+    component:AddApplicationComponent
   }
 ];
