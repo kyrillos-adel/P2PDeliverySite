@@ -1,20 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DeliveryRequestService } from '../../services/delivery-request.service';
 import { DeliveryRequestDto } from '../../../../models/delivery-request/delivery-request.dto';
-
+import { RouterModule,Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AddApplicationComponent } from '../../../DRApplication/components/add-application/add-application.component';
 
 @Component({
   selector: 'app-delivery-requests-retrive',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './delivery-requests-retrive.component.html',
   styleUrls: ['./delivery-requests-retrive.component.css']
 })
 export class DeliveryRequestsRetriveComponent implements OnInit {
   deliveryRequests: DeliveryRequestDto[] = [];
 
-  constructor(private deliveryRequestService: DeliveryRequestService) {}
+  deliveryRequestService = inject(DeliveryRequestService);
+  modalService = inject(NgbModal); 
+  router = inject(Router);
+
+  constructor() {}
 
   ngOnInit() {
     this.deliveryRequestService.getallDRs().subscribe(response => {
@@ -24,32 +30,22 @@ export class DeliveryRequestsRetriveComponent implements OnInit {
         console.error('Error fetching delivery requests:', response.message);
       }
     });
-
-
-    
   }
 
+  openPopup(deliveryRequestId: number) {
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token'); 
 
-  
+    if (token) {
+     
+      const modalRef = this.modalService.open(AddApplicationComponent, {
+        centered: true,
+        size: 'm'
+      });
+
+      modalRef.componentInstance.deliveryRequestID = deliveryRequestId;
+    } else {
+      
+      this.router.navigate(['/login']);
+    }
+  }
 }
-
-
-
-
-
-
-// getUser(name: string): Observable<any> {
-//   const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-//   if (!token) {
-//     console.error('No token found');
-//     return throwError(() => new Error('No token'));
-//   }
-//   const headers = new HttpHeaders({
-//     'Authorization': Bearer ${token},
-//   });
-//   const params = new HttpParams().set('Name', name);
-//   return this.http.get(${this.apiUrl}/findbyname, { headers , params }); 
-// } 
-// getToken(): string | null {
-//   return localStorage.getItem('token') || sessionStorage.getItem('token');
-// }
