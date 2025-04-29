@@ -32,6 +32,7 @@ export const routes: Routes = [
     component: UserDetailsComponent,
     canActivate: [AuthGuard],
   },
+
   {
     path: 'deliveryrequests/details/:id',
     component: DeliveryRequestDetailsComponent,
@@ -75,6 +76,7 @@ export const routes: Routes = [
   },
   {
     path:"Application/add",
+    pathMatch:'full',
     component:AddApplicationComponent
   }
 ];

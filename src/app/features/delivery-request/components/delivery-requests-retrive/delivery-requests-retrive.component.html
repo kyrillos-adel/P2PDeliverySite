@@ -25,26 +25,19 @@
         </ul>
 
         <div class="mt-4 d-flex justify-content-end gap-3">
-          <button class="btn btn-outline-primary btn-sm px-4 py-2" style="border-radius: 20px;" >
+          <button class="btn btn-outline-primary btn-sm px-4 py-2" style="border-radius: 20px;" [routerLink]="['/deliveryrequests/details/', request.id]">
             View Details
           </button>
 
           
           <!-- //Router link to create application   -->
-          <button class="btn btn-success btn-sm px-4 py-2" style="border-radius: 20px;" [routerLink]="['/deliveryrequests', 'Create']">
-            Apply
-          </button>
-          
-          
+          <button 
+          class="btn btn-success btn-sm px-4 py-2" 
+          style="border-radius: 20px;" 
+          (click)="openPopup(request.id)">
+          Apply
+        </button>
 
-
-
-          <!-- <button class="btn btn-outline-primary btn-sm px-4 py-2" style="border-radius: 20px;" (click)="viewDetails(request)">
-            View Details
-          </button>
-          <button class="btn btn-success btn-sm px-4 py-2" style="border-radius: 20px;" (click)="applyToRequest(request)">
-            Apply
-          </button> -->
         </div>
       </div>
     </div>
