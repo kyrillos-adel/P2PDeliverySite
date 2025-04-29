@@ -25,8 +25,8 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link custom-link d-flex align-items-center gap-1" routerLink="/" routerLinkActive="active">
-              <i class="bi bi-chat-dots fs-5"></i> Chats
+            <a class="nav-link custom-link d-flex align-items-center gap-1">
+              <app-chat-icon></app-chat-icon>
             </a>
           </li>
 
@@ -35,21 +35,30 @@
               <i class="bi bi-pencil-square fs-5"></i> Create
             </a>
           </li>
-          
-          
+
+
           <li class="nav-item position-relative">
             <a class="nav-link custom-link d-flex align-items-center gap-1" routerLink="/" routerLinkActive="active">
-              <i class="bi bi-bell fs-5"></i> 
+              <i class="bi bi-bell fs-5"></i>
               <span class="badge bg-danger position-absolute top-0 start-100 translate-middle rounded-pill px-2">3</span>
             </a>
-          </li>  
+          </li>
           <li class="nav-item ms-3">
             <app-user-profile></app-user-profile>
           </li>
-       
+
         </ng-container>
 
-       
+        <!-- Logged Out Links -->
+        <ng-container *ngIf="!isLoggedIn">
+          <li class="nav-item">
+            <a class="nav-link custom-link" routerLink="/Register" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link custom-link" routerLink="/login" routerLinkActive="active">Login</a>
+          </li>
+
+        </ng-container>
       </ul>
 
       <ng-container *ngIf="!isLoggedIn">
