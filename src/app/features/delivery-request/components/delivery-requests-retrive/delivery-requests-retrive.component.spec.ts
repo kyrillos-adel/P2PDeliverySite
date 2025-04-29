@@ -8,7 +8,7 @@ describe('DeliveryRequestsRetriveComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DeliveryRequestsRetriveComponent]
+      imports: [DeliveryRequestsRetriveComponent],
     })
     .compileComponents();
 

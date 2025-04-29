@@ -2,7 +2,7 @@
   <form [formGroup]="createForm" (ngSubmit)="onSubmit()" novalidate>
     
     <div class="card shadow rounded-4 p-4">
-      <h3 class="mb-4 text-center text-primary">Create Delivery Request</h3>
+      <h3 class="mb-4 text-center " style="color: #19283f;">Create Delivery Request</h3>
 
       <!-- Basic Info -->
       
@@ -130,7 +130,7 @@
       </div>
 
       @if (createForm.errors?.['priceRange']) {
-        <div class="alert alert-danger mt-3">
+        <div class="text-danger mt-2">
           Maximum price must be greater than minimum price
         </div>
       }

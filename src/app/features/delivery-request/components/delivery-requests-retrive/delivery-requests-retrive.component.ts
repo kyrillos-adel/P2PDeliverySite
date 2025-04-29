@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DeliveryRequestService } from '../../services/delivery-request.service';
 import { DeliveryRequestDto } from '../../../../models/delivery-request/delivery-request.dto';
-
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-delivery-requests-retrive',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,RouterModule],
   templateUrl: './delivery-requests-retrive.component.html',
   styleUrls: ['./delivery-requests-retrive.component.css']
 })
