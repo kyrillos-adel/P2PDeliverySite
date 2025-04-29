@@ -16,13 +16,14 @@ export class AddApplicationComponent {
   applicationService = inject(DRApplicationService);
   offeredPrice!: number;
   // data !: AddApplicationDTO;
-  @Input() deliveryRequestID!: number;
+  @Input() deliveryRequestID: number=0;
   modalTitle: string = '';
   modalMessage: string = '';
 
   constructor(public activeModal: NgbActiveModal,private modalService: NgbModal) {}
 
   Apply(){
+    console.log("deliveryRequestID:" , this.deliveryRequestID);
     const Data: AddApplicationDTO = {
       offeredPrice: this.offeredPrice,
       deliveryRequestId: this.deliveryRequestID
