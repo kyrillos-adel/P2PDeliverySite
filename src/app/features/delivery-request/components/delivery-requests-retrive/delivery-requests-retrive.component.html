@@ -1,8 +1,8 @@
 <div class="container mt-5">
   <h3 class="mb-4 text-center" style="color: #19283f; font-weight: bold; font-size: 2rem;">Available Delivery Requests</h3>
 
-  <div class="scrollable-feed p-4 bg-white rounded shadow-lg">
-    <div *ngFor="let request of deliveryRequests" class="card post-card mb-4 shadow-sm border-0">
+  <!-- <div class="scrollable-feed p-4 bg-transparent rounded shadow-sm"> -->
+    <div *ngFor="let request of deliveryRequests" class="card post-card mb-4 shadow-sm border-1">
       <div class="card-body">
         <div class="d-flex justify-content-between align-items-center mb-3">
           <div>
@@ -37,9 +37,8 @@
           (click)="openPopup(request.id)">
           Add Application
         </button>
-        
         </div>
       </div>
     </div>
   </div>
-</div>
+<!-- </div> -->

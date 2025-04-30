@@ -1,0 +1,39 @@
+<div class="chat-window-container shadow-sm" *ngIf="isWindowVisible && activeChat"
+     [ngClass]="{'minimized': isMinimized}">
+  <div class="window-header d-flex justify-content-between align-items-center" (click)="toggleMinimize()">
+    <div class="chat-details d-flex align-items-center">
+<!--      <div class="avatar me-2">-->
+<!--        <img [src]="activeChat.avatar || 'assets/default-avatar.png'" alt="avatar" class="img-fluid">-->
+<!--      </div>-->
+<!--      <div class="name">{{ activeChat.name }}</div>-->
+    </div>
+    <div class="window-controls">
+      <button class="btn btn-link p-0 me-2" (click)="minimizeWindow($event)">
+        <i class="bi" [ngClass]="isMinimized ? 'bi-chevron-up' : 'bi-dash'"></i>
+      </button>
+      <button class="btn btn-link p-0" (click)="closeWindow($event)">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+  </div>
+  <div class="messages-container" *ngIf="!isMinimized">
+    <div class="messages" #messagesContainer>
+      <div *ngFor="let message of messages" class="message"
+           [ngClass]="{'own-message': message.senderId === currentUserId}">
+        <div class="message-content">{{ message.message }}</div>
+        <div class="message-time small">{{ message.date | date:'shortTime' }}</div>
+      </div>
+    </div>
+    <div class="message-input d-flex p-2">
+      <input
+        class="form-control me-2"
+        [formControl]="messageInput"
+        type="text"
+        placeholder="Type a message..."
+        (keyup.enter)="sendMessage()">
+      <button class="btn btn-main" (click)="sendMessage()">
+        <i class="bi bi-send-fill"></i>
+      </button>
+    </div>
+  </div>
+</div>

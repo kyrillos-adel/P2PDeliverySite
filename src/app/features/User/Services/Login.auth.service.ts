@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject,catchError, Observable, tap, throwError } from 'rxjs';
 import{ LoginDTO } from '../../../models/Login/login-dto';
 import { Router } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +14,7 @@ export class AuthService {
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
   response: any= "";
   private apiUrl = 'api/user';
+  private refreshTokenTimeout: any;
   isAuthRoute: boolean = false;
 
   _confirmPassword: string = '';
@@ -24,12 +27,17 @@ export class AuthService {
     localStorage.setItem('password', this._confirmPassword);
     
     return this.http.post(`${this.apiUrl}/login`, loginData).pipe(
-      tap(response => { console.log('Login response:', response);
-        this.isLoggedInSubject.next(true);}
-        ),
+      switchMap((response: any) => {
+        if (response.isSuccess) {
+          this.storeTokens(response.data, loginData.rememberMe);
+          this.startRefreshTokenTimer();
+          this.isLoggedInSubject.next(true);
+        }
+        return of (response);
+      }),
       catchError(error => {
         console.error('Login error:', error);
-        return throwError(()=>error);
+        return throwError(() => error);
       })
     );
   }
@@ -47,9 +55,80 @@ export class AuthService {
   }
 
 
+  //refresh token
+  refreshToken(): Observable<any> {
+    const refreshToken = this.getRefreshToken();
+    if (!refreshToken) {
+      this.logout();
+      return throwError(() => new Error('No refresh token available'));
+    }
+
+    return this.http.post(`${this.apiUrl}/refresh-token`, { refreshToken }).pipe(
+      switchMap((response: any) => {
+        if (response.isSuccess) {
+          this.storeTokens(response.data, this.isRememberMe());
+          this.startRefreshTokenTimer();
+        }
+        return response;
+      }),
+      catchError(error => {
+        console.error('Refresh token error:', error);
+        this.logout();
+        return throwError(() => error);
+      })
+    );
+  }
+
+
+
+  private isRememberMe(): boolean {
+    return !!localStorage.getItem('token');
+  }
+
+  private storeTokens(data: any, rememberMe: boolean): void {
+    const storage = rememberMe ? localStorage : sessionStorage;
+    storage.setItem('token', data.token);
+    storage.setItem('exp', new Date(data.expiration).getTime().toString());
+    storage.setItem('refreshToken', data.refreshToken);
+    storage.setItem('refreshExp', new Date(data.refreshTokenExpiration).getTime().toString());
+  }
+
+
+
+  private clearTokens(): void {
+    localStorage.clear();
+    sessionStorage.clear();
+    if (this.refreshTokenTimeout) {
+      clearTimeout(this.refreshTokenTimeout);
+    }
+  }
+
+
+  private getRefreshToken(): string | null {
+    return localStorage.getItem('refreshToken') || sessionStorage.getItem('refreshToken');
+  }
+
+  private startRefreshTokenTimer(): void {
+    const expStr = localStorage.getItem('exp') || sessionStorage.getItem('exp');
+    if (!expStr) return;
+
+    const expires = parseInt(expStr);
+    const timeout = expires - Date.now() - 60000; // Refresh 1 minute before expiry
+    if (timeout > 0) {
+      this.refreshTokenTimeout = setTimeout(() => {
+        this.refreshToken().subscribe();
+      }, timeout);
+    }
+  }
+
+
+
+
+
   logout(): void {
-    localStorage.removeItem('token');
-    sessionStorage.removeItem('token');
+    // localStorage.removeItem('token');
+    // sessionStorage.removeItem('token');
+    this.clearTokens();
     this.isLoggedInSubject.next(false);
 
     this.router.navigate(['/login']);
@@ -117,6 +196,12 @@ export class AuthService {
       return throwError(() => new Error('Password does not match'));
     }
   }
+
+
+
+
+
+  
   
   
 }
