@@ -126,8 +126,6 @@ export class AuthService {
 
 
   logout(): void {
-    // localStorage.removeItem('token');
-    // sessionStorage.removeItem('token');
     this.clearTokens();
     this.isLoggedInSubject.next(false);
 
@@ -198,10 +196,5 @@ export class AuthService {
   }
 
 
-
-
-
-  
-  
   
 }
