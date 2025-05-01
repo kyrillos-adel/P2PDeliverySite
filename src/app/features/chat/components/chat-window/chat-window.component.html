@@ -18,11 +18,13 @@
   </div>
   <div class="messages-container" *ngIf="!isMinimized">
     <div class="messages" #messagesContainer>
-      <div *ngFor="let message of messages" class="message"
-           [ngClass]="{'own-message': message.senderId === currentUserId}">
-        <div class="message-content">{{ message.message }}</div>
-        <div class="message-time small">{{ message.date | date:'shortTime' }}</div>
-      </div>
+      @for (message of  messages; track message.id;){
+        <div class="message"
+             [ngClass]="{'own-message': message.senderId == currentUserId}">
+          <div class="message-content">{{ message.message }}</div>
+          <div class="message-time small">{{ message.date | date:'shortTime' }}</div>
+        </div>
+      }
     </div>
     <div class="message-input d-flex p-2">
       <input

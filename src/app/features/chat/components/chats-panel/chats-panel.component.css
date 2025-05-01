@@ -1,6 +1,6 @@
 .chats-panel-container {
   position: fixed;
-  right: 20px;
+  right: 100px;
   top: 70px;
   width: 300px;
   height: 400px;
@@ -9,7 +9,7 @@
   display: flex;
   flex-direction: column;
   z-index: 1000;
-  border: 1px solid #f1f1f1;
+  border: 1px solid var(--yellow);
   overflow: hidden;
 }
 .panel-header {

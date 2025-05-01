@@ -1,14 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {ChatDto} from '../../../../models/chat/chatDto';
 import {ChatService} from '../../services/chat.service';
-import {DatePipe, NgForOf, NgIf} from '@angular/common';
+import {DatePipe, NgForOf, NgIf, SlicePipe} from '@angular/common';
 
 @Component({
   selector: 'app-chats-panel',
   imports: [
     DatePipe,
     NgForOf,
-    NgIf
+    NgIf,
+    SlicePipe
   ],
   templateUrl: './chats-panel.component.html',
   styleUrl: './chats-panel.component.css'

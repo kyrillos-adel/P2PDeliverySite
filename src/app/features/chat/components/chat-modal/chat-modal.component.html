@@ -1,0 +1,20 @@
+<div class="modal-header">
+  <h5 class="modal-title">Send Message</h5>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+</div>
+<div class="modal-body">
+  <div class="form-group">
+    <input
+      class="form-control me-2"
+      [(ngModel)]="message"
+      type="text"
+      placeholder="Type a message..."
+      (keyup.enter)="sendMessage()">
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss()">Close</button>
+  <button type="button" class="btn btn-primary" (click)="sendMessage()" [disabled]="!message">
+    <i class="bi bi-send-fill"></i>
+  </button>
+</div>
