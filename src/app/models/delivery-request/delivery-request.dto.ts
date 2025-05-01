@@ -11,5 +11,4 @@ export interface DeliveryRequestDto {
     userId: number;
     userName: string;
     status: string;
-    
 }

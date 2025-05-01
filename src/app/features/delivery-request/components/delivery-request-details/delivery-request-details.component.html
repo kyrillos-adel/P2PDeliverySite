@@ -2,11 +2,14 @@
     <div class="row">
       <div class="col-lg-8 col-md-12 mx-auto">
         <h1>{{deliveryRequestDetails.title}}</h1>
-      </div>
+      </div>      
       <div class="col-lg-4 col-md-4">
-        <button class="btn btn btn-primary d-flex ms-auto">Add Application</button>
+        @if (deliveryRequestDetails.applicationDTOs.length == 0) {
+        <button class="btn btn btn-main d-flex ms-auto" (click)="openPopup(deliveryRequestDetails.id)">Add Application</button>
+      }
       </div>
     </div>
+    
     <div class="row py-lg-5 ">
       <div class="col-lg-8 col-md-12 mx-auto">
         <h5 class="font-weight-light">request details</h5>
@@ -40,58 +43,68 @@
     
   </section>
   @if (deliveryRequestDetails.applicationDTOs.length>0) {
-  <section class="container">
+  <section class="container mb-3">
     <h1 class="font-weight-light text-center">Offered Applications</h1>
-    <div class="card shadow-sm">
-        <div class="card-body p-0">
-            <table class="table table-hover mb-1">
-              <thead class="table-light">
-                <tr>
-                  <th>Date</th>
-                  <th>Offered Price</th>
-                  <th>Status</th>
-                  <th>Applicant</th>
-                  <th> </th>
-                </tr>
-              </thead>
-              <tbody>
-                @for(app of deliveryRequestDetails.applicationDTOs; track app){
-                <tr>
-                  <td>{{ app.date }}</td>
-                  <td>EGP {{ app.offeredPrice }}</td>
-                  <td>
-                    <span class="badge bg-success" *ngIf="app.applicationStatus === 'Accepted'">{{ app.applicationStatus }}</span>
-                    <span class="badge bg-warning text-dark" *ngIf="app.applicationStatus === 'Pending'">{{ app.applicationStatus }}</span>
-                    <span class="badge bg-danger" *ngIf="app.applicationStatus === 'Rejected'">{{ app.applicationStatus }}</span>
-                    <span class="badge bg-secondary" *ngIf="!['Accepted','Pending','Rejected'].includes(app.applicationStatus)">
-                      {{ app.applicationStatus }}
-                    </span>
-                  </td>
-                  <td>{{ app.userName }}</td>
-                  <td>
-                    <button class="btn btn-warning me-1">Chat</button>
-                    @if(app.applicationStatus === 'Accepted'){
-                        <button class="btn btn-danger"> Reject</button>
-                    }
-                    @if(app.applicationStatus === 'Rejected'){
-                        <button class="btn btn-primary me-1"> accept</button>
-                    }
-                    @if(app.applicationStatus === 'Pending'){
-                        <button class="btn btn-primary me-1"> accept</button>
-                        <button class="btn btn-danger"> Reject</button>
-                    }
-                    
-                  </td>
-                </tr>
-            }
-              </tbody>
-            </table>
+    @for(app of deliveryRequestDetails.applicationDTOs; track app){
+    <div class="container py-2">
+      <div class="card-custom">
+          <div class="left-section">
+              <img src="https://mdbootstrap.com/img/new/avatars/8.jpg" alt="Profile" class="profile-img">
+              <div class="info">
+                  <span class="badge bg-success status-badge" *ngIf="app.applicationStatus === 'Accepted'">{{ app.applicationStatus }}</span>
+                  <span class="badge bg-warning text-dark status-badge" *ngIf="app.applicationStatus === 'Pending'">{{ app.applicationStatus }}</span>
+                  <span class="badge bg-danger status-badge" *ngIf="app.applicationStatus === 'Rejected'">{{ app.applicationStatus }}</span>
+                  <span class="badge bg-secondary status-badge" *ngIf="!['Accepted','Pending','Rejected'].includes(app.applicationStatus)">
+                    {{ app.applicationStatus }}
+                  </span>
+                  <div class="fw-bold fs-5">{{app.userName}}</div>
+                  <div class="text-muted small mb-1">{{app.date}}</div>
+                  <div class="stars">
+                      ★ ★ ★ ★ ☆
+                  </div>
+              </div>
           </div>
-          <ng-template #noApplications>
-            <div class="p-3 text-muted">No applications submitted yet.</div>
-          </ng-template>
-        </div>
-      
-  </section>
+          
+  
+          <div class="triangle-section me-5">
+              <div class="p-3">{{app.offeredPrice}}</div>
+              <div>EGP</div>
+          </div>
+          
+          <div class="right-section">          
+              <div class="d-flex flex-column align-items-center">
+                  <button class="btn chat-btn btn-main mb-2">Chat</button>
+                  <div class="">
+                      <label for="status" class="form-label fw-bold mb-1">Change status:</label>
+                      <div class="d-flex align-items-center row">
+                        <div class="col-8">
+                        <select class="form-select me-3" aria-label="Default select example">
+                          <option selected>select status</option>
+                          @if(app.applicationStatus === 'Accepted'){
+                          <option value="2">Reject</option>
+                          }
+                          @if(app.applicationStatus === 'Rejected'){
+                              <option value="1">Accept</option>
+                          }
+                          @if(app.applicationStatus === 'Pending'){
+                            <option value="1">accept</option>
+                            <option value="2">Reject</option>
+                          }    
+                          
+                        </select>
+                      </div>
+                          <div class="col-4"> 
+                          <button class="btn save-btn btn-main btn-sm">Save</button>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+    }
+    </section>
 }
+
+
   

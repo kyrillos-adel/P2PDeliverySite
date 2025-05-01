@@ -1,0 +1,5 @@
+
+<div class="chat-icon d-flex align-items-center position-relative" (click)="toggleChatsPanel()">
+  <i class="bi bi-chat-fill"></i>
+  <span class="badge rounded-circle" *ngIf="totalUnreadMessages > 0">{{ totalUnreadMessages }}</span>
+</div>

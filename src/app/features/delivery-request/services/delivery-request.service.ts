@@ -45,18 +45,7 @@ export class DeliveryRequestService {
  
 
   getallDRs(){
-    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-    if (!token) {
-      console.error('No token found');
-      return throwError(() => new Error('No token'));
-    }
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
-    });
-
-
-    
-    return this.http.get<ApiResponse<DeliveryRequestDto[]>>(`${this.endpoint}`,{ headers });
+    return this.http.get<ApiResponse<DeliveryRequestDto[]>>(`${this.endpoint}`);
   }
 
 
@@ -85,7 +74,8 @@ export class DeliveryRequestService {
   }
 
   getRequestDetails(id: number) {
-    return this.http.get<ApiResponse<DeliveryRequestDetails>>(`${this.endpoint}/details/${id}`);
+    const headers= this.getAuthHeaders();
+    return this.http.get<ApiResponse<DeliveryRequestDetails>>(`${this.endpoint}/details/${id}`,{headers});
   }
 }
 

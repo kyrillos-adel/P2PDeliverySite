@@ -11,9 +11,10 @@ import { RegisterComponent } from './features/User/Components/register/register.
 import { LoginComponent } from './features/User/Components/login/login.component';
 import { DeliveryRequestsByUserIdComponent } from './features/delivery-request/components/delivery-requests-by-user-id/delivery-requests-by-user-id.component';
 import { DRApplictionsByUserIdComponent } from './features/DRApplication/components/drapplictions-by-user-id/drapplictions-by-user-id.component';
+import { AddApplicationComponent } from './features/DRApplication/components/add-application/add-application.component';
 
 export const routes: Routes = [
-  { 
+  {
     path: '',
     component: HomeComponent
   },
@@ -23,26 +24,31 @@ export const routes: Routes = [
   },
   {
     path: 'deliveryrequests/update/:id',
-    pathMatch: 'full',
+     pathMatch: 'full',
     component: DeliveryRequestUpdateComponent,
-  },
-  { 
-    path: 'user-details', 
-    component: UserDetailsComponent,
     canActivate: [AuthGuard],
   },
   {
+    path: 'user-details',
+    component: UserDetailsComponent,
+    canActivate: [AuthGuard],
+  },
+    {
     path: 'deliveryrequests/details/:id',
     component: DeliveryRequestDetailsComponent,
+    canActivate: [AuthGuard],
   },
   { path: 'deliveryrequests/Create',
     pathMatch: 'full',
-     component: DeliveryRequestCreationComponent 
+     component: DeliveryRequestCreationComponent,
+     canActivate: [AuthGuard],
+
   },
   {
     path:'deliveryrequests/getallDRs',
     pathMatch: 'full',
-    component:DeliveryRequestsRetriveComponent
+    component:DeliveryRequestsRetriveComponent,
+
   },
   {
     path: 'Register',
@@ -54,7 +60,7 @@ export const routes: Routes = [
     component: LoginComponent,
     pathMatch: 'full'
   },
-  { 
+  {
     path: 'edit-profile',
      component: EditUserComponent,
      canActivate: [AuthGuard],
@@ -64,12 +70,21 @@ export const routes: Routes = [
   {
     path:'deliveryrequests/getMyDeliveryRequests',
     pathMatch: 'full',
-    component:DeliveryRequestsByUserIdComponent
+    component:DeliveryRequestsByUserIdComponent,
+    canActivate: [AuthGuard],
+
   },
   {
     path:'DRApplications/GetMyApplications',
     pathMatch: 'full',
-    component:DRApplictionsByUserIdComponent
+    component:DRApplictionsByUserIdComponent,
+    canActivate: [AuthGuard],
 
+  },
+  {
+    path:"Application/add",
+    pathMatch:'full',
+    component:AddApplicationComponent,
+    canActivate: [AuthGuard],
   }
 ];
