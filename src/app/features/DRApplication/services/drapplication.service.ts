@@ -36,8 +36,15 @@ export class DRApplicationService {
 
   addApplication(data : AddApplicationDTO){
     const headers=this.getAuthHeaders();
-    return this.http.post<ApiResponse<boolean>>(`${this.endpoint}`,data,{headers});
+    return this.http.post<ApiResponse<boolean>>(`${this.endpoint}`,data , {headers});
   }
+  deleteApplication(id: number) {
+    const headers = this.getAuthHeaders();
+    return this.http.delete<ApiResponse<boolean>>(`${this.endpoint}/Delete/${id}`, { headers });
+  }
+  updateApplication(id: number, data: DRApplicationDto) {
 
-
+    const headers = this.getAuthHeaders();
+    return this.http.put<ApiResponse<boolean>>(`${this.endpoint}/Update/${id}`, data, { headers });
+  }
 }
