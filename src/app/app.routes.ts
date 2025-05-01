@@ -26,26 +26,29 @@ export const routes: Routes = [
     path: 'deliveryrequests/update/:id',
      pathMatch: 'full',
     component: DeliveryRequestUpdateComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'user-details',
     component: UserDetailsComponent,
     canActivate: [AuthGuard],
   },
-
-   },
     {
     path: 'deliveryrequests/details/:id',
     component: DeliveryRequestDetailsComponent,
+    canActivate: [AuthGuard],
   },
   { path: 'deliveryrequests/Create',
     pathMatch: 'full',
-     component: DeliveryRequestCreationComponent
+     component: DeliveryRequestCreationComponent,
+     canActivate: [AuthGuard],
+
   },
   {
     path:'deliveryrequests/getallDRs',
     pathMatch: 'full',
-    component:DeliveryRequestsRetriveComponent
+    component:DeliveryRequestsRetriveComponent,
+
   },
   {
     path: 'Register',
@@ -67,17 +70,21 @@ export const routes: Routes = [
   {
     path:'deliveryrequests/getMyDeliveryRequests',
     pathMatch: 'full',
-    component:DeliveryRequestsByUserIdComponent
+    component:DeliveryRequestsByUserIdComponent,
+    canActivate: [AuthGuard],
+
   },
   {
     path:'DRApplications/GetMyApplications',
     pathMatch: 'full',
-    component:DRApplictionsByUserIdComponent
+    component:DRApplictionsByUserIdComponent,
+    canActivate: [AuthGuard],
 
   },
   {
     path:"Application/add",
     pathMatch:'full',
-    component:AddApplicationComponent
+    component:AddApplicationComponent,
+    canActivate: [AuthGuard],
   }
 ];

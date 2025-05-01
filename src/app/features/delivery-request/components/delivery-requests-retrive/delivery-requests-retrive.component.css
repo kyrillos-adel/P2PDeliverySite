@@ -2,7 +2,6 @@ html {
   scroll-behavior: smooth;
 }
 
-
 .scrollable-feed {
   padding: 1rem;
   background: white;
@@ -15,21 +14,95 @@ html {
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-}
+
 
 .btn {
   transition: background-color 0.3s ease, color 0.3s ease;
+
+}
+.btn-outline-primary
+{
+  border-color: var(--dark);
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.5rem;
+  border-radius: 4px;
+  color: var(--neutral);
 }
 
 .btn-outline-primary:hover {
-  background-color: #007bff;
-  color: #fff;
+  background-color: var(--dark);
+  border-color:  var(--dark);
+  color: var(--yellow);
+}
+.btn-primary
+{
+  background-color: var(--dark);
+  border-color: var(--dark);
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.5rem;
+  border-radius: 4px;
+  color: var(--yellow);
+}
+
+.btn-primary:hover {
+  background-color:var(--yellow);
+  border-color: var(--yellow);
+  color: var(--dark);
+}
+.btn-success
+{
+  background-color: var(--yellow);
+  border-color: var(--yellow);
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.5rem;
+  border-radius: 4px;
+  color: var(--dark);
 }
 
 .btn-success:hover {
-  background-color: #28a745;
-  color: #fff;
+  background-color:var(--dark);
+  border-color: var(--dark);
+  color: var(--yellow);
+}
+.rounded-circle
+{
+  background-color: var(--yellow);
+
+}
+
+.link-button {
+
+  background: none;
+  border: none;
+  color: #6c757d; /* muted gray */
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+}
+
+
+.link-button:hover {
+  background-color: #f0f0f0;
+  color: var(--dark); 
+  text-decoration: none;
+  cursor: pointer;
+}
+@media (max-width: 767px) {
+  .btn-row {
+    flex-direction: row; /* Side by side on mobile */
+  }
+
+  .link-button {
+    flex: 1 1 48%;
+  }
 }

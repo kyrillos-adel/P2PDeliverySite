@@ -46,21 +46,31 @@ export class AuthService {
     );
   }
 
+  private guardedRoute = false;
+
+  setGuardedRoute(value: boolean) {
+    this.guardedRoute = value;
+  }
+  
+  isGuarded(): boolean {
+    return this.guardedRoute;
+  }
 
   logout(): void {
     localStorage.removeItem('token');
     sessionStorage.removeItem('token');
     this.isLoggedInSubject.next(false);
 
+if (this.isGuarded()) {
     this.router.navigate(['/login']);
-  }
+  } else {
+    window.location.reload();
+  }  }
 
-  
    hasToken(): boolean {
     return !!localStorage.getItem('token') || !!sessionStorage.getItem('token');
   }
  
-
   getUser(name: string): Observable<any> {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
     if (!token) {
