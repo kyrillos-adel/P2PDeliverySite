@@ -2,6 +2,7 @@ html {
   scroll-behavior: smooth;
 }
 
+
 .scrollable-feed {
   padding: 1rem;
   background: white;
@@ -105,4 +106,23 @@ html {
   .link-button {
     flex: 1 1 48%;
   }
+}
+
+
+.card-opacity{
+  background-color: rgba(10, 10, 10, 0.008);
+}
+
+.paginator button{
+  color: var(--dark);
+}
+
+
+.paginator button:hover{
+  background-color: var(--yellow);
+}
+
+
+.disabled{
+  background-color: rgba(10, 10, 10, 0.2);
 }

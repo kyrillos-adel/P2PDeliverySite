@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FilterService } from '../../services/filter.service';
+
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-filters-menu',
@@ -8,7 +10,7 @@ import { FilterService } from '../../services/filter.service';
   templateUrl: './filters-menu.component.html',
   styleUrl: './filters-menu.component.css'
 })
-export class FiltersMenuComponent {
+export class FiltersMenuComponent implements AfterViewInit {
   constructor(private filterService: FilterService) {}
   statusMap: { [key: string]: number } = {
     'Pending': 0,
@@ -20,7 +22,7 @@ export class FiltersMenuComponent {
   
   titleFilter: string = '';
   statusFilter: number[]=[];
-    pickupLocation: string = '';
+  pickupLocation: string = '';
   dropoffLocation: string = '';
   pickupDate: string = '';
   minPrice: number | null = null;
@@ -37,6 +39,9 @@ export class FiltersMenuComponent {
 
     this.filterService.updateFilters(filters);
     console.log(filters);
+    if (this.offcanvasInstance) {
+      this.offcanvasInstance.hide();
+    }
   }
 
 
@@ -48,6 +53,26 @@ export class FiltersMenuComponent {
       this.statusFilter.push(value);
     } else {
       this.statusFilter = this.statusFilter.filter(v => v !== value);
+    }
+  }
+
+  @ViewChild('offcanvasElement') offcanvasElement!: ElementRef;
+  @ViewChild('closeBtn') closeBtn!: ElementRef;
+  private offcanvasInstance: any;
+
+  ngAfterViewInit(): void {
+    if (this.offcanvasElement?.nativeElement) {
+      this.offcanvasInstance = new bootstrap.Offcanvas(this.offcanvasElement.nativeElement);
+
+      this.offcanvasElement.nativeElement.addEventListener('hidden.bs.offcanvas', () => {
+        this.forceCleanup(); 
+      });
+    }
+  }
+
+  private forceCleanup(): void {
+    if (this.closeBtn?.nativeElement) {
+      this.closeBtn.nativeElement.click();
     }
   }
 }

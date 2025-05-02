@@ -16,3 +16,12 @@
   background-color:var(--yellow);
   color: var(--dark);
 }
+
+
+body{
+  background-color: rgba(52, 60, 72, 0.02);
+  /* background-image: url("../public/abstract.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-blend-mode: soft-light; */
+}

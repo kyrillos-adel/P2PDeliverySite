@@ -1,7 +1,7 @@
 <div class="container mt-5">
   <div class="row">
     <div class="col-md-3 d-none d-md-block" *ngIf="isLoggedIn">
-      <div class="card shadow-sm p-3" style="max-width: 250px;">
+      <div class="card shadow-sm p-3 " style="max-width: 250px;" >
       <div class="text-center mb-3">
     <div class="rounded-circle text-white mx-auto fw-bold" style="width: 60px; height: 60px; line-height: 60px; font-size: 1.5rem;">
       {{ user?.userName?.charAt(0).toUpperCase() }}
@@ -16,7 +16,7 @@
     </div>
 
     <div [ngClass]="{
-      'col-md-7': isLoggedIn,
+      'col-md-6': isLoggedIn,
       'col-md-8 mx-auto': !isLoggedIn,
       'col-12': true
     }">
@@ -42,7 +42,13 @@
         </div>
       </div>
 
-      <h3 class="mb-4 text-center" style="color: #19283f; font-weight: bold; font-size: 2rem;">Available Delivery Requests</h3>
+      <div class="d-flex align-items-center justify-content-between mb-4">
+        <h3 class="mb-0" style="color: #19283f; font-weight: bold; font-size: 2rem;">
+          Available Delivery Requests
+        </h3>
+        
+        <app-filters-menu></app-filters-menu>
+      </div>
 
       <div *ngFor="let request of deliveryRequests" class="card post-card mb-4 shadow-sm border-1">
         <div class="card-body">
@@ -91,40 +97,27 @@
 
         </div>
       </div>
+      <nav *ngIf="totalItems > pageSize" aria-label="Page navigation" class="paginator">
+        <ul class="pagination justify-content-center mt-4">
+          <li class="page-item">
+            <button class="page-link card-opacity" (click)="onPageChange(currentPage - 1)" [class.disabled]="currentPage === 1">Previous</button>
+          </li>
+      
+          <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index"
+              [class.active]="currentPage === i + 1">
+            <button class="page-link card-opacity text-black" (click)="onPageChange(i + 1)">{{ i + 1 }}</button>
+          </li>
+      
+          <li class="page-item">
+            <button class="page-link card-opacity" (click)="onPageChange(currentPage + 1)"  [class.disabled]="currentPage === totalPages">Next</button>
+          </li>
+        </ul>
+      </nav>
     </div>
-    <!-- <nav aria-label="Page navigation example">
-      <ul class="pagination justify-content-center">
-        <li class="page-item disabled">
-          <a class="btn page-link">Previous</a>
-        </li>
-        <li class="page-item"><a class="btn page-link">1</a></li>
-        <li class="page-item"><a class="btn page-link">2</a></li>
-        <li class="page-item"><a class="btn page-link">3</a></li>
-        <li class="page-item">
-          <a class="btn page-link" href="#">Next</a>
-        </li>
-      </ul>
-    </nav> -->
-
-    <nav *ngIf="totalItems > pageSize" aria-label="Page navigation">
-      <ul class="pagination justify-content-center mt-4">
-        <li class="page-item" [class.disabled]="currentPage === 1">
-          <button class="page-link" (click)="onPageChange(currentPage - 1)">Previous</button>
-        </li>
     
-        <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index"
-            [class.active]="currentPage === i + 1">
-          <button class="page-link" (click)="onPageChange(i + 1)">{{ i + 1 }}</button>
-        </li>
-    
-        <li class="page-item" [class.disabled]="currentPage === totalPages">
-          <button class="page-link" (click)="onPageChange(currentPage + 1)">Next</button>
-        </li>
-      </ul>
-    </nav>
-  </div>
 
-  <div class="col-3">
-    <app-filters-menu></app-filters-menu>
+    <!-- <div class="col-md-3">
+      <app-filters-menu></app-filters-menu>
+    </div> -->
   </div>
 </div>
