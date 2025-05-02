@@ -10,15 +10,11 @@ export const apiPrefixInterceptor: HttpInterceptorFn = (req, next) => {
   const spinner = inject(SpinnerService);
 
   if(req.url.startsWith('api')) {
-    spinner.show();
+    // spinner.show();
 
     const apiUrl = environment.apiBaseUrl;
     const apiRequest = req.clone({ url: `${apiUrl}${req.url}` });
-    return next(apiRequest).pipe(
-      finalize(() => {
-        spinner.hide();
-      })
-    );
+    return next(apiRequest);
   }
 
   return next(req);

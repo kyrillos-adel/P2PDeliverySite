@@ -54,6 +54,15 @@ export class AuthService {
     );
   }
 
+  private guardedRoute = false;
+
+  setGuardedRoute(value: boolean) {
+    this.guardedRoute = value;
+  }
+  
+  isGuarded(): boolean {
+    return this.guardedRoute;
+  }
 
   //refresh token
   refreshToken(): Observable<any> {
@@ -129,15 +138,16 @@ export class AuthService {
     this.clearTokens();
     this.isLoggedInSubject.next(false);
 
+if (this.isGuarded()) {
     this.router.navigate(['/login']);
-  }
+  } else {
+    window.location.reload();
+  }  }
 
-  
    hasToken(): boolean {
     return !!localStorage.getItem('token') || !!sessionStorage.getItem('token');
   }
  
-
   getUser(name: string): Observable<any> {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
     if (!token) {
@@ -193,8 +203,12 @@ export class AuthService {
       console.error('Password does not match!');
       return throwError(() => new Error('Password does not match'));
     }
+<<<<<<< HEAD
+  } 
+=======
   }
 
 
   
+>>>>>>> dd6860edd5f118c3bfadeaa6de164e2ba94d93fc
 }
