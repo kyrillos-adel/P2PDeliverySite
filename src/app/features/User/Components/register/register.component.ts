@@ -21,6 +21,7 @@ export class RegisterComponent {
   notvalidemail: string = "";
   notvalidusername: string = "";
   egyptGovernorates = egyptGovernorates;
+  selectedFile: File | null = null;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.registerForm = this.fb.group({
@@ -65,7 +66,9 @@ export class RegisterComponent {
         ]
       ],
       confirmPassword: ['', Validators.required],
-    }, {
+      profileImage: [null]
+    },
+    {
       validators: passwordMatchValidator('password', 'confirmPassword')
     }); 
   }
@@ -85,12 +88,31 @@ export class RegisterComponent {
         this.notvalidusername = ''; // Clear username error message
       }
     });
+
     
+  }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+      this.registerForm.patchValue({ profileImage: this.selectedFile });
+    }
   }
 
   onSubmit() {
     if (this.registerForm.valid) {
-      const formData = this.registerForm.value;
+      const formData = new FormData();
+      const formValue = this.registerForm.value;
+  
+      for (const key in formValue) {
+        if (key === 'profileImage' && this.selectedFile) {
+          formData.append('profileImage', this.selectedFile);
+        } else {
+          formData.append(key, formValue[key]);
+        }
+      }
+  
       this.authService.register(formData).subscribe({
         next: (response) => {
           if (response.isSuccess) {
@@ -107,6 +129,7 @@ export class RegisterComponent {
       console.log("Form is invalid");
     }
   }
+  
   private handleErrorResponse(error: any) {
     const errorMsg = error?.error?.message;
   
