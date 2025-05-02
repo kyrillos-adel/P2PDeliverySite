@@ -42,9 +42,25 @@ export class SignalRService {
     }
   }
 
-  public sendMessage(message: ChatMessageDto) {
+  startNewChat(deliveryRequestId: string, message: string, receiverId: number) {
+    const chatMessage : ChatMessageDto = {
+      chatId: 0,
+      message: message,
+      receiverId: receiverId,
+      date: new Date(),
+    };
+
+    this.sendMessage(chatMessage, deliveryRequestId);
+  }
+
+  public sendMessage(message: ChatMessageDto, deliveryRequestId: string) {
+    if (!message || !deliveryRequestId) {
+      console.error('Message or deliveryRequestId is null or undefined.');
+      return;
+    }
+
     if (this.hubConnection) {
-      this.hubConnection.invoke('SendMessageToUser', message.receiverId, message.message)
+      this.hubConnection.invoke('SendMessageToUser', message, deliveryRequestId)
         .catch(err => console.error('Error while sending message: ' + err));
     }
   }

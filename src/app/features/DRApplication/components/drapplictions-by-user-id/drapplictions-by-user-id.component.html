@@ -1,5 +1,5 @@
 <div class="container mt-5">
-  <h2 class="mb-4 text-center " style="color: #19283f;" >My Delivery Applications</h2>
+  <h2 class="mb-4 text-center" style="color: #19283f;">My Delivery Applications</h2>
 
   <!-- Scrollable Feed -->
   <div class="scrollable-feed p-3 bg-light rounded shadow-sm">
@@ -31,23 +31,22 @@
           <strong>💰 Offered Price:</strong> {{ application.offeredPrice }} EGP
         </p>
 
-
       </div>
 
       <div class="mt-4 d-flex justify-content-end gap-3">
-        <button class="btn btn-outline-primary btn-sm px-4 py-2" style="border-radius: 20px;" (click)="openUpdateModal(application)">
+        <button class="btn btn-outline-primary btn-sm px-4 py-2" style="border-radius: 20px;" (click)="confirmUpdate(application)">
           Update
         </button>
-        
+
         <button class="btn btn-danger btn-sm px-4 py-2" style="border-radius: 20px;" (click)="confirmDelete(application.id)">
           <i class="fas fa-trash-alt"></i>
         </button>
-        
-        
+      </div>
     </div>
   </div>
 </div>
 
+<!-- Confirm Deletion Modal -->
 <confirm-dialog
   *ngIf="showConfirmModal"
   [title]="'Delete Application'"
@@ -55,6 +54,17 @@
   [confirmText]="'Delete'"
   [cancelText]="'Cancel'"
   (confirm)="onConfirmDelete()"
-  (cancel)="onCancelDelete()"
->
+  (cancel)="onCancelDelete()">
+</confirm-dialog>
+
+<confirm-dialog
+  *ngIf="showUpdateModal"
+  [title]="'Update Offered Price'"
+  [message]="'Please enter the new offered price.'"
+  [confirmText]="'Update'"
+  [cancelText]="'Cancel'"
+  [updatedOfferedPrice]="updatedOfferedPrice"
+  [showPriceInput]="true"
+  (confirm)="onConfirmUpdate($event)"
+  (cancel)="onCancelUpdate()">
 </confirm-dialog>

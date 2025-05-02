@@ -5,7 +5,7 @@ export interface ChatMessageDto {
   message : string;
   senderId? : number;
   senderName? : string;
-  receiverId : number;
+  receiverId? : number;
   receiverName? : string;
   isReceived? : boolean;
   chatId : number;
