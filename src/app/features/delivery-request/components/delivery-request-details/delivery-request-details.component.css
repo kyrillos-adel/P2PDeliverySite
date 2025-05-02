@@ -2,10 +2,6 @@
     background: #fff;
     border-radius: 15px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    height: 140px; 
 }
 .profile-img {
     width: 100px;
@@ -73,3 +69,18 @@
     width: 80px;
     text-align: center;
 }
+
+
+@media (max-width: 767.98px) {
+    .price-section {
+      background-color:var(--yellow);
+      text-align: center;
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    .triangle-section {
+      width: 100%;
+    }
+  }

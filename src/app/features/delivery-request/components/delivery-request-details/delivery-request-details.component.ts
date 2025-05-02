@@ -43,6 +43,12 @@ export class DeliveryRequestDetailsComponent {
       console.log(response);
       if (response.isSuccess) {
         this.deliveryRequestDetails = response.data;
+        this.deliveryRequestDetails.pickUpDate = response.data.pickUpDate.split('T')[0];
+        this.deliveryRequestDetails.applicationDTOs.forEach(app => {
+          if (app.date) {
+            app.date = app.date.split('T')[0];
+          }
+        })
         console.log(this.deliveryRequestDetails);
       } else {
         this.errorMessage = response.message || 'An error occurred while fetching request details.';
