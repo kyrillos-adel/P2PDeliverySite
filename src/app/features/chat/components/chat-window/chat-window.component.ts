@@ -5,6 +5,7 @@ import {FormControl, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ChatService} from '../../services/chat.service';
 import {SignalRService} from '../../services/signal-r.service';
 import {DatePipe, NgClass, NgForOf, NgIf} from '@angular/common';
+import {jwtDecode} from 'jwt-decode';
 
 @Component({
   selector: 'app-chat-window',
@@ -12,8 +13,7 @@ import {DatePipe, NgClass, NgForOf, NgIf} from '@angular/common';
     NgClass,
     DatePipe,
     ReactiveFormsModule,
-    NgIf,
-    NgForOf
+    NgIf
   ],
   templateUrl: './chat-window.component.html',
   styleUrl: './chat-window.component.css'
@@ -22,12 +22,15 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
 
   @ViewChild('messagesContainer') private messagesContainer!: ElementRef;
 
+  userToken : any = localStorage.getItem('token') || sessionStorage.getItem('token');
+
+  currentUserId!: number;
+
   activeChat: ChatDto | null = null;
   messages: ChatMessageDto[] = [];
   isWindowVisible = false;
   isMinimized = false;
   messageInput = new FormControl('', Validators.required);
-  currentUserId = 5; // Replace with actual user ID
 
   constructor(
     private chatService: ChatService,
@@ -35,6 +38,11 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
   ) { }
 
   ngOnInit(): void {
+    if (this.userToken) {
+      const decodedToken: any = jwtDecode(this.userToken);
+      this.currentUserId = parseInt(decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier']);
+    }
+
     this.chatService.activeChat$.subscribe(chat => {
       this.activeChat = chat;
       if (chat) {
@@ -53,7 +61,7 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
     // Listen for new messages from SignalR
     this.signalRService.newMessage$.subscribe(message => {
       if (this.activeChat && message.chatId === this.activeChat.id) {
-        this.messages.push(message);
+        // this.messages.push(message);
         setTimeout(() => this.scrollToBottom(), 100);
       }
     });
@@ -81,8 +89,8 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
     // Optimistic UI update
     const tempMessage: ChatMessageDto = {
       chatId: this.activeChat.id,
-      receiverId: 5,
       message: content,
+      senderId: this.currentUserId,
       date: new Date()
     };
 
@@ -90,7 +98,7 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
     this.scrollToBottom();
     this.messageInput.reset();
 
-    this.signalRService.sendMessage(tempMessage);
+    this.signalRService.sendMessage(tempMessage, '1');
   }
 
   toggleMinimize(): void {

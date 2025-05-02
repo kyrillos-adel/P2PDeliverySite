@@ -2,14 +2,14 @@
     <div class="row">
       <div class="col-lg-8 col-md-12 mx-auto">
         <h1>{{deliveryRequestDetails.title}}</h1>
-      </div>      
+      </div>
       <div class="col-lg-4 col-md-4">
         @if (deliveryRequestDetails.applicationDTOs.length == 0) {
         <button class="btn btn btn-main d-flex ms-auto" (click)="openPopup(deliveryRequestDetails.id)">Add Application</button>
       }
       </div>
     </div>
-    
+
     <div class="row py-lg-5 ">
       <div class="col-lg-8 col-md-12 mx-auto">
         <h5 class="font-weight-light">request details</h5>
@@ -19,7 +19,7 @@
       <div class="col-lg-4 col-md-4 mx-auto">
         <h5 class="font-weight-light">Requester</h5>
         <hr style="width:95%">
-        
+
         <div class="d-flex align-items-center mb-5">
           <img src="https://mdbootstrap.com/img/new/avatars/8.jpg" alt="" style="width: 45px; height: 45px"
           class="rounded-circle" />
@@ -30,7 +30,7 @@
         </div>
 
         <h5 class="font-weight-light">Request Details</h5>
-        <hr style="width:95%">            
+        <hr style="width:95%">
         <div class="fw-bold mb-lg-2">Weight: <span class="text-muted">{{deliveryRequestDetails.totalWeight}}kgm</span></div>
         <div class="fw-bold mb-lg-2">PickUpLocation: <span class="text-muted"> {{deliveryRequestDetails.pickUpLocation}}</span></div>
         <div class="fw-bold mb-lg-2">DropOffLocation: <span class="text-muted">{{deliveryRequestDetails.dropOffLocation}}</span></div>
@@ -40,7 +40,7 @@
     </div>
     </div>
     <hr>
-    
+
   </section>
   @if (deliveryRequestDetails.applicationDTOs.length>0) {
   <section class="container mb-3">
@@ -64,16 +64,17 @@
                   </div>
               </div>
           </div>
-          
-  
+
+
           <div class="triangle-section me-5">
               <div class="p-3">{{app.offeredPrice}}</div>
               <div>EGP</div>
           </div>
-          
-          <div class="right-section">          
+
+          <div class="right-section">
               <div class="d-flex flex-column align-items-center">
-                  <button class="btn chat-btn btn-main mb-2">Chat</button>
+                  <button class="btn chat-btn btn-main mb-2"
+                  (click)="openChatModal(app.userId, deliveryRequestDetails.id)">Chat</button>
                   <div class="">
                       <label for="status" class="form-label fw-bold mb-1">Change status:</label>
                       <div class="d-flex align-items-center row">
@@ -89,11 +90,11 @@
                           @if(app.applicationStatus === 'Pending'){
                             <option value="1">accept</option>
                             <option value="2">Reject</option>
-                          }    
-                          
+                          }
+
                         </select>
                       </div>
-                          <div class="col-4"> 
+                          <div class="col-4">
                           <button class="btn save-btn btn-main btn-sm">Save</button>
                         </div>
                       </div>
@@ -107,4 +108,3 @@
 }
 
 
-  

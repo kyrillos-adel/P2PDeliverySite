@@ -10,7 +10,7 @@
 <!--      </div>-->
       <div class="chat-info flex-grow-1">
 <!--        <div class="chat-name fw-medium">{{ chat.name }}</div>-->
-        <div class="last-message text-truncate">{{ chat.lastMessage?.message }}</div>
+        <div class="last-message text-truncate">{{ chat.lastMessage?.message | slice: 0 : 20 }}</div>
       </div>
       <div class="chat-meta d-flex flex-column align-items-end">
         <div class="time small">{{ chat.lastMessageTime | date:'shortTime' }}</div>
