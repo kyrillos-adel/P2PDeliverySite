@@ -37,7 +37,7 @@ export class DeliveryRequestsRetriveComponent implements OnInit {
     });
     this.deliveryRequestService.getallDRs().subscribe(response => {
       if (response.isSuccess) {
-        this.deliveryRequests = response.data;
+        this.deliveryRequests = response.data.reverse();
       } else {
         console.error('Error fetching delivery requests:', response.message);
       }
@@ -68,10 +68,16 @@ export class DeliveryRequestsRetriveComponent implements OnInit {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token'); 
 
     if (token) {
-      this.modalService.open(DeliveryRequestCreationComponent, {
+      const modalRef = this.modalService.open(DeliveryRequestCreationComponent, {
         centered: true,
         size: 'lg',
         backdrop: 'static'
+      });
+  
+      modalRef.closed.subscribe(() => {
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this.router.navigate(['/deliveryrequests/getallDRs']);
+        });
       });
     } else {
       this.router.navigate(['/login']);

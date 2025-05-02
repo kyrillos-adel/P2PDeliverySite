@@ -43,7 +43,8 @@
       </div>
 
       <h3 class="mb-4 text-center" style="color: #19283f; font-weight: bold; font-size: 2rem;">Available Delivery Requests</h3>
-
+      <div class="scrollable-feed  mx-auto mb-4 bg-light p-3 rounded shadow-sm">
+       
       <div *ngFor="let request of deliveryRequests" class="card post-card mb-4 shadow-sm border-1">
         <div class="card-body">
           <div class="d-flex align-items-center gap-2">
@@ -61,6 +62,8 @@
             <li class="mb-2">
               <span class="text-muted">{{ request.description }}</span>
             </li>
+            <li class="mb-2"><strong>📦 Package Type:</strong> {{ request.title }}</li>
+            <li class="mb-2"><strong>📦  status:</strong> {{ request.status }}</li>
             <li class="mb-2"><strong>⚖️ Weight:</strong> {{ request.totalWeight }} kg</li>
             <li class="mb-2"><strong>📍 From:</strong> {{ request.pickUpLocation }}</li>
             <li class="mb-2"><strong>📦 To:</strong> {{ request.dropOffLocation }}</li>

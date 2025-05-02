@@ -1,13 +1,14 @@
 <div class="container mt-5">
-  <h2 class="mb-4 text-center " style="color: #19283f;" >My Delivery Applications</h2>
+  <div class="d-flex justify-content-center align-items-center mb-3">
+  <h2 class="fw-bold text-primary-emphasis">My Delivery Applications</h2>
+  </div>
 
-  <!-- Scrollable Feed -->
-  <div class="scrollable-feed p-3 bg-light rounded shadow-sm">
-    <div *ngFor="let application of DrApplications" class="card post-card mb-4 shadow-sm border-0">
+  <div class="scrollable-feed col-md-8 mx-auto mb-4 p-3 bg-light rounded shadow-sm">
+    <div *ngFor="let application of DrApplications" class="card post-card mb-2 shadow-sm border-0">
       <div class="card-body">
         <div class="d-flex justify-content-between align-items-center mb-2">
           <div>
-            <h5 class="fw-bold text-primary mb-1">{{ application.deliveryTitle }}</h5>
+            <h5 class="fw-bold text-black mb-1">{{ application.deliveryTitle }}</h5>
             <small class="text-muted">
               <i class="bi bi-calendar-event"></i>
               {{ application.date | date: 'mediumDate' }}
@@ -25,7 +26,6 @@
           </span>
         </div>
 
-        <hr />
 
         <p class="mb-2">
           <strong>💰 Offered Price:</strong> {{ application.offeredPrice }} EGP
@@ -33,14 +33,14 @@
 
 
       </div>
-
-      <div class="mt-4 d-flex justify-content-end gap-3">
-        <button class="btn btn-outline-primary btn-sm px-4 py-2" style="border-radius: 20px;" >
-          Update
-        </button>
-        <button class="btn btn-danger btn-sm px-4 py-2" style="border-radius: 20px;">
-          <i class="fas fa-trash-alt"></i>
-        </button>
-    </div>
+      <hr class="my-3" />
+          <div class="d-flex flex-column flex-sm-row justify-content-center gap-2 px-2">
+            <button class="link-button">
+              <i class="bi bi-pencil-square me-1"></i> Update
+            </button>
+            <button class="link-button">
+              <i class="bi bi-trash me-1"></i> Delete
+            </button>
+          </div>
   </div>
 </div>
