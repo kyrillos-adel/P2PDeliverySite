@@ -203,12 +203,8 @@ if (this.isGuarded()) {
       console.error('Password does not match!');
       return throwError(() => new Error('Password does not match'));
     }
-<<<<<<< HEAD
-  } 
-=======
   }
 
 
   
->>>>>>> dd6860edd5f118c3bfadeaa6de164e2ba94d93fc
 }
