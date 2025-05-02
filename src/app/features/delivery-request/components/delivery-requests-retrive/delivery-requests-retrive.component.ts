@@ -5,31 +5,62 @@ import { DeliveryRequestDto } from '../../../../models/delivery-request/delivery
 import { RouterModule,Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddApplicationComponent } from '../../../DRApplication/components/add-application/add-application.component';
+import { FiltersMenuComponent } from "../filters-menu/filters-menu.component";
+import { FilterService } from '../../services/filter.service';
 
 @Component({
   selector: 'app-delivery-requests-retrive',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FiltersMenuComponent],
   templateUrl: './delivery-requests-retrive.component.html',
   styleUrls: ['./delivery-requests-retrive.component.css']
 })
 export class DeliveryRequestsRetriveComponent implements OnInit {
   deliveryRequests: DeliveryRequestDto[] = [];
+  totalItems = 100;
+  currentPage = 1;
+  pageSize = 5;
+  totalPages=1;
 
   deliveryRequestService = inject(DeliveryRequestService);
   modalService = inject(NgbModal); 
   router = inject(Router);
 
-  constructor() {}
+  constructor(private filterService: FilterService) {}
 
   ngOnInit() {
-    this.deliveryRequestService.getallDRs().subscribe(response => {
-      if (response.isSuccess) {
-        this.deliveryRequests = response.data;
-      } else {
-        console.error('Error fetching delivery requests:', response.message);
-      }
+    this.loadData();
+  }
+
+  loadData(){
+    let filters = {
+      title: null,
+      status: null,
+      pickupLocation: null,
+      dropoffLocation: null,
+      pickupDate: null,
+      minPrice: null,
+      PageNumber:this.currentPage
+    };
+    this.filterService.filters$.subscribe(filter => {
+      console.log('Received filters:', filter);
+      filters=filter;
+      this.deliveryRequestService.getallDRs(filters,this.currentPage).subscribe(response => {
+        if (response.isSuccess) {
+          this.deliveryRequests = response.data.data;
+          this.currentPage = response.data.currentPage;
+          this.totalItems = response.data.totalCount;
+          this.pageSize = response.data.pageSize;
+          this.totalPages = response.data.totalPages;
+        } else {
+          console.error('Error fetching delivery requests:', response.message);
+        }
+      });
     });
+  }
+  onPageChange(page: number) {
+    this.currentPage = page;
+    this.loadData();
   }
 
   openPopup(deliveryRequestId: number) {

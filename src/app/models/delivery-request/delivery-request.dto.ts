@@ -1,3 +1,10 @@
+export interface PaginatedDeliveryRequestDto{
+    currentPage: number,
+    pageSize: number,
+    totalCount: number,
+    totalPages: number,
+    data: DeliveryRequestDto[]
+}
 export interface DeliveryRequestDto {
     id: number;
     title: string;
