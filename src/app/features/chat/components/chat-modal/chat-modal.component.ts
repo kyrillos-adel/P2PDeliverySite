@@ -13,7 +13,7 @@ import {FormsModule} from '@angular/forms';
 })
 export class ChatModalComponent {
   @Input() applicantId!: number;
-  @Input() deliveryRequestId!: string;
+  @Input() deliveryRequestId!: number;
   message: string = '';
 
   private signalRService = inject(SignalRService);
@@ -21,7 +21,7 @@ export class ChatModalComponent {
 
   sendMessage() {
     if (this.message.trim()) {
-      this.signalRService.startNewChat(this.deliveryRequestId, this.message, this.applicantId);
+      this.signalRService.startNewChat(this.deliveryRequestId.toString(), this.message, this.applicantId);
       this.activeModal.close();
     }
   }

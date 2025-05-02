@@ -74,8 +74,8 @@ export class DeliveryRequestService {
   }
 
   getRequestDetails(id: number) {
-    const headers= this.getAuthHeaders();
-    return this.http.get<ApiResponse<DeliveryRequestDetails>>(`${this.endpoint}/details/${id}`,{headers});
+    //const headers= this.getAuthHeaders();
+    return this.http.get<ApiResponse<DeliveryRequestDetails>>(`${this.endpoint}/details/${id}`);
   }
 
   changeStatus(id: number, status: string) {
