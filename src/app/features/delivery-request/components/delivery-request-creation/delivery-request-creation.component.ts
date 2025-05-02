@@ -4,23 +4,27 @@ import { Router } from '@angular/router';
 import { DeliveryRequestService } from '../../services/delivery-request.service';
 import { DeliveryRequestValidators } from '../../../../core/validators/delivery-request-validators';
 import { DeliveryRequestCreateDto } from '../../../../models/delivery-request/delivery-request-create.dto';
-
-
+import { CommonModule } from '@angular/common';
+import { egyptGovernorates } from '../../../../models/Register/register.model';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-delivery-request-creation',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule,CommonModule],
   templateUrl: './delivery-request-creation.component.html',
   styleUrl: './delivery-request-creation.component.css'
 })
 export class DeliveryRequestCreationComponent implements OnInit {
   createForm!: FormGroup;
+  egyptGovernorates = egyptGovernorates;
+  
 
   constructor (
     private fb: FormBuilder,
     private deliveryRequestService: DeliveryRequestService,
-    private router: Router
+    private router: Router,
+    private activeModal: NgbActiveModal
   
   ){ 
     this.initForm();
@@ -61,8 +65,13 @@ export class DeliveryRequestCreationComponent implements OnInit {
           console.error('Error creating delivery request:', error);
         }
       });
+      this.closeModal();
 
     }
+
+  }
+  closeModal(): void {
+    this.activeModal.close(); 
   }
 
 

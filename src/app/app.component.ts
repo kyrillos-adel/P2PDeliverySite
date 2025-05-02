@@ -8,9 +8,12 @@ import {ChatsPanelComponent} from './features/chat/components/chats-panel/chats-
 import {SignalRService} from './features/chat/services/signal-r.service';
 import {SpinnerComponent} from './shared/components/spinner/spinner.component';
 import {SpinnerService} from './core/services/spinner.service';
+import {
+  NotificationPanelComponent
+} from './features/notifications/components/notification-panel/notification-panel.component';
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, FooterComponent, CommonModule, ChatWindowComponent, ChatsPanelComponent, SpinnerComponent],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, CommonModule, ChatWindowComponent, ChatsPanelComponent, SpinnerComponent, NotificationPanelComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

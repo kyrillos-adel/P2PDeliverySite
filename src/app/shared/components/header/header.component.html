@@ -1,16 +1,13 @@
-<!-- Navbar with responsive behavior -->
 <nav class="navbar navbar-expand-lg sticky-top shadow-sm">
   <div class="container">
     <a class="navbar-brand" href="#">
       <img src="logocopy.png" width="90px" alt="Logo">
     </a>
-
     <button class="navbar-toggler text-light border-0" type="button" data-bs-toggle="collapse"
       data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
       aria-label="Toggle navigation">
       <i class="fa-solid fa-bars fs-4"></i>
     </button>
-
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto align-items-center gap-2 pe-3">
         <ng-container *ngIf="isLoggedIn">
@@ -23,30 +20,21 @@
           <li class="nav-item">
             <a class="nav-link custom-link" routerLink="deliveryrequests/getMyDeliveryRequests" routerLinkActive="active">My Delivery Requests</a>
           </li>
-
           <li class="nav-item">
             <a class="nav-link custom-link d-flex align-items-center gap-1">
               <app-chat-icon></app-chat-icon>
             </a>
           </li>
 
-          <li class="nav-item">
-            <a class="nav-link custom-link d-flex align-items-center gap-1" routerLink="deliveryrequests/Create" routerLinkActive="active">
-              <i class="bi bi-pencil-square fs-5"></i> Create
-            </a>
-          </li>
-
 
           <li class="nav-item position-relative">
-            <a class="nav-link custom-link d-flex align-items-center gap-1" routerLink="/" routerLinkActive="active">
-              <i class="bi bi-bell fs-5"></i>
-              <span class="badge bg-danger position-absolute top-0 start-100 translate-middle rounded-pill px-2">3</span>
+            <a class="nav-link custom-link d-flex align-items-center gap-1">
+              <app-notification-icon></app-notification-icon>
             </a>
           </li>
           <li class="nav-item ms-3">
             <app-user-profile></app-user-profile>
           </li>
-
         </ng-container>
       </ul>
 
