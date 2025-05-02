@@ -5,23 +5,30 @@ import { DeliveryRequestDto } from '../../../../models/delivery-request/delivery
 import { RouterModule,Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddApplicationComponent } from '../../../DRApplication/components/add-application/add-application.component';
+import { FiltersMenuComponent } from "../filters-menu/filters-menu.component";
+import { FilterService } from '../../services/filter.service';
 import { AuthService } from '../../../User/Services/Login.auth.service';
 import { DeliveryRequestCreationComponent } from '../delivery-request-creation/delivery-request-creation.component';
 @Component({
   selector: 'app-delivery-requests-retrive',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FiltersMenuComponent],
   templateUrl: './delivery-requests-retrive.component.html',
   styleUrls: ['./delivery-requests-retrive.component.css']
 })
 export class DeliveryRequestsRetriveComponent implements OnInit {
   deliveryRequests: DeliveryRequestDto[] = [];
+  totalItems = 100;
+  currentPage = 1;
+  pageSize = 5;
+  totalPages=1;
+
   user: any = {};
   deliveryRequestService = inject(DeliveryRequestService);
   modalService = inject(NgbModal); 
   router = inject(Router);
 
-  constructor(private authService: AuthService) {}
+  constructor(private filterService: FilterService,private authService: AuthService) {}
 
   ngOnInit() {
     this.authService.getUserProfile().subscribe({
@@ -35,13 +42,39 @@ export class DeliveryRequestsRetriveComponent implements OnInit {
         }
       }
     });
-    this.deliveryRequestService.getallDRs().subscribe(response => {
-      if (response.isSuccess) {
-        this.deliveryRequests = response.data.reverse();
-      } else {
-        console.error('Error fetching delivery requests:', response.message);
-      }
+    this.loadData();
+  }
+
+  loadData(){
+    let filters = {
+      title: null,
+      status: null,
+      pickupLocation: null,
+      dropoffLocation: null,
+      pickupDate: null,
+      minPrice: null,
+      PageNumber:this.currentPage
+    };
+    this.filterService.filters$.subscribe(filter => {
+      console.log('Received filters:', filter);
+      filters=filter;
+      this.deliveryRequestService.getallDRs(filters,this.currentPage).subscribe(response => {
+        if (response.isSuccess) {
+          this.deliveryRequests = response.data.data.reverse();
+          this.currentPage = response.data.currentPage;
+          this.totalItems = response.data.totalCount;
+          this.pageSize = response.data.pageSize;
+          this.totalPages = response.data.totalPages;
+        } else {
+          console.error('Error fetching delivery requests:', response.message);
+        }
+      });
     });
+  }
+
+  onPageChange(page: number) {
+    this.currentPage = page;
+    this.loadData();
   }
 
   get isLoggedIn(): boolean {
@@ -72,13 +105,14 @@ export class DeliveryRequestsRetriveComponent implements OnInit {
         centered: true,
         size: 'lg',
         backdrop: 'static'
-      });
-  
+      });  
+      
       modalRef.closed.subscribe(() => {
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
           this.router.navigate(['/deliveryrequests/getallDRs']);
         });
       });
+
     } else {
       this.router.navigate(['/login']);
     }

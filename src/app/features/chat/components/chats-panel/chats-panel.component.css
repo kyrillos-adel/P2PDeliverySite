@@ -1,6 +1,6 @@
 .chats-panel-container {
   position: fixed;
-  right: 100px;
+  right: 10%;
   top: 70px;
   width: 300px;
   height: 400px;
@@ -12,6 +12,16 @@
   border: 1px solid var(--yellow);
   overflow: hidden;
 }
+
+@media (max-width: 400px) {
+  .chats-panel-container {
+    width: 80%;
+    right: 10%;
+    top: 10%;
+    height: 60%;
+  }
+}
+
 .panel-header {
   padding: 12px 16px;
   background-color: var(--dark);

@@ -1,0 +1,9 @@
+.main-title::after{
+    content: '';
+    width: 60px;
+    height: 2px;
+    background-color: var(--yellow);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }

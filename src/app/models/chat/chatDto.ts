@@ -4,9 +4,8 @@ export interface ChatDto {
   id : number;
   deliveryRequestId : number;
   userAId : number;
-  userAName : string;
   userBId : number;
-  userBName : string;
+  chattingWith : string;
   messages : Array<ChatMessageDto>;
   lastMessage : ChatMessageDto | null;
   lastMessageTime : Date | null;
