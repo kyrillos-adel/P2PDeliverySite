@@ -1,146 +1,103 @@
-<div class="container mt-5">
-  <form [formGroup]="createForm" (ngSubmit)="onSubmit()" novalidate>
-    
-    <div class="card shadow rounded-4 p-4">
-      <h3 class="mb-4 text-center " style="color: #19283f;">Create Delivery Request</h3>
+<button type="button" class="btn-close" aria-label="Close" (click)="closeModal()" style="position: absolute; right: 20px; top: 20px;"></button>
 
-      <!-- Basic Info -->
-      
-      <div class="row g-3">
+
+<div class="container mt-5" id="cont">
+  <form [formGroup]="createForm" (ngSubmit)="onSubmit()" novalidate>
+      <h3 class="mb-4 text-center fw-bold" style="color: #151e30;">Create Delivery Request</h3>
+      <div class="row g-3 p-3">
         <div class="col-md-6">
           <label for="title" class="form-label fw-semibold">Title</label>
-          <input type="text" class="form-control" id="title" formControlName="title">
-          @if (createForm.get('title')?.invalid && (createForm.get('title')?.dirty || createForm.get('title')?.touched)) {
-            <div class="text-danger">
-              @if (createForm.get('title')?.errors?.['required']) {
-                <small>Title is required</small>
-              }
-              @if (createForm.get('title')?.errors?.['maxlength']) {
-                <small>Title must be less than 100 characters</small>
-              }
-            </div>
-          }
+          <input type="text" class="form-control form-control-sm" id="title" formControlName="title">
+          <div *ngIf="createForm.get('title')?.invalid && (createForm.get('title')?.dirty || createForm.get('title')?.touched)" class="text-danger">
+            <small *ngIf="createForm.get('title')?.errors?.['required']">Title is required</small>
+            <small *ngIf="createForm.get('title')?.errors?.['maxlength']">Title must be less than 100 characters</small>
+          </div>
         </div>
 
         <div class="col-md-6">
           <label for="totalWeight" class="form-label fw-semibold">Total Weight (kg)</label>
-          <input type="number" class="form-control" id="totalWeight" formControlName="totalWeight">
-          @if (createForm.get('totalWeight')?.invalid && (createForm.get('totalWeight')?.dirty || createForm.get('totalWeight')?.touched)) {
-            <div class="text-danger">
-              @if (createForm.get('totalWeight')?.errors?.['required']) {
-                <small>Total weight is required</small>
-              }
-              @if (createForm.get('totalWeight')?.errors?.['min']) {
-                <small>Must be at least 1 kg</small>
-              }
-            </div>
-          }
+          <input type="number" class="form-control form-control-sm" id="totalWeight" formControlName="totalWeight">
+          <div *ngIf="createForm.get('totalWeight')?.invalid && (createForm.get('totalWeight')?.dirty || createForm.get('totalWeight')?.touched)" class="text-danger">
+            <small *ngIf="createForm.get('totalWeight')?.errors?.['required']">Total weight is required</small>
+            <small *ngIf="createForm.get('totalWeight')?.errors?.['min']">Must be at least 1 kg</small>
+          </div>
         </div>
       </div>
 
       <div class="mb-3 mt-3">
         <label for="description" class="form-label fw-semibold">Description</label>
-        <textarea class="form-control" id="description" rows="3" formControlName="description"></textarea>
-        @if (createForm.get('description')?.invalid && (createForm.get('description')?.dirty || createForm.get('description')?.touched)) {
-          <div class="text-danger">
-            @if (createForm.get('description')?.errors?.['required']) {
-              <small>Description is required</small>
-            }
-            @if (createForm.get('description')?.errors?.['maxlength']) {
-              <small>Must be less than 500 characters</small>
-            }
-          </div>
-        }
+        <textarea class="form-control form-control-sm" id="description" rows="3" formControlName="description"></textarea>
+        <div *ngIf="createForm.get('description')?.invalid && (createForm.get('description')?.dirty || createForm.get('description')?.touched)" class="text-danger">
+          <small *ngIf="createForm.get('description')?.errors?.['required']">Description is required</small>
+          <small *ngIf="createForm.get('description')?.errors?.['maxlength']">Must be less than 500 characters</small>
+        </div>
       </div>
 
-      <!-- Location -->
-      <h5 class="mt-4 mb-3 border-bottom pb-2">Location</h5>
-      <div class="row g-3">
+      <div class="row g-3 mb-3">
         <div class="col-md-6">
           <label for="pickUpLocation" class="form-label fw-semibold">Pickup Location</label>
-          <input type="text" class="form-control" id="pickUpLocation" formControlName="pickUpLocation">
-          @if (createForm.get('pickUpLocation')?.invalid && (createForm.get('pickUpLocation')?.dirty || createForm.get('pickUpLocation')?.touched)) {
-            <div class="text-danger">
-              @if (createForm.get('pickUpLocation')?.errors?.['required']) {
-                <small>Pickup location is required</small>
-              }
-            </div>
-          }
+          <select class="form-select form-control-sm" id="pickUpLocation" formControlName="pickUpLocation">
+            <option value="" disabled selected>Select pickup location</option>
+            <option *ngFor="let location of egyptGovernorates" [value]="location">
+              {{ location }}
+            </option>
+          </select>
+          <div *ngIf="createForm.get('pickUpLocation')?.invalid && (createForm.get('pickUpLocation')?.dirty || createForm.get('pickUpLocation')?.touched)" class="text-danger">
+            <small *ngIf="createForm.get('pickUpLocation')?.errors?.['required']">Pickup location is required</small>
+          </div>
         </div>
-
+      
         <div class="col-md-6">
           <label for="dropOffLocation" class="form-label fw-semibold">Dropoff Location</label>
-          <input type="text" class="form-control" id="dropOffLocation" formControlName="dropOffLocation">
-          @if (createForm.get('dropOffLocation')?.invalid && (createForm.get('dropOffLocation')?.dirty || createForm.get('dropOffLocation')?.touched)) {
-            <div class="text-danger">
-              @if (createForm.get('dropOffLocation')?.errors?.['required']) {
-                <small>Dropoff location is required</small>
-              }
-            </div>
-          }
+          <select class="form-select form-control-sm" id="dropOffLocation" formControlName="dropOffLocation">
+            <option value="" disabled selected>Select dropoff location</option>
+            <option *ngFor="let location of egyptGovernorates" [value]="location">
+              {{ location }}
+            </option>
+          </select>
+          <div *ngIf="createForm.get('dropOffLocation')?.invalid && (createForm.get('dropOffLocation')?.dirty || createForm.get('dropOffLocation')?.touched)" class="text-danger">
+            <small *ngIf="createForm.get('dropOffLocation')?.errors?.['required']">Dropoff location is required</small>
+          </div>
         </div>
       </div>
-
-      <!-- Schedule -->
       
+
       <div class="mb-3">
         <label for="pickUpDate" class="form-label fw-semibold">Pickup Date</label>
-        <input type="date" class="form-control" id="pickUpDate" formControlName="pickUpDate">
-        @if (createForm.get('pickUpDate')?.invalid && (createForm.get('pickUpDate')?.dirty || createForm.get('pickUpDate')?.touched)) {
-          <div class="text-danger">
-            @if (createForm.get('pickUpDate')?.errors?.['required']) {
-              <small>Pickup date is required</small>
-            }
-          </div>
-        }
+        <input type="date" class="form-control form-control-sm" id="pickUpDate" formControlName="pickUpDate">
+        <div *ngIf="createForm.get('pickUpDate')?.invalid && (createForm.get('pickUpDate')?.dirty || createForm.get('pickUpDate')?.touched)" class="text-danger">
+          <small *ngIf="createForm.get('pickUpDate')?.errors?.['required']">Pickup date is required</small>
+        </div>
       </div>
 
-      <!-- Price Info -->
-      
       <div class="row g-3">
         <div class="col-md-6">
-          <label for="minPrice" class="form-label fw-semibold">Minimum Price </label>
-          <input type="number" class="form-control" id="minPrice" formControlName="minPrice">
-          @if (createForm.get('minPrice')?.invalid && (createForm.get('minPrice')?.dirty || createForm.get('minPrice')?.touched)) {
-            <div class="text-danger">
-              @if (createForm.get('minPrice')?.errors?.['required']) {
-                <small>Minimum price is required</small>
-              }
-              @if (createForm.get('minPrice')?.errors?.['min']) {
-                <small>Must be 0 or more</small>
-              }
-            </div>
-          }
+          <label for="minPrice" class="form-label fw-semibold">Minimum Price</label>
+          <input type="number" class="form-control form-control-sm" id="minPrice" formControlName="minPrice">
+          <div *ngIf="createForm.get('minPrice')?.invalid && (createForm.get('minPrice')?.dirty || createForm.get('minPrice')?.touched)" class="text-danger">
+            <small *ngIf="createForm.get('minPrice')?.errors?.['required']">Minimum price is required</small>
+            <small *ngIf="createForm.get('minPrice')?.errors?.['min']">Must be 0 or more</small>
+          </div>
         </div>
 
         <div class="col-md-6">
-          <label for="maxPrice" class="form-label fw-semibold">Maximum Price </label>
-          <input type="number" class="form-control" id="maxPrice" formControlName="maxPrice">
-          @if (createForm.get('maxPrice')?.invalid && (createForm.get('maxPrice')?.dirty || createForm.get('maxPrice')?.touched)) {
-            <div class="text-danger">
-              @if (createForm.get('maxPrice')?.errors?.['required']) {
-                <small>Maximum price is required</small>
-              }
-              @if (createForm.get('maxPrice')?.errors?.['min']) {
-                <small>Must be 0 or more</small>
-              }
-            </div>
-          }
+          <label for="maxPrice" class="form-label fw-semibold">Maximum Price</label>
+          <input type="number" class="form-control form-control-sm" id="maxPrice" formControlName="maxPrice">
+          <div *ngIf="createForm.get('maxPrice')?.invalid && (createForm.get('maxPrice')?.dirty || createForm.get('maxPrice')?.touched)" class="text-danger">
+            <small *ngIf="createForm.get('maxPrice')?.errors?.['required']">Maximum price is required</small>
+            <small *ngIf="createForm.get('maxPrice')?.errors?.['min']">Must be 0 or more</small>
+          </div>
         </div>
       </div>
 
-      @if (createForm.errors?.['priceRange']) {
-        <div class="text-danger mt-2">
-          Maximum price must be greater than minimum price
-        </div>
-      }
+      <div *ngIf="createForm.errors?.['priceRange']" class="text-danger mt-2">
+        <small>Maximum price must be greater than minimum price</small>
+      </div>
 
       <div class="d-grid gap-2 mt-4">
-        <button type="submit" class="btn btn-primary btn-lg" [disabled]="createForm.invalid">
+        <button type="submit" class="btn btn-warning btn-lg" [disabled]="createForm.invalid">
           <i class="bi bi-truck"></i> Create Delivery Request
         </button>
       </div>
-    </div>
-
   </form>
 </div>

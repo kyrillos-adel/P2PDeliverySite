@@ -8,6 +8,8 @@ import { AddApplicationComponent } from '../../../DRApplication/components/add-a
 import { FiltersMenuComponent } from "../filters-menu/filters-menu.component";
 import { FilterService } from '../../services/filter.service';
 
+import { AuthService } from '../../../User/Services/Login.auth.service';
+import { DeliveryRequestCreationComponent } from '../delivery-request-creation/delivery-request-creation.component';
 @Component({
   selector: 'app-delivery-requests-retrive',
   standalone: true,
@@ -22,13 +24,25 @@ export class DeliveryRequestsRetriveComponent implements OnInit {
   pageSize = 5;
   totalPages=1;
 
+  user: any = {};
   deliveryRequestService = inject(DeliveryRequestService);
   modalService = inject(NgbModal); 
   router = inject(Router);
 
-  constructor(private filterService: FilterService) {}
+  constructor(private filterService: FilterService,private authService: AuthService) {}
 
   ngOnInit() {
+    this.authService.getUserProfile().subscribe({
+      next: (data) => {
+        this.user = data;
+      },
+      error: (err) => {
+        console.error('Failed to load user:', err);
+        if (err.status === 401) {
+          this.router.navigate(['/login']);
+        }
+      }
+    });
     this.loadData();
   }
 
@@ -58,11 +72,16 @@ export class DeliveryRequestsRetriveComponent implements OnInit {
       });
     });
   }
+
   onPageChange(page: number) {
     this.currentPage = page;
     this.loadData();
   }
 
+  get isLoggedIn(): boolean {
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+    return !!token;
+  }
   openPopup(deliveryRequestId: number) {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token'); 
 
@@ -76,6 +95,19 @@ export class DeliveryRequestsRetriveComponent implements OnInit {
       modalRef.componentInstance.deliveryRequestID = deliveryRequestId;
     } else {
       
+      this.router.navigate(['/login']);
+    }
+  }
+  navigateToCreatePost() {
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token'); 
+
+    if (token) {
+      this.modalService.open(DeliveryRequestCreationComponent, {
+        centered: true,
+        size: 'lg',
+        backdrop: 'static'
+      });
+    } else {
       this.router.navigate(['/login']);
     }
   }
