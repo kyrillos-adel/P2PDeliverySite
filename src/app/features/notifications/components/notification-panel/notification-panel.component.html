@@ -1,12 +1,12 @@
-<div class="notifications-panel-container card shadow" *ngIf="isPanelOpen">
+<div class="notifications-panel-container card shadow position-fixed" *ngIf="isPanelOpen">
   <div class="card-header panel-header d-flex justify-content-between align-items-center">
     <h5 class="mb-0 text-white">Notifications</h5>
     <button class="btn-close-panel btn btn-link p-0" (click)="closePanel()">
-      <i class="bi bi-x-lg"></i>
+      <i class="bi bi-x-lg text-yellow"></i>
     </button>
   </div>
-  <div class="notifications-list card-body p-0">
-    <div class="notification-item d-flex align-items-center p-3"
+  <div class="notifications-list card-body p-0 bg-white">
+    <div class="notification-item d-flex align-items-center p-3 border-bottom"
          *ngFor="let notification of notifications"
          [ngClass]="{'unread': !notification.isRead}">
       <div class="notification-icon me-3">
@@ -15,13 +15,13 @@
       <div class="notification-content flex-grow-1">
         <p class="notification-text mb-1">{{ notification.message }}</p>
         <small class="notification-time text-muted">
-          {{ notification.createdAt | date:'shortTime' }}
+          {{ notification.createdAt | date:'short' }}
         </small>
       </div>
     </div>
-    <div class="no-notifications text-center p-4 text-muted" *ngIf="notifications.length === 0">
-      <i class="bi bi-bell fs-4 mb-2"></i>
-      <p class="mb-0">No notifications yet</p>
+    <div class="no-notifications text-center p-4" *ngIf="notifications.length === 0">
+      <i class="bi bi-bell fs-4 mb-2 text-yellow"></i>
+      <p class="mb-0 text-muted">No notifications yet</p>
     </div>
   </div>
 </div>
