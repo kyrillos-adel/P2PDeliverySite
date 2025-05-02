@@ -15,9 +15,15 @@ export interface DeliveryRequestDetails {
 }
 
 export interface ApplicationDTO {
+  id :number;
   date: string; 
   offeredPrice: number;
   applicationStatus: string;
   userId: number;
   userName: string;
+}
+export interface ApplicationstatusDTO {
+  
+  applicationStatus: string;
+  
 }
