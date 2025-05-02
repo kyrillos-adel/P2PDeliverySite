@@ -69,6 +69,8 @@ export class LoginComponent implements OnInit {
     this.formError = null;
     this.authService.login(this.loginForm.value).subscribe({
       next: (response) => {
+
+        console.log('API response:', response);
         this.usernError = '';
         this.passwordError = '';
   
@@ -97,6 +99,7 @@ export class LoginComponent implements OnInit {
           this.passwordError = message;}
           else if (message === 'Account has been deleted.') {
             this.deletedAcountError = message;
+          
         } else {
           alert('Login failed: ' + (message || 'Please try again later.'));
         }
