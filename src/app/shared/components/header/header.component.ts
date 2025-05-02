@@ -7,10 +7,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { UserProfileComponent } from '../../../features/User/Components/user-profile/user-profile.component';
 import {ChatIconComponent} from '../../../features/chat/components/chat-icon/chat-icon.component';
+import {
+  NotificationIconComponent
+} from '../../../features/notifications/components/notification-icon/notification-icon.component';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, RouterLinkActive, NgIf, FormsModule, UserProfileComponent, HttpClientModule, ChatIconComponent],
+  imports: [RouterLink, RouterLinkActive, NgIf, FormsModule, UserProfileComponent, HttpClientModule, ChatIconComponent, NotificationIconComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
