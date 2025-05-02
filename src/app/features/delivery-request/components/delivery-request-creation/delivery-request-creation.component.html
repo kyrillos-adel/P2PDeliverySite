@@ -64,7 +64,12 @@
 
       <div class="mb-3">
         <label for="pickUpDate" class="form-label fw-semibold">Pickup Date</label>
-        <input type="date" class="form-control form-control-sm" id="pickUpDate" formControlName="pickUpDate">
+        <input
+        type="date"
+        class="form-control form-control-sm"
+        id="pickUpDate"
+        formControlName="pickUpDate"
+        [min]="minDate">
         <div *ngIf="createForm.get('pickUpDate')?.invalid && (createForm.get('pickUpDate')?.dirty || createForm.get('pickUpDate')?.touched)" class="text-danger">
           <small *ngIf="createForm.get('pickUpDate')?.errors?.['required']">Pickup date is required</small>
         </div>

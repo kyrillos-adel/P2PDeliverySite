@@ -60,7 +60,7 @@ export class DeliveryRequestsRetriveComponent implements OnInit {
       filters=filter;
       this.deliveryRequestService.getallDRs(filters,this.currentPage).subscribe(response => {
         if (response.isSuccess) {
-          this.deliveryRequests = response.data.data;
+          this.deliveryRequests = response.data.data.reverse();
           this.currentPage = response.data.currentPage;
           this.totalItems = response.data.totalCount;
           this.pageSize = response.data.pageSize;
@@ -76,7 +76,6 @@ export class DeliveryRequestsRetriveComponent implements OnInit {
     this.currentPage = page;
     this.loadData();
   }
-
 
   get isLoggedIn(): boolean {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
@@ -102,11 +101,18 @@ export class DeliveryRequestsRetriveComponent implements OnInit {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token'); 
 
     if (token) {
-      this.modalService.open(DeliveryRequestCreationComponent, {
+      const modalRef = this.modalService.open(DeliveryRequestCreationComponent, {
         centered: true,
         size: 'lg',
         backdrop: 'static'
+      });  
+      
+      modalRef.closed.subscribe(() => {
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this.router.navigate(['/deliveryrequests/getallDRs']);
+        });
       });
+
     } else {
       this.router.navigate(['/login']);
     }

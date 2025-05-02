@@ -66,14 +66,13 @@
             <li class="mb-2">
               <span class="text-muted">{{ request.description }}</span>
             </li>
+            <li class="mb-2"><strong>📦 Package Type:</strong> {{ request.title }}</li>
+            <li class="mb-2"><strong>📦  status:</strong> {{ request.status }}</li>
             <li class="mb-2"><strong>⚖️ Weight:</strong> {{ request.totalWeight }} kg</li>
             <li class="mb-2"><strong>📍 From:</strong> {{ request.pickUpLocation }}</li>
             <li class="mb-2"><strong>📦 To:</strong> {{ request.dropOffLocation }}</li>
             <li class="mb-2"><strong>📅 Pickup Date:</strong> {{ request.pickUpDate | date: 'mediumDate' }}</li>
           </ul>
-
-
-
 
           <hr class="my-3" />
 
