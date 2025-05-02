@@ -7,6 +7,7 @@ export interface RegisterModel {
   address: string;
   password: string;
   confirmPassword: string;
+  profileImage: File | null;
 }
 
 export const egyptGovernorates: string[] = [

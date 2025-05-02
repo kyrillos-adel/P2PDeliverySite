@@ -5,5 +5,6 @@ export interface LoginResponseDTO {
     refreshTokenExpiration: Date;
     userName: string;
     email: string;
+    profileImageUrl:string;
     role: string[];
   }

@@ -2,5 +2,7 @@
   production: true,
   apiBaseUrl: 'https://localhost:7176/',
   chatHubUrl: 'https://localhost:7176/hub/chat',
-  enableDebug: false
+  imageBaseUrl: 'https://localhost:7176/images/',
+  enableDebug: false,
+  secure: false
 };

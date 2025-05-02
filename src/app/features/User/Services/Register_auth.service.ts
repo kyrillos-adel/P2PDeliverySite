@@ -13,8 +13,8 @@ export class AuthService {
   constructor(private http: HttpClient) { }
  
 
-  register(userData: RegisterModel): Observable<any> {
-    return this.http.post(`${this.apiUrl}/Register`, userData);
+  register(formData: FormData): Observable<any> {
+    return this.http.post(`${this.apiUrl}/Register`, formData);
   }
   
   
