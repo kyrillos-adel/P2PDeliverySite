@@ -7,7 +7,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddApplicationComponent } from '../../../DRApplication/components/add-application/add-application.component';
 import { FiltersMenuComponent } from "../filters-menu/filters-menu.component";
 import { FilterService } from '../../services/filter.service';
-
 import { AuthService } from '../../../User/Services/Login.auth.service';
 import { DeliveryRequestCreationComponent } from '../delivery-request-creation/delivery-request-creation.component';
 @Component({
@@ -77,6 +76,7 @@ export class DeliveryRequestsRetriveComponent implements OnInit {
     this.currentPage = page;
     this.loadData();
   }
+
 
   get isLoggedIn(): boolean {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
