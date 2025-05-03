@@ -24,7 +24,7 @@ jobs:
         run: npm ci --force
 
       - name: Build Angular App
-        run: npm run build -- --configuration production --base-href P2PDeliverySite
+        run: npm run build -- --configuration production --base-href ""
 
       - name: Handle output folder
         run: |
@@ -35,7 +35,6 @@ jobs:
             rm -rf docs/browser
             echo "Files moved successfully"
           fi
-          echo "Base href set to P2PDeliverySite"
 
       - name: Install angular-cli-ghpages
         run: npm install -g angular-cli-ghpages
