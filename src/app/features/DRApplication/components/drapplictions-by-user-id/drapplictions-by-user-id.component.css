@@ -46,3 +46,7 @@
   text-decoration: none;
   cursor: pointer;
 }
+
+.btn-main:disabled{
+  background-color: aqua ;
+}

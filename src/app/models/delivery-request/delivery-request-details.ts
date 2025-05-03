@@ -25,7 +25,8 @@ export interface ApplicationDTO {
   userName: string;
 }
 export interface ApplicationstatusDTO {
-  
-  applicationStatus: string;
+  deleveryRequestId: number;
+  id: number;
+  status: number;
   
 }

@@ -1,3 +1,23 @@
+
+  .custom-accept-btn {
+    background-color: #28a745; /* Green for Accept */
+    border-color: #28a745;
+  }
+  
+  .custom-accept-btn:hover {
+    background-color: #218838; /* Darker green on hover */
+    border-color: #1e7e34;
+  }
+
+  .custom-reject-btn {
+    background-color: #dc3545; /* Red for Reject */
+    border-color: #dc3545;
+  }
+  
+  .custom-reject-btn:hover {
+    background-color: #c82333; /* Darker red on hover */
+    border-color: #bd2130;
+}
 .card-custom {
     background: #fff;
     border-radius: 15px;
