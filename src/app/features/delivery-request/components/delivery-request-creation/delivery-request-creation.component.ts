@@ -19,6 +19,7 @@ export class DeliveryRequestCreationComponent implements OnInit {
   createForm!: FormGroup;
   egyptGovernorates = egyptGovernorates;
   minDate: string = '';
+  selectedImageFile: File | null = null;
 
   constructor (
     private fb: FormBuilder,
@@ -46,18 +47,28 @@ export class DeliveryRequestCreationComponent implements OnInit {
       maxPrice: [0, [Validators.required, Validators.min(0)]],
     }, { validators: [DeliveryRequestValidators.priceRangeValidator('minPrice', 'maxPrice')] });
   }
+
+
+  onFileSelected(event: Event): void {
+    const fileInput = event.target as HTMLInputElement;
+    if (fileInput.files && fileInput.files.length > 0) {
+      this.selectedImageFile = fileInput.files[0];
+    }
+  }
   onSubmit(): void {
-    
-    if(this.createForm.valid)
-    {
-      console.log(this.createForm.value);
+    if (this.createForm.valid) {
+      const formData = new FormData();
+      const formValue = this.createForm.value;
 
-      const data= this.createForm.value;
+      for (const key in formValue) {
+        formData.append(key, formValue[key]);
+      }
 
-      console.log(this.createForm.value);
-      this.deliveryRequestService.create(data).subscribe
-      
-({
+      if (this.selectedImageFile) {
+        formData.append('DRImage', this.selectedImageFile);
+      }
+
+      this.deliveryRequestService.create(formData).subscribe({
         next: (response) => {
           console.log(response);
         },
@@ -65,10 +76,9 @@ export class DeliveryRequestCreationComponent implements OnInit {
           console.error('Error creating delivery request:', error);
         }
       });
+
       this.closeModal();
-
     }
-
   }
   closeModal(): void {
     this.activeModal.close(); 

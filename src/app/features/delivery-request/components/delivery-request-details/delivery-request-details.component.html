@@ -130,7 +130,19 @@
     <div class="col-lg-4 col-12">
       <div class="card shadow-sm mb-4">
         <div class="card-body d-flex align-items-center">
-          <img src="https://mdbootstrap.com/img/new/avatars/8.jpg" alt="User" width="50" height="50" class="rounded-circle me-3">
+          <img [src]="'https://localhost:7176'+deliveryRequestDetails.profileImageUrl"
+               alt="User"
+               width="50"
+               height="50"
+               class="rounded-circle me-3">
+
+               <div 
+               *ngIf="!deliveryRequestDetails.profileImageUrl" 
+               class="d-flex justify-content-center align-items-center rounded-circle text-white fw-bold" 
+               style="width: 50px; height: 50px; font-size: 1.3rem;"
+             >
+               {{ deliveryRequestDetails.userName.charAt(0).toUpperCase() }}
+             </div>
           <div>
             <h6 class="mb-0 fw-bold">{{ deliveryRequestDetails.userName }}</h6>
             <!-- <p class="mb-0 text-muted">john.doe@gmail.com</p> -->
@@ -149,6 +161,16 @@
             <li class="mb-2"><strong>Pick-up Date: </strong> <span class="text-muted">{{ deliveryRequestDetails.pickUpDate }}</span></li>
             <li class="mb-2"><strong>Price Range: </strong> <span class="text-muted">{{ deliveryRequestDetails.minPrice }} - {{ deliveryRequestDetails.maxPrice }} EGP</span></li>
           </ul>
+          
+          <div *ngIf="deliveryRequestDetails.drImageUrl" class="text-center my-3">
+            <img 
+              [src]="'https://localhost:7176'+deliveryRequestDetails.drImageUrl" 
+              alt="Delivery Request Image" 
+              class="img-fluid rounded" 
+              style="max-height: 300px; object-fit: cover;"
+            />
+          </div>
+
         </div>
       </div>
     </div>
@@ -165,7 +187,12 @@
       
             <!-- Left Section: Profile and Info -->
             <div class="col-12 col-md-4 d-flex flex-column flex-md-row align-items-center">
-              <img src="https://mdbootstrap.com/img/new/avatars/8.jpg" alt="Profile" class="profile-img mb-2 mb-md-0 me-md-3" style="width: 100px; height: 100px; border-radius: 50%;">
+              <!-- applicant profile -->
+              <!-- <img [src]="'https://localhost:7176'+deliveryRequestDetails.profileImageUrl"
+               alt="User"
+               width="50"
+               height="50"
+               class="rounded-circle me-3"> -->
               <div class="text-center text-md-start">
                 <span class="badge bg-success status-badge" *ngIf="app.applicationStatus === 'Accepted'">{{ app.applicationStatus }}</span>
                 <span class="badge bg-warning text-dark status-badge" *ngIf="app.applicationStatus === 'Pending'">{{ app.applicationStatus }}</span>

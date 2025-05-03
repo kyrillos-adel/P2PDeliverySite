@@ -8,5 +8,6 @@ export const environment = {
   imageBaseUrl: 'http://p2pdelivery.runasp.net/images/',
   notificationHubUrl: 'http://p2pdelivery.runasp.net/hub/notification',
   secure: false,
+//   notificationHubUrl: 'https://localhost:5153/hub/notification',
   enableDebug: true
 };

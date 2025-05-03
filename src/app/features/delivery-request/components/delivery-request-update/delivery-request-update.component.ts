@@ -41,9 +41,17 @@ export class DeliveryRequestUpdateComponent implements OnInit {
       pickUpDate: ['', [Validators.required]],
       minPrice: [0, [Validators.required, Validators.min(0)]],
       maxPrice: [0, [Validators.required, Validators.min(0)]],
-      }, { validators: [DeliveryRequestValidators.priceRangeValidator('minPrice', 'maxPrice')] }
+      DRimage: [null]  
+    }, { validators: [DeliveryRequestValidators.priceRangeValidator('minPrice', 'maxPrice')] }
     );
   }
+  onFileChange(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.updateForm.patchValue({ DRimage: file });
+    }
+  }
+  
 
   loadDeliveryRequest(): void {
     this.deliveryRequestService.getById(this.deliveryRequestId).subscribe({
@@ -61,26 +69,27 @@ export class DeliveryRequestUpdateComponent implements OnInit {
     });
   }
 
-  onSubmit(){
-    if(this.updateForm.valid){
-      const data: DeliveryRequestUpdateDto = {
-        title: this.updateForm.value.title,
-        description: this.updateForm.value.description,
-        totalWeight: 0, // Assuming totalWeight is not needed for update
-        pickUpLocation: this.updateForm.value.pickUpLocation,
-        dropOffLocation: this.updateForm.value.dropOffLocation,
-        pickUpDate: new Date(this.updateForm.value.pickUpDate),
-        minPrice: this.updateForm.value.minPrice,
-        maxPrice: this.updateForm.value.maxPrice
+  onSubmit() {
+    if (this.updateForm.valid) {
+      const formData = new FormData();
+  
+      formData.append('title', this.updateForm.value.title);
+      formData.append('description', this.updateForm.value.description);
+      formData.append('totalWeight', '0'); // default or calculated if needed
+      formData.append('pickUpLocation', this.updateForm.value.pickUpLocation);
+      formData.append('dropOffLocation', this.updateForm.value.dropOffLocation);
+      formData.append('pickUpDate', this.updateForm.value.pickUpDate);
+      formData.append('minPrice', this.updateForm.value.minPrice);
+      formData.append('maxPrice', this.updateForm.value.maxPrice);
+  
+      const image = this.updateForm.get('DRimage')?.value;
+      if (image) {
+        formData.append('DRimage', image);
       }
-
-      this.deliveryRequestService.update(this.deliveryRequestId, data).subscribe({
-        next: () => {
-          this.router.navigate(['/deliveryrequest']);
-        },
-        error: (error) => {
-          console.error('Error updating delivery request:', error);
-        }
+  
+      this.deliveryRequestService.update(this.deliveryRequestId, formData).subscribe({
+        next: () => this.router.navigate(['/deliveryrequest']),
+        error: (error) => console.error('Error updating delivery request:', error)
       });
     }
   }
