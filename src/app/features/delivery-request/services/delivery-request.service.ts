@@ -84,16 +84,13 @@ if(filters){
     return this.http.get<ApiResponse<PaginatedDeliveryRequestDto>>(`${this.endpoint}`, { params });
   }
 
-
-
-
   getMyDeliveryRequests() {
     const headers= this.getAuthHeaders();
 
     return this.http.get<ApiResponse<DeliveryRequestDto[]>>(`${this.endpoint}/my`, { headers });
   }
 
-  update(id: number, data: FormData) {
+  update(id: number, data: DeliveryRequestUpdateDto) {
     return this.http.put(`${this.endpoint}/${id}`,data);
   }
 

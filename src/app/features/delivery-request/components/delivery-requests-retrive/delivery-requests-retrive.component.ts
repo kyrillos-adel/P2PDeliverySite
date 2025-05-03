@@ -10,6 +10,8 @@ import { FilterService } from '../../services/filter.service';
 import { AuthService } from '../../../User/Services/Login.auth.service';
 import { DeliveryRequestCreationComponent } from '../delivery-request-creation/delivery-request-creation.component';
 import { SpinnerComponent } from "../../../../shared/components/spinner/spinner.component";
+import { environment } from '../../../../../environments/environment';
+
 @Component({
   selector: 'app-delivery-requests-retrive',
   standalone: true,
@@ -18,6 +20,7 @@ import { SpinnerComponent } from "../../../../shared/components/spinner/spinner.
   styleUrls: ['./delivery-requests-retrive.component.css']
 })
 export class DeliveryRequestsRetriveComponent implements OnInit {
+  imageBaseUrl = environment.imageBaseUrl;
   deliveryRequests: DeliveryRequestDto[] = [];
   totalItems = 100;
   currentPage = 1;
@@ -63,8 +66,8 @@ export class DeliveryRequestsRetriveComponent implements OnInit {
       filters=filter;
       this.deliveryRequestService.getallDRs(filters,this.currentPage).subscribe(response => {
         if (response.isSuccess) {
-          
-          this.deliveryRequests = response.data.data.reverse();
+          console.log(response.data.data)
+          this.deliveryRequests = response.data.data;
           this.dataLoaded=true;
           this.currentPage = response.data.currentPage;
           this.totalItems = response.data.totalCount;
