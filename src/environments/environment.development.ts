@@ -6,5 +6,4 @@ export const environment = {
   enableDebug: true,
   scure: false,
   notificationHubUrl: 'http://localhost:5153/hub/notification',
-  enableDebug: true
 };
