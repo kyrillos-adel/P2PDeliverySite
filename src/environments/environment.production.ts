@@ -9,6 +9,6 @@
   imageBaseUrl: 'http://p2pdelivery.runasp.net/images/',
   notificationHubUrl: 'http://p2pdelivery.runasp.net/hub/notification',
   enableDebug: false,
-//   notificationHubUrl: 'http://localhost:5153/hub/notification',
+//   notificationHubUrl: 'https://localhost:5153/hub/notification',
   secure: false
 };
