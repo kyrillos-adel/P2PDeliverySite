@@ -18,6 +18,7 @@ export interface DeliveryRequestDto {
     minPrice: number;
     maxPrice: number;
     userId: number;
+    isOwner: boolean;
     userName: string;
     status: string;
     profileImageUrl: string;

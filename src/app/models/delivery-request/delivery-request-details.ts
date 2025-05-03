@@ -9,6 +9,7 @@ export interface DeliveryRequestDetails {
   minPrice: number;
   maxPrice: number;
   userId: number;
+  IsOwner: boolean;
   userName: string;
   status: string;
   drImageUrl:string;

@@ -5,96 +5,6 @@
     {{ errorMessage }}
   </div>
 
-  <!-- Delivery Request Details -->
-  <div *ngIf="deliveryRequestDetails" class="details-container">
-    <div class="card mb-4 shadow-lg border-0 animate__animated animate__fadeInUp">
-      <div class="card-body p-4">
-        <h4 class="card-title text-primary mb-4 fw-bold">Delivery Request Details</h4>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item d-flex justify-content-between"><strong>ID:</strong> {{ deliveryRequestDetails.id }}</li>
-          <li class="list-group-item d-flex justify-content-between"><strong>Title:</strong> {{ deliveryRequestDetails.title }}</li>
-          <li class="list-group-item d-flex justify-content-between"><strong>Description:</strong> {{ deliveryRequestDetails.description }}</li>
-          <li class="list-group-item d-flex justify-content-between">
-            <strong>Status:</strong> 
-            <span class="badge bg-info text-dark rounded-pill">{{ deliveryRequestDetails.status }}</span>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Applications Section -->
-    <div class="card shadow-lg border-0 animate__animated animate__fadeInUp animation-delay-2">
-      <div class="card-body p-4">
-        <h4 class="card-title text-success mb-4 fw-bold">Applications</h4>
-
-        <div *ngIf="nonRejectedApplications?.length; else noApplications">
-          <div class="table-responsive">
-            <table class="table table-hover align-middle text-center modern-table">
-              <thead class="table-light">
-                <tr>
-                  <th>#</th>
-                  <th>User Name</th>
-                  <th>Offered Price</th>
-                  <th>Status</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let app of nonRejectedApplications; trackBy: trackApp; let i = index" class="animate__animated animate__fadeIn">
-                  <td>{{ i + 1 }}</td>
-                  <td>{{ app.userName }}</td>
-                  <td>{{ app.offeredPrice | currency }}</td>
-                  <td>
-                    <span 
-                      class="badge rounded-pill"
-                      [ngClass]="{
-                        'bg-success text-white': app.applicationStatus === 'Accepted', 
-                        'bg-info text-dark': app.applicationStatus !== 'Accepted'
-                      }">
-                      {{ app.applicationStatus }}
-                    </span>
-                  </td>
-                  <td>
-                    <div class="d-flex justify-content-center gap-2 flex-wrap">
-                      <button
-                        class="btn btn-success btn-sm action-btn custom-accept-btn"
-                        (click)="updateApplicationStatus(app.id, 1)"
-                        [disabled]="hasAcceptedApplication() && app.applicationStatus !== 'Accepted'"
-                        title="Accept Application"
-                      >
-                        <i class="bi bi-check-circle me-1"></i> Accept
-                      </button>
-                      <button
-                        class="btn btn-danger btn-sm action-btn custom-reject-btn"
-                        (click)="updateApplicationStatus(app.id, 2)"
-                        title="Reject Application"
-                      >
-                        <i class="bi bi-x-circle me-1"></i> Reject
-                      </button>
-                      <button
-                        class="btn btn-outline-secondary btn-sm action-btn"
-                        (click)="openChatModal(app.id, deliveryRequestDetails.id)"
-                        [disabled]="app.applicationStatus !== 'Accepted'"
-                        title="Chat with Applicant"
-                      >
-                        <i class="bi bi-chat-dots me-1"></i> Chat
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <ng-template #noApplications>
-          <p class="text-muted text-center fst-italic py-3">No applications found for this request.</p>
-        </ng-template>
-      </div>
-    </div>
-  </div>
-</div>
-
 <section class="py-5 container">
   <!-- Title, status and Add Application Button -->
   <span class="badge bg-success status-badge" *ngIf="deliveryRequestDetails.status === 'Accepted'">{{ deliveryRequestDetails.status }}</span>
@@ -112,7 +22,7 @@
       <h1 class="mb-3 mb-md-0">{{ deliveryRequestDetails.title }}</h1>
     </div>
     <div class="col-md-4 col-12 text-md-end text-start">
-      @if (deliveryRequestDetails.applicationDTOs.length == 0) {
+      @if (deliveryRequestDetails.IsOwner==false) {
         <button class="btn btn-main" (click)="openPopup(deliveryRequestDetails.id)">Add Application</button>
       }
     </div>
@@ -218,7 +128,32 @@
       
             <!-- Right Section: Chat and Status Change -->
             <div class="col-12 col-md-4 text-center text-md-start">
-              <div class="d-flex flex-column align-items-center">
+              <div class="d-flex justify-content-center gap-2 flex-wrap d-flex flex-row align-items-center">
+                <button
+                  class="btn btn-success btn-sm action-btn custom-accept-btn"
+                  (click)="updateApplicationStatus(app.id, 1)"
+                  [disabled]="hasAcceptedApplication() && app.applicationStatus !== 'Accepted'"
+                  title="Accept Application"
+                >
+                  <i class="bi bi-check-circle me-1"></i> Accept
+                </button>
+                <button
+                  class="btn btn-danger btn-sm action-btn custom-reject-btn"
+                  (click)="updateApplicationStatus(app.id, 2)"
+                  title="Reject Application"
+                >
+                  <i class="bi bi-x-circle me-1"></i> Reject
+                </button>
+                <button
+                  class="btn btn-outline-secondary btn-sm action-btn"
+                  (click)="openChatModal(app.id, deliveryRequestDetails.id)"
+                  [disabled]="app.applicationStatus !== 'Accepted'"
+                  title="Chat with Applicant"
+                >
+                  <i class="bi bi-chat-dots me-1"></i> Chat
+                </button>
+              </div>
+              <!-- <div class="d-flex flex-column align-items-center">
                 <button class="btn chat-btn btn-main mb-2"
                   (click)="openChatModal(app.userId, deliveryRequestDetails.id)">Chat</button>
                 <div class="w-100">
@@ -240,7 +175,7 @@
                     <button class="btn save-btn btn-main btn-sm">Save</button>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
       
           </div>

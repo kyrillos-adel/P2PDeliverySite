@@ -106,12 +106,14 @@
               <i class="bi bi-eye"></i> View Details
             </button>
           
-            <button 
+              <button 
               (click)="openPopup(request.id)" 
               class="link-button"
+              [ngClass]="request.isOwner ? 'd-none' : 'd-block'"
             >
               <i class="bi bi-plus-circle"></i> Add Application
             </button>
+            
           </div>
           
         </div>
