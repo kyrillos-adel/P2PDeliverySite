@@ -134,6 +134,13 @@
           </div>
         }
       </div>
+
+      <!-- Delivery Request Image -->
+  <div class="mb-3">
+    <label for="DRimage" class="form-label">Update Image</label>
+    <input type="file" class="form-control" id="DRimage" (change)="onFileChange($event)" accept="image/*">
+  </div>
+
     </div>
 
     <!-- Form-level validation -->

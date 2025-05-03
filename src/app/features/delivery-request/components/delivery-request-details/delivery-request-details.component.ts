@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { DeliveryRequestService } from '../../services/delivery-request.service';
 import { DeliveryRequestDetails} from '../../../../models/delivery-request/delivery-request-details';
-
+import{ApplicationstatusDTO} from '../../../../models/delivery-request/delivery-request-details';
 import { NgIf, CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -26,6 +26,7 @@ export class DeliveryRequestDetailsComponent {
   route = inject(ActivatedRoute);
   applicationService = inject(DeliveryRequestService);
   deliveryRequestDetails !: DeliveryRequestDetails;
+  ApplicationstatusDTO !: ApplicationstatusDTO;
   errorMessage: string = '';
   router = inject(Router);
   constructor(private modalService: NgbModal) {}
@@ -83,38 +84,46 @@ export class DeliveryRequestDetailsComponent {
     modalRef.componentInstance.applicantId = applicantId;
     modalRef.componentInstance.deliveryRequestId = deliveryRequestId;
   }
-  updateApplicationStatus(appId: number, selectedStatus: string) {
-    if (!selectedStatus) {
-      alert("Please select a status");
-      return;
-    }
-  
-    this.applicationService.changeStatus(appId, selectedStatus).subscribe({
-      next: (response) => {
-        if (response.isSuccess) {
-        
-         
-          this.deliveryRequestService.getRequestDetails(this.deliveryRequestDetails.id).subscribe({
-            next: (response) => {
-              if (response.isSuccess) {
-                this.deliveryRequestDetails = response.data;
-              } else {
-                console.error('Error fetching updated delivery request details', response.message);
-              }
-            },
-            error: (err) => {
-              console.error('Request Failed:', err);
+  updateApplicationStatus(
+    id: number,
+    status: number,
+  ): void {
+    const inp: ApplicationstatusDTO = {
+      id: id,
+      status: status,
+      deleveryRequestId: this.deliveryRequestDetails.id
+    };
+    console.log(inp);
+    this.applicationService.changeStatus(inp).subscribe({
+      next: (res) => {
+        if (res.isSuccess) {
+          //refresh the page or update the UI as needed
+          this.deliveryRequestService.getRequestDetails(this.deliveryRequestDetails.id).subscribe((response) => { 
+            if (response.isSuccess) {
+              this.deliveryRequestDetails = response.data;
+            } else {
+              this.errorMessage = 'Failed to refresh request details.';
             }
-          });
+          }
+          );
+          
         } else {
-          alert("Failed to update status.");
+          this.errorMessage = 'Failed to update status.';
         }
       },
-      error: () => {
-        alert("Error occurred while updating status.");
+      error: (err) => {
+        this.errorMessage = 'An error occurred while updating the status.';
+        console.error(this.errorMessage);
       }
     });
   }
+  hasAcceptedApplication(): boolean {
+    return this.deliveryRequestDetails.applicationDTOs?.some(app => app.applicationStatus === 'Accepted') || false;
+  }
+  get nonRejectedApplications() {
+    return this.deliveryRequestDetails?.applicationDTOs?.filter(app => app.applicationStatus !== 'Rejected');
+  }
+  
   trackApp(index: number, app: any): any {
     return app.id; 
   }

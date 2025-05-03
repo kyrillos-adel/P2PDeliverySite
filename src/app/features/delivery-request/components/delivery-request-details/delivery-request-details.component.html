@@ -1,4 +1,100 @@
 
+<div class="container my-5">
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="alert alert-danger text-center fw-bold animate__animated animate__fadeIn">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Delivery Request Details -->
+  <div *ngIf="deliveryRequestDetails" class="details-container">
+    <div class="card mb-4 shadow-lg border-0 animate__animated animate__fadeInUp">
+      <div class="card-body p-4">
+        <h4 class="card-title text-primary mb-4 fw-bold">Delivery Request Details</h4>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item d-flex justify-content-between"><strong>ID:</strong> {{ deliveryRequestDetails.id }}</li>
+          <li class="list-group-item d-flex justify-content-between"><strong>Title:</strong> {{ deliveryRequestDetails.title }}</li>
+          <li class="list-group-item d-flex justify-content-between"><strong>Description:</strong> {{ deliveryRequestDetails.description }}</li>
+          <li class="list-group-item d-flex justify-content-between">
+            <strong>Status:</strong> 
+            <span class="badge bg-info text-dark rounded-pill">{{ deliveryRequestDetails.status }}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Applications Section -->
+    <div class="card shadow-lg border-0 animate__animated animate__fadeInUp animation-delay-2">
+      <div class="card-body p-4">
+        <h4 class="card-title text-success mb-4 fw-bold">Applications</h4>
+
+        <div *ngIf="nonRejectedApplications?.length; else noApplications">
+          <div class="table-responsive">
+            <table class="table table-hover align-middle text-center modern-table">
+              <thead class="table-light">
+                <tr>
+                  <th>#</th>
+                  <th>User Name</th>
+                  <th>Offered Price</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let app of nonRejectedApplications; trackBy: trackApp; let i = index" class="animate__animated animate__fadeIn">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ app.userName }}</td>
+                  <td>{{ app.offeredPrice | currency }}</td>
+                  <td>
+                    <span 
+                      class="badge rounded-pill"
+                      [ngClass]="{
+                        'bg-success text-white': app.applicationStatus === 'Accepted', 
+                        'bg-info text-dark': app.applicationStatus !== 'Accepted'
+                      }">
+                      {{ app.applicationStatus }}
+                    </span>
+                  </td>
+                  <td>
+                    <div class="d-flex justify-content-center gap-2 flex-wrap">
+                      <button
+                        class="btn btn-success btn-sm action-btn custom-accept-btn"
+                        (click)="updateApplicationStatus(app.id, 1)"
+                        [disabled]="hasAcceptedApplication() && app.applicationStatus !== 'Accepted'"
+                        title="Accept Application"
+                      >
+                        <i class="bi bi-check-circle me-1"></i> Accept
+                      </button>
+                      <button
+                        class="btn btn-danger btn-sm action-btn custom-reject-btn"
+                        (click)="updateApplicationStatus(app.id, 2)"
+                        title="Reject Application"
+                      >
+                        <i class="bi bi-x-circle me-1"></i> Reject
+                      </button>
+                      <button
+                        class="btn btn-outline-secondary btn-sm action-btn"
+                        (click)="openChatModal(app.id, deliveryRequestDetails.id)"
+                        [disabled]="app.applicationStatus !== 'Accepted'"
+                        title="Chat with Applicant"
+                      >
+                        <i class="bi bi-chat-dots me-1"></i> Chat
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <ng-template #noApplications>
+          <p class="text-muted text-center fst-italic py-3">No applications found for this request.</p>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
+
 <section class="py-5 container">
   <!-- Title, status and Add Application Button -->
   <span class="badge bg-success status-badge" *ngIf="deliveryRequestDetails.status === 'Accepted'">{{ deliveryRequestDetails.status }}</span>
@@ -34,7 +130,19 @@
     <div class="col-lg-4 col-12">
       <div class="card shadow-sm mb-4">
         <div class="card-body d-flex align-items-center">
-          <img src="https://mdbootstrap.com/img/new/avatars/8.jpg" alt="User" width="50" height="50" class="rounded-circle me-3">
+          <img [src]="'https://localhost:7176'+deliveryRequestDetails.profileImageUrl"
+               alt="User"
+               width="50"
+               height="50"
+               class="rounded-circle me-3">
+
+               <div 
+               *ngIf="!deliveryRequestDetails.profileImageUrl" 
+               class="d-flex justify-content-center align-items-center rounded-circle text-white fw-bold" 
+               style="width: 50px; height: 50px; font-size: 1.3rem;"
+             >
+               {{ deliveryRequestDetails.userName.charAt(0).toUpperCase() }}
+             </div>
           <div>
             <h6 class="mb-0 fw-bold">{{ deliveryRequestDetails.userName }}</h6>
             <!-- <p class="mb-0 text-muted">john.doe@gmail.com</p> -->
@@ -53,6 +161,16 @@
             <li class="mb-2"><strong>Pick-up Date: </strong> <span class="text-muted">{{ deliveryRequestDetails.pickUpDate }}</span></li>
             <li class="mb-2"><strong>Price Range: </strong> <span class="text-muted">{{ deliveryRequestDetails.minPrice }} - {{ deliveryRequestDetails.maxPrice }} EGP</span></li>
           </ul>
+          
+          <div *ngIf="deliveryRequestDetails.drImageUrl" class="text-center my-3">
+            <img 
+              [src]="'https://localhost:7176'+deliveryRequestDetails.drImageUrl" 
+              alt="Delivery Request Image" 
+              class="img-fluid rounded" 
+              style="max-height: 300px; object-fit: cover;"
+            />
+          </div>
+
         </div>
       </div>
     </div>
@@ -69,7 +187,12 @@
       
             <!-- Left Section: Profile and Info -->
             <div class="col-12 col-md-4 d-flex flex-column flex-md-row align-items-center">
-              <img src="https://mdbootstrap.com/img/new/avatars/8.jpg" alt="Profile" class="profile-img mb-2 mb-md-0 me-md-3" style="width: 100px; height: 100px; border-radius: 50%;">
+              <!-- applicant profile -->
+              <!-- <img [src]="'https://localhost:7176'+deliveryRequestDetails.profileImageUrl"
+               alt="User"
+               width="50"
+               height="50"
+               class="rounded-circle me-3"> -->
               <div class="text-center text-md-start">
                 <span class="badge bg-success status-badge" *ngIf="app.applicationStatus === 'Accepted'">{{ app.applicationStatus }}</span>
                 <span class="badge bg-warning text-dark status-badge" *ngIf="app.applicationStatus === 'Pending'">{{ app.applicationStatus }}</span>
@@ -126,5 +249,4 @@
     }
     </section>
 }
-
 

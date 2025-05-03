@@ -14,7 +14,11 @@ export const apiPrefixInterceptor: HttpInterceptorFn = (req, next) => {
 
     const apiUrl = environment.apiBaseUrl;
     const apiRequest = req.clone({ url: `${apiUrl}${req.url}` });
-    return next(apiRequest);
+    spinner.show();
+    // return next(apiRequest);
+    return next(apiRequest).pipe(
+      finalize(() => {spinner.hide(); console.log('hidiiiiind');})
+    );
   }
 
   return next(req);

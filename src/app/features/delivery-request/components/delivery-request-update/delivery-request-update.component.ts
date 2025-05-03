@@ -49,6 +49,14 @@ export class DeliveryRequestUpdateComponent implements OnInit {
       }, { validators: [DeliveryRequestValidators.priceRangeValidator('minPrice', 'maxPrice')] }
     );
   }
+  
+  onFileChange(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.updateForm.patchValue({ DRimage: file });
+    }
+  }
+  
 
   loadDeliveryRequest(): void {
     this.deliveryRequestService.getRequestDetails(this.deliveryRequestId).subscribe({

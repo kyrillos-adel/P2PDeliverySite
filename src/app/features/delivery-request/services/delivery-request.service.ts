@@ -2,17 +2,20 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { DeliveryRequestUpdateDto } from '../../../models/delivery-request/delivery-request-update.dto';
 import { ApiResponse } from '../../../models/api-response';
-import { DeliveryRequestDetails } from '../../../models/delivery-request/delivery-request-details';
+import { ApplicationDTO, DeliveryRequestDetails } from '../../../models/delivery-request/delivery-request-details';
 import { DeliveryRequestCreateDto } from '../../../models/delivery-request/delivery-request-create.dto';
 import { DeliveryRequestDto, PaginatedDeliveryRequestDto } from '../../../models/delivery-request/delivery-request.dto';
 import { HttpHeaders } from '@angular/common/http';
-import { throwError } from 'rxjs';
+import { throwError } 
+import { ApplicationstatusDTO } from '../../../models/delivery-request/delivery-request-details';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class DeliveryRequestService {
   private endpoint = 'api/deliveryrequest';
+  private endpoint2 = 'api/DRApplication';
   constructor(private http: HttpClient) { }
 
   private getAuthToken(): string | null {
@@ -28,7 +31,7 @@ export class DeliveryRequestService {
     return new HttpHeaders({ 'Authorization': `Bearer ${token}` });
   }
 
-  create(data: DeliveryRequestCreateDto) {
+  create(data: FormData) {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
     if (!token) {
       console.error('No token found');
@@ -90,8 +93,8 @@ if(filters){
     return this.http.get<ApiResponse<DeliveryRequestDto[]>>(`${this.endpoint}/my`, { headers });
   }
 
-  update(id: number, data: DeliveryRequestUpdateDto) {
-    return this.http.put(`${this.endpoint}/${id}`, data);
+  update(id: number, data: FormData) {
+    return this.http.put(`${this.endpoint}/${id}`,data);
   }
 
   // Use this function in the delete button in Delivery request card
@@ -104,12 +107,11 @@ if(filters){
     return this.http.get<ApiResponse<DeliveryRequestDetails>>(`${this.endpoint}/details/${id}`);
   }
 
-  changeStatus(id: number, status: string) {
+  changeStatus(data: ApplicationstatusDTO) {
     const headers = this.getAuthHeaders();
     return this.http.put<ApiResponse<boolean>>(
-      `${this.endpoint}/updatestatus`,
-      { id, status },
-      { headers }
+      `${this.endpoint2}/updatestatus`,
+       data, { headers }
     );
   }
 }

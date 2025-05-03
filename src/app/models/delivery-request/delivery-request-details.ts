@@ -11,6 +11,8 @@ export interface DeliveryRequestDetails {
   userId: number;
   userName: string;
   status: string;
+  drImageUrl:string;
+  profileImageUrl:string;
   applicationDTOs: ApplicationDTO[];
 }
 
@@ -23,7 +25,8 @@ export interface ApplicationDTO {
   userName: string;
 }
 export interface ApplicationstatusDTO {
-  
-  applicationStatus: string;
+  deleveryRequestId: number;
+  id: number;
+  status: number;
   
 }
