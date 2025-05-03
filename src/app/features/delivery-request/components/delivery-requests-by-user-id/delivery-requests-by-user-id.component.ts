@@ -7,6 +7,7 @@ import { Router, RouterModule } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DeliveryRequestCreationComponent } from '../delivery-request-creation/delivery-request-creation.component';
 import { environment } from '../../../../../environments/environment';
+import { AddApplicationComponent } from '../../../DRApplication/components/add-application/add-application.component';
 
 @Component({
   selector: 'app-delivery-requests-by-user-id',
@@ -34,6 +35,23 @@ private router: Router,
     });
    this.loadDeliveryRequests();
   }
+
+    openPopup(deliveryRequestId: number) {
+      const token = localStorage.getItem('token') || sessionStorage.getItem('token'); 
+  
+      if (token) {
+       
+        const modalRef = this.modalService.open(AddApplicationComponent, {
+          centered: true,
+          size: 'm'
+        });
+  
+        modalRef.componentInstance.deliveryRequestID = deliveryRequestId;
+      } else {
+        
+        this.router.navigate(['/login']);
+      }
+    }
   loadDeliveryRequests() 
   {
     this.deliveryRequestService.getMyDeliveryRequests().subscribe({
