@@ -47,4 +47,5 @@ export class DRApplicationService {
     const headers = this.getAuthHeaders();
     return this.http.put<ApiResponse<boolean>>(`${this.endpoint}/Update?id=${id}`, data, { headers });
   }
+  
 }

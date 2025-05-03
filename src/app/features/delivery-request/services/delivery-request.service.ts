@@ -2,18 +2,19 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DeliveryRequestUpdateDto } from '../../../models/delivery-request/delivery-request-update.dto';
 import { ApiResponse } from '../../../models/api-response';
-import { DeliveryRequestDetails } from '../../../models/delivery-request/delivery-request-details';
+import { ApplicationDTO, DeliveryRequestDetails } from '../../../models/delivery-request/delivery-request-details';
 import { DeliveryRequestCreateDto } from '../../../models/delivery-request/delivery-request-create.dto';
 import { DeliveryRequestDto } from '../../../models/delivery-request/delivery-request.dto';
 import { HttpHeaders } from '@angular/common/http';
 import { throwError } from 'rxjs';
-import { AuthService } from '../../User/Services/Login.auth.service';
+import { ApplicationstatusDTO } from '../../../models/delivery-request/delivery-request-details';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DeliveryRequestService {
   private endpoint = 'api/deliveryrequest';
+  private endpoint2 = 'api/DRApplication';
   constructor(private http: HttpClient) { }
 
   private getAuthToken(): string | null {
@@ -78,12 +79,11 @@ export class DeliveryRequestService {
     return this.http.get<ApiResponse<DeliveryRequestDetails>>(`${this.endpoint}/details/${id}`);
   }
 
-  changeStatus(id: number, status: string) {
+  changeStatus(data: ApplicationstatusDTO) {
     const headers = this.getAuthHeaders();
     return this.http.put<ApiResponse<boolean>>(
-      `${this.endpoint}/updatestatus`,
-      { id, status },
-      { headers }
+      `${this.endpoint2}/updatestatus`,
+       data, { headers }
     );
   }
 }
