@@ -1,15 +1,13 @@
-
-@media (min-width: 992px) {
-  .scrollable-feed {
-    max-height: 80vh;
-    overflow-y: auto;
-  }
+.scrollable-feed {
+  max-height: 80vh;
+  overflow-y: auto;
 }
 
 .link-button {
+
   background: none;
   border: none;
-  color: #6c757d; 
+  color: #6c757d; /* muted gray */
   font-weight: 500;
   display: flex;
   align-items: center;
@@ -22,57 +20,10 @@
   justify-content: center;
 }
 
+
 .link-button:hover {
   background-color: #f0f0f0;
-  color: var(--dark);
+  color: var(--dark); 
   text-decoration: none;
   cursor: pointer;
-}
-
-.add-button {
-  background: none;
-  border: 1px solid #6c757d; 
-  color: #6c757d; 
-  font-weight: 500;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.5rem 1.5rem;
-  border-radius: 50rem; 
-  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-}
-
-.add-button:hover {
-  background-color: #f0f0f0;
-  color: var(--dark);
-  border-color: var(--dark);
-  text-decoration: none;
-  cursor: pointer;
-}
-@media (min-width: 992px) {
-  .scrollable-feed {
-    max-height: 80vh;
-    overflow-y: auto;
-    overflow-x: hidden; /* Optional: to avoid horizontal scroll */
-  }
-}
-.scrollable-feed {
-  height: calc(100vh - 200px); /* adjust based on your header/nav/button height */
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-html, body {
-  height: 100%;
-  margin: 0;
-  overflow: hidden; /* This disables global scroll */
-}
-.container {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.scrollable-feed {
-  flex: 1;
-  overflow-y: auto;
 }

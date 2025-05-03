@@ -13,20 +13,19 @@ import { RouterLink } from '@angular/router';
 })
 export class AcceptedApplicationsComponent {
   Applications: DRApplicationDto[] = [];
-  sortedApplications: DRApplicationDto[] = [];
+
   constructor( private drApplicationService: DRApplicationService ) {}
     
   ngOnInit() {
     this.loadApplications();
   }
     
-  loadApplications(): void {
+  loadApplications() {
     this.drApplicationService.getMyApplications().subscribe({
       next: (response) => {
         if (response.isSuccess) {
           console.log(response);
-          this.Applications = response.data.filter(x => x.applicationStatus === 'Accepted');
-          this.sortApplications(); // Sort after filtering
+          this.Applications = response.data.filter(x=>x.applicationStatus=="Accepted");
         } else {
           console.error('Error fetching DR Applications', response.message);
         }
@@ -34,14 +33,6 @@ export class AcceptedApplicationsComponent {
       error: (err) => {
         console.error('Request Failed:', err);
       }
-    });
-  }
-
-  private sortApplications(): void {
-    this.sortedApplications = [...this.Applications].sort((a, b) => {
-      const dateA = new Date(a.date);
-      const dateB = new Date(b.date);
-      return dateB.getTime() - dateA.getTime(); // Descending order (newest first)
     });
   }
     

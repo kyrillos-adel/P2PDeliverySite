@@ -14,9 +14,10 @@ export class FiltersMenuComponent implements AfterViewInit {
   constructor(private filterService: FilterService) {}
   statusMap: { [key: string]: number } = {
     'Pending': 0,
-    'Completed': 1,
-    'Cancelled': 2,
-    'Delivered': 3
+    'Accepted': 1,
+    'Completed': 2,
+    'Cancelled': 3,
+    'Delivered': 4
   };
   
   titleFilter: string = '';

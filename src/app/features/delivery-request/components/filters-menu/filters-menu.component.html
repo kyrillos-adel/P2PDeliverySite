@@ -28,7 +28,12 @@
                         </label>
                       </div>
                     
-                      
+                      <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" value="1" id="status-accepted" (change)="updateStatusFilter($event)" />
+                        <label class="form-check-label text-uppercase small text-muted" for="status-accepted">
+                          Accepted
+                        </label>
+                      </div>
                     
                       <div class="form-check mb-2">
                         <input class="form-check-input" type="checkbox" value="2" id="status-completed" (change)="updateStatusFilter($event)" />

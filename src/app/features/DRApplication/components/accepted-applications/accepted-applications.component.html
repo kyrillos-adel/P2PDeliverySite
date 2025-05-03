@@ -1,48 +1,44 @@
 <div class="container mt-5">
-  <!-- Header Section -->
-  <div class="d-flex justify-content-center align-items-center mb-4">
-    <h2 class="fw-bold text-dark">Accepted Applications</h2>
-  </div>
-
-  <!-- Application Cards -->
-  @for (application of sortedApplications; track application) {
-    <div class="card post-card mb-3 shadow-sm border-0 rounded-3">
-      <div class="card-body p-4">
-        <!-- Header: Title, Date, and Status -->
-        <div class="d-flex justify-content-between align-items-center mb-3">
-          <div>
-            <h5 class="fw-bold text-dark mb-1">{{ application.deliveryTitle }}</h5>
-            <small class="text-muted">
-              <i class="bi bi-calendar-event me-1"></i>
-              {{ application.date | date: 'MM/dd/yyyy' }}
-            </small>
-          </div>
-          <span
-            class="badge px-3 py-2 fs-6"
-            [ngClass]="{
-              'bg-warning text-dark': application.applicationStatus === 'Pending',
-              'bg-success text-white': application.applicationStatus === 'Accepted',
-              'bg-danger text-white': application.applicationStatus === 'Rejected'
-            }">
-            {{ application.applicationStatus }}
-          </span>
-        </div>
-
-        <!-- Price Information -->
-        <p class="mb-0">
-          <strong class="me-2">💰 Offered Price:</strong> {{ application.offeredPrice }} EGP
-        </p>
-      </div>
-
-      <!-- Divider -->
-      <hr class="my-0" />
-
-      <!-- Action Buttons -->
-      <div class="d-flex justify-content-center gap-3 p-3">
-        <button class="link-button" [routerLink]="['/DRApplications/track', application.deliveryRequestId]">
-          <i class="fa-solid fa-list-check"></i> Track
-        </button>
-      </div>
+    <div class="d-flex justify-content-center align-items-center mb-3">
+    <h2 class="fw-bold" style="color: var(--dark);">Accepted Applications</h2>
     </div>
-  }
+
+@for(application of Applications; track application){
+    <div class="card post-card mb-2 shadow-sm border-0">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <div>
+              <h5 class="fw-bold text-black mb-1">{{ application.deliveryTitle }}</h5>
+              <small class="text-muted">
+                <i class="bi bi-calendar-event"></i>
+                {{ application.date}}
+              </small>
+            </div>
+            <span
+              class="badge px-3 py-2"
+              [ngClass]="{
+                'bg-warning text-dark': application.applicationStatus === 'Pending',
+                'bg-success': application.applicationStatus === 'Accepted',
+                'bg-danger': application.applicationStatus === 'Rejected'
+              }">
+              {{ application.applicationStatus }}
+            </span>
+          </div>
+    
+    
+          <p class="mb-2">
+            <strong>💰 Offered Price:</strong> {{ application.offeredPrice }} EGP
+          </p>
+    
+        </div>
+        <hr class="my-3" />
+            <div class="d-flex flex-column flex-sm-row justify-content-center gap-2 px-2">
+              <button class="link-button" [routerLink]="['/DRApplications/track', application.deliveryRequestId]">
+                <i class="fa-solid fa-list-check"></i> Track
+              </button>
+              
+            </div>
+    </div>
+}
 </div>
+

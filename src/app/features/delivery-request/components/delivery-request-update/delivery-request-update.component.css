@@ -1,86 +1,17 @@
-.container {
-  max-width: 850px;
+.image-container {
+  max-width: 300px;
+  margin-bottom: 1rem;
+}
+
+.image-container img {
   width: 100%;
-  margin-bottom: 40px;
-  padding: 0px 20px 0px 20px;
+  height: 200px;
+  object-fit: cover;
+  border: 1px solid #ddd;
 }
 
-.card {
-  background-color: white;
-  font-family: 'Montserrat', sans-serif;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 100%;
-}
-
-.form-label {
-  color: var(--dark);
-  font-weight: 600;
-  font-size: 1rem;
-}
-
-.form-control-sm {
-  font-size: 0.9rem;
-  padding: 0.5rem;
-}
-
-.form-control:focus {
-  border-color:  var(--yellow);
-}
-
-.btn-warning {
-  background-color:  var(--yellow);
-  border-color: var(--yellow);
-  font-weight: 700;
-  font-size: 1rem;
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
-  color: #1a202c;
-}
-
-.btn-warning:hover {
-  background-color:  var(--dark);
-  border-color:  var(--dark);
-  color:  var(--yellow);
-}
-
-.text-danger {
-  font-size: 0.875rem;
-  color: #dc3545;
-}
-
-.text-danger small {
-  display: block;
-}
-
-.g-3 .col-md-6 {
-  flex: 0 0 50%;
-  max-width: 50%;
-}
-@media (max-width: 767px) {
-  .container {
-      max-width: 100%;
-      padding: 10px; /* Add padding for small screens */
-  }
-
-  .form-label {
-      font-size: 0.9rem; /* Slightly smaller font size */
-  }
-
-  .form-control-sm {
-      font-size: 0.85rem; /* Make the input text smaller */
-  }
-
-  .btn-warning {
-      font-size: 0.9rem; /* Slightly smaller button text */
-      padding: 0.6rem 1rem; /* Reduce button padding */
-  }
-
-  .text-danger {
-      font-size: 0.75rem; /* Smaller error text */
-  }
-  
-  .g-3 .col-md-6 {
-      flex: 0 0 100%; /* Stack fields vertically on smaller screens */
-      max-width: 100%;
-  }
+.current-image, .new-image {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border-radius: 0.25rem;
 }

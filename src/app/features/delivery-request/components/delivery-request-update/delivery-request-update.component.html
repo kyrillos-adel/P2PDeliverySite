@@ -1,36 +1,27 @@
-<div class="container mt-5" id="cont">
-  <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()" style="position: absolute; right: 20px; top: 20px;"></button>
+<div class="container mt-4">
   <form [formGroup]="updateForm" (ngSubmit)="onSubmit()" novalidate>
-    <h3 class="mb-4 text-center fw-bold" style="color: #151e30;">Update Delivery Request</h3>
-    <div class="row g-3 p-3">
-      <div class="col-md-6">
-        <label for="title" class="form-label fw-semibold">Title</label>
-        <input type="text" class="form-control form-control-sm" id="title" formControlName="title">
-        @if (updateForm.get('title')?.invalid && (updateForm.get('title')?.dirty || updateForm.get('title')?.touched)) {
-          <div class="text-danger">
-            @if (updateForm.get('title')?.errors?.['required']) {
-              <small>Title is required</small>
-            }
-            @if (updateForm.get('title')?.errors?.['maxlength']) {
-              <small>Title must be less than 100 characters</small>
-            }
-          </div>
-        }
-      </div>
+    <!-- Title -->
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input type="text" class="form-control" id="title" formControlName="title">
 
-      <div class="col-md-6">
-        <label for="weight" class="form-label fw-semibold">Package Weight (kg)</label>
-        <input type="number" class="form-control form-control-sm" id="weight" formControlName="weight" min="0" step="0.1">
-        <div *ngIf="updateForm.get('weight')?.invalid && updateForm.get('weight')?.touched" class="text-danger">
-          <small *ngIf="updateForm.get('weight')?.errors?.['required']">Weight is required</small>
-          <small *ngIf="updateForm.get('weight')?.errors?.['min']">Weight must be greater than 0</small>
+      @if (updateForm.get('title')?.invalid && (updateForm.get('title')?.dirty || updateForm.get('title')?.touched)) {
+        <div class="text-danger">
+          @if (updateForm.get('title')?.errors?.['required']) {
+            <small>Title is required</small>
+          }
+          @if (updateForm.get('title')?.errors?.['maxlength']) {
+            <small>Title must be less than 100 characters</small>
+          }
         </div>
-      </div>
+      }
     </div>
 
-    <div class="mb-3 mt-3">
-      <label for="description" class="form-label fw-semibold">Description</label>
-      <textarea class="form-control form-control-sm" id="description" rows="3" formControlName="description"></textarea>
+    <!-- Description -->
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea class="form-control" id="description" rows="3" formControlName="description"></textarea>
+
       @if (updateForm.get('description')?.invalid && (updateForm.get('description')?.dirty || updateForm.get('description')?.touched)) {
         <div class="text-danger">
           @if (updateForm.get('description')?.errors?.['required']) {
@@ -43,45 +34,49 @@
       }
     </div>
 
-    <div class="row g-3 mb-3">
-      <div class="col-md-6">
-        <label for="pickUpLocation" class="form-label fw-semibold">Pickup Location</label>
-        <select class="form-select form-control-sm" id="pickUpLocation" formControlName="pickUpLocation">
-          <option value="" disabled>Select pickup location</option>
-          <option *ngFor="let location of egyptGovernorates" [value]="location">
-            {{ location }}
-          </option>
-        </select>
-        @if (updateForm.get('pickUpLocation')?.invalid && (updateForm.get('pickUpLocation')?.dirty || updateForm.get('pickUpLocation')?.touched)) {
-          <div class="text-danger">
-            @if (updateForm.get('pickUpLocation')?.errors?.['required']) {
-              <small>Pickup location is required</small>
-            }
-          </div>
-        }
-      </div>
+    <!-- Pickup Location -->
+    <div class="mb-3">
+      <label for="pickUpLocation" class="form-label">Pickup Location</label>
+      <select class="form-select" id="pickUpLocation" formControlName="pickUpLocation">
+        <option value="" disabled>Select pickup location</option>
+        <option *ngFor="let location of egyptGovernorates" [value]="location">
+          {{ location }}
+        </option>
+      </select>
 
-      <div class="col-md-6">
-        <label for="dropOffLocation" class="form-label fw-semibold">Dropoff Location</label>
-        <select class="form-select form-control-sm" id="dropOffLocation" formControlName="dropOffLocation">
-          <option value="" disabled>Select dropoff location</option>
-          <option *ngFor="let location of egyptGovernorates" [value]="location">
-            {{ location }}
-          </option>
-        </select>
-        @if (updateForm.get('dropOffLocation')?.invalid && (updateForm.get('dropOffLocation')?.dirty || updateForm.get('dropOffLocation')?.touched)) {
-          <div class="text-danger">
-            @if (updateForm.get('dropOffLocation')?.errors?.['required']) {
-              <small>Dropoff location is required</small>
-            }
-          </div>
-        }
-      </div>
+      @if (updateForm.get('pickUpLocation')?.invalid && (updateForm.get('pickUpLocation')?.dirty || updateForm.get('pickUpLocation')?.touched)) {
+        <div class="text-danger">
+          @if (updateForm.get('pickUpLocation')?.errors?.['required']) {
+            <small>Pickup location is required</small>
+          }
+        </div>
+      }
     </div>
 
+    <!-- Dropoff Location -->
     <div class="mb-3">
-      <label for="pickUpDate" class="form-label fw-semibold">Pickup Date</label>
-      <input type="date" class="form-control form-control-sm" id="pickUpDate" formControlName="pickUpDate">
+      <label for="dropOffLocation" class="form-label">Dropoff Location</label>
+      <select class="form-select" id="dropOffLocation" formControlName="dropOffLocation">
+        <option value="" disabled>Select dropoff location</option>
+        <option *ngFor="let location of egyptGovernorates" [value]="location">
+          {{ location }}
+        </option>
+      </select>
+
+      @if (updateForm.get('dropOffLocation')?.invalid && (updateForm.get('dropOffLocation')?.dirty || updateForm.get('dropOffLocation')?.touched)) {
+        <div class="text-danger">
+          @if (updateForm.get('dropOffLocation')?.errors?.['required']) {
+            <small>Dropoff location is required</small>
+          }
+        </div>
+      }
+    </div>
+
+    <!-- Pickup Date -->
+    <div class="mb-3">
+      <label for="pickUpDate" class="form-label">Pickup Date</label>
+      <input type="date" class="form-control" id="pickUpDate" formControlName="pickUpDate">
+
       @if (updateForm.get('pickUpDate')?.invalid && (updateForm.get('pickUpDate')?.dirty || updateForm.get('pickUpDate')?.touched)) {
         <div class="text-danger">
           @if (updateForm.get('pickUpDate')?.errors?.['required']) {
@@ -91,10 +86,28 @@
       }
     </div>
 
-    <div class="row g-3">
+    <!-- Package Weight -->
+    <div class="mb-3">
+      <label for="weight" class="form-label">Package Weight (kg)</label>
+      <input
+        type="number"
+        class="form-control"
+        id="weight"
+        formControlName="weight"
+        min="0"
+        step="0.1">
+      <div *ngIf="updateForm.get('weight')?.invalid && updateForm.get('weight')?.touched" class="text-danger">
+        <small *ngIf="updateForm.get('weight')?.errors?.['required']">Weight is required</small>
+        <small *ngIf="updateForm.get('weight')?.errors?.['min']">Weight must be greater than 0</small>
+      </div>
+    </div>
+
+    <!-- Price Range -->
+    <div class="row mb-3">
       <div class="col-md-6">
-        <label for="minPrice" class="form-label fw-semibold">Minimum Price ($)</label>
-        <input type="number" class="form-control form-control-sm" id="minPrice" formControlName="minPrice">
+        <label for="minPrice" class="form-label">Minimum Price ($)</label>
+        <input type="number" class="form-control" id="minPrice" formControlName="minPrice">
+
         @if (updateForm.get('minPrice')?.invalid && (updateForm.get('minPrice')?.dirty || updateForm.get('minPrice')?.touched)) {
           <div class="text-danger">
             @if (updateForm.get('minPrice')?.errors?.['required']) {
@@ -106,10 +119,10 @@
           </div>
         }
       </div>
-
       <div class="col-md-6">
-        <label for="maxPrice" class="form-label fw-semibold">Maximum Price ($)</label>
-        <input type="number" class="form-control form-control-sm" id="maxPrice" formControlName="maxPrice">
+        <label for="maxPrice" class="form-label">Maximum Price ($)</label>
+        <input type="number" class="form-control" id="maxPrice" formControlName="maxPrice">
+
         @if (updateForm.get('maxPrice')?.invalid && (updateForm.get('maxPrice')?.dirty || updateForm.get('maxPrice')?.touched)) {
           <div class="text-danger">
             @if (updateForm.get('maxPrice')?.errors?.['required']) {
@@ -123,33 +136,43 @@
       </div>
     </div>
 
-    <!-- Form-level validation -->
-    @if (updateForm.errors?.['priceRange']) {
-      <div class="text-danger mt-2">
-        <small>Maximum price must be greater than minimum price</small>
-      </div>
-    }
-
     <!-- Delivery Request Image -->
-    <div class="mb-4 mt-3">
-      <label class="form-label fw-semibold">Delivery Request Image</label>
+    <div class="mb-4">
+      <h5 class="mb-3">Request Image</h5>
+
+      <!-- Current Image Preview -->
       <div class="current-image mb-3" *ngIf="currentImageUrl">
         <label class="form-label">Current Image:</label>
         <div class="image-container">
-          <img [src]="imageBaseUrl + currentImageUrl" alt="Current Request Image" class="img-fluid rounded">
+          <img [src]="imageBaseUrl + currentImageUrl"
+               alt="Current Request Image"
+               class="img-fluid rounded">
         </div>
       </div>
+
+      <!-- New Image Upload -->
       <div class="new-image">
-        
-        <input type="file" class="form-control form-control-sm" id="DRimage" (change)="onFileChange($event)" accept="image/*">
+        <label for="DRimage" class="form-label">Upload New Image:</label>
+        <input type="file"
+               class="form-control"
+               id="DRimage"
+               (change)="onFileChange($event)"
+               accept="image/*">
         <small class="text-muted">Leave empty to keep current image</small>
       </div>
     </div>
 
+    <!-- Form-level validation -->
+    @if (updateForm.errors?.['priceRange']) {
+      <div class="alert alert-danger mb-3">
+        Maximum price must be greater than minimum price
+      </div>
+    }
+
     <!-- Submit Button -->
-    <div class="d-grid gap-2 mt-4">
-      <button type="submit" class="btn btn-warning btn-lg" [disabled]="updateForm.invalid">
-        <i class="bi bi-truck"></i> Update Delivery Request
+    <div class="d-grid gap-2">
+      <button type="submit" class="btn btn-primary" [disabled]="updateForm.invalid">
+        Update Delivery Request
       </button>
     </div>
   </form>
