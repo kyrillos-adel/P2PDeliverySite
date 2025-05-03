@@ -37,8 +37,6 @@ jobs:
             echo "Files moved successfully"
           fi
 
-      - name: Create .nojekyll file
-        run: touch docs/.nojekyll
 
       - name: Install angular-cli-ghpages
         run: npm install -g angular-cli-ghpages
