@@ -1,0 +1,44 @@
+<div class="container mt-5">
+    <div class="d-flex justify-content-center align-items-center mb-3">
+    <h2 class="fw-bold" style="color: var(--dark);">Accepted Applications</h2>
+    </div>
+
+@for(application of Applications; track application){
+    <div class="card post-card mb-2 shadow-sm border-0">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <div>
+              <h5 class="fw-bold text-black mb-1">{{ application.deliveryTitle }}</h5>
+              <small class="text-muted">
+                <i class="bi bi-calendar-event"></i>
+                {{ application.date}}
+              </small>
+            </div>
+            <span
+              class="badge px-3 py-2"
+              [ngClass]="{
+                'bg-warning text-dark': application.applicationStatus === 'Pending',
+                'bg-success': application.applicationStatus === 'Accepted',
+                'bg-danger': application.applicationStatus === 'Rejected'
+              }">
+              {{ application.applicationStatus }}
+            </span>
+          </div>
+    
+    
+          <p class="mb-2">
+            <strong>💰 Offered Price:</strong> {{ application.offeredPrice }} EGP
+          </p>
+    
+        </div>
+        <hr class="my-3" />
+            <div class="d-flex flex-column flex-sm-row justify-content-center gap-2 px-2">
+              <button class="link-button" [routerLink]="['/DRApplications/track', application.deliveryRequestId]">
+                <i class="fa-solid fa-list-check"></i> Track
+              </button>
+              
+            </div>
+    </div>
+}
+</div>
+

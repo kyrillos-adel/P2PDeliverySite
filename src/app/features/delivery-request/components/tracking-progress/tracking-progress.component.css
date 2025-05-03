@@ -1,0 +1,75 @@
+.card {
+    background-color: transparent;
+    border-radius: 15px;
+    padding: 40px;
+    margin-top: 50px;
+    border: 0;
+  }
+
+  .top {
+    margin-bottom: 40px;
+  }
+
+  #progressbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    list-style-type: none;
+    position: relative;
+  }
+
+  #progressbar::before {
+    content: '';
+    position: absolute;
+    top: 22px;
+    left: 10%;
+    width: 80%;
+    height: 4px;
+    background-color: #c5cae9;
+    z-index: 0;
+  }
+
+  #progressbar li {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    flex: 1;
+  }
+
+  #progressbar li::before {
+    content: "\f10c";
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    font-size: 20px;
+    background-color: #c5cae9;
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+
+  #progressbar li.active::before {
+    content: "\f00c";
+    background-color: var(--dark);
+  }
+
+  #progressbar li span {
+    display: block;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+
+  .step-label {
+    font-size: 13px;
+  }
+
+
+  .btn-warning {
+    background-color:  var(--yellow);
+    border-radius: 8px;
+    color: #1a202c;
+  }
+  

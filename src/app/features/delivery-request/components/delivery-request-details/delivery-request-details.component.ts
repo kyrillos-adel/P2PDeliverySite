@@ -10,12 +10,13 @@ import { RouterModule,Router } from '@angular/router';
 import { AddApplicationComponent } from '../../../DRApplication/components/add-application/add-application.component';
 
 import {ChatModalComponent} from '../../../chat/components/chat-modal/chat-modal.component';
+import { TrackingProgressComponent } from "../tracking-progress/tracking-progress.component";
 
 @Component({
   selector: 'app-delivery-request-details',
   standalone: true,
-  imports: [NgIf,RouterModule, CommonModule,
-    FormsModule ],
+  imports: [NgIf, RouterModule, CommonModule,
+    FormsModule, TrackingProgressComponent],
   templateUrl:'./delivery-request-details.component.html',
   styleUrl: './delivery-request-details.component.css'
 })
