@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
         sessionStorage.removeItem('token');
         sessionStorage.removeItem('exp');
         this.router.navigate(['/login']);
-        alert('Session expired. Please log in again.');
+        // alert('Session expired. Please log in again.');
 
       }
     }
@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit {
         this.passwordError = '';
   
         if (response.isSuccess) {
-          alert(' Welcome To P2P Login successful!');
+          // alert(' Welcome To P2P Login successful!');
           
           if (this.loginForm.value.rememberMe) {
             localStorage.setItem('token', response.data.token);
@@ -101,7 +101,7 @@ export class LoginComponent implements OnInit {
             this.deletedAcountError = message;
           
         } else {
-          alert('Login failed: ' + (message || 'Please try again later.'));
+          // alert('Login failed: ' + (message || 'Please try again later.'));
         }
       }
     });
@@ -120,15 +120,15 @@ export class LoginComponent implements OnInit {
       next: (response) => {
         console.log('Recover account response:', response);
         if (response.isSuccess) {
-          alert('Account recovery initiated successfully! Please check your email for further instructions.');
+          // alert('Account recovery initiated successfully! Please check your email for further instructions.');
           this.deletedAcountError = null;
         } else {
-          alert('Account recovery failed: ' + (response.message || 'Please try again later.'));
+          // alert('Account recovery failed: ' + (response.message || 'Please try again later.'));
         }
       },
       error: (error) => {
         console.error('Recover account error:', error);
-        alert('Account recovery failed: ' + (error?.error?.message || 'Please try again later.'));
+        // alert('Account recovery failed: ' + (error?.error?.message || 'Please try again later.'));
       }
     });
   }
