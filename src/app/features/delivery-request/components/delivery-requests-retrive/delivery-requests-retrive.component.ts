@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DeliveryRequestService } from '../../services/delivery-request.service';
 import { DeliveryRequestDto } from '../../../../models/delivery-request/delivery-request.dto';
@@ -9,10 +9,11 @@ import { FiltersMenuComponent } from "../filters-menu/filters-menu.component";
 import { FilterService } from '../../services/filter.service';
 import { AuthService } from '../../../User/Services/Login.auth.service';
 import { DeliveryRequestCreationComponent } from '../delivery-request-creation/delivery-request-creation.component';
+import { SpinnerComponent } from "../../../../shared/components/spinner/spinner.component";
 @Component({
   selector: 'app-delivery-requests-retrive',
   standalone: true,
-  imports: [CommonModule, RouterModule, FiltersMenuComponent],
+  imports: [CommonModule, RouterModule, FiltersMenuComponent, SpinnerComponent],
   templateUrl: './delivery-requests-retrive.component.html',
   styleUrls: ['./delivery-requests-retrive.component.css']
 })
@@ -27,6 +28,8 @@ export class DeliveryRequestsRetriveComponent implements OnInit {
   deliveryRequestService = inject(DeliveryRequestService);
   modalService = inject(NgbModal); 
   router = inject(Router);
+  @ViewChild('loading') loadingSpinner!: ElementRef;
+  dataLoaded :boolean=false;
 
   constructor(private filterService: FilterService,private authService: AuthService) {}
 
@@ -60,7 +63,9 @@ export class DeliveryRequestsRetriveComponent implements OnInit {
       filters=filter;
       this.deliveryRequestService.getallDRs(filters,this.currentPage).subscribe(response => {
         if (response.isSuccess) {
+          
           this.deliveryRequests = response.data.data.reverse();
+          this.dataLoaded=true;
           this.currentPage = response.data.currentPage;
           this.totalItems = response.data.totalCount;
           this.pageSize = response.data.pageSize;
