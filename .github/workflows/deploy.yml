@@ -24,10 +24,9 @@ jobs:
         run: npm ci --force
 
       - name: Build Angular App
-        run: npm run build -- --configuration production
+        run: npm run build -- --configuration production --base-href P2PDeliverySite
 
-      # Handle the browser subfolder issue with a simple post-build script
-      - name: Handle browser subfolder
+      - name: Handle output folder
         run: |
           if [ -d "docs/browser" ]; then
             echo "Moving files from docs/browser to docs..."
@@ -36,10 +35,11 @@ jobs:
             rm -rf docs/browser
             echo "Files moved successfully"
           fi
-
+          echo "Base href set to P2PDeliverySite"
 
       - name: Install angular-cli-ghpages
         run: npm install -g angular-cli-ghpages
+
       - name: Deploy to gh-pages branch
         run: npx angular-cli-ghpages --dir=docs --name="GitHub Actions" --email=actions@github.com --no-silent --message="Deploy to GitHub pages" --no-dotfiles
         env:
