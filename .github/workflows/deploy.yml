@@ -1,0 +1,55 @@
+﻿name: Deploy P2PDelivery Angular App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+
+      - name: Install Dependencies
+        run: npm ci --force
+
+      - name: Build Angular App
+        run: npm run build -- --configuration production --base-href ""
+
+      - name: Handle output folder
+        run: |
+          if [ -d "docs/browser" ]; then
+            echo "Moving files from docs/browser to docs..."
+            mkdir -p docs/docs
+            cp -r docs/browser/* docs/docs/
+            rm -rf docs/browser
+            echo "Files moved successfully"
+          fi
+
+      - name: Install angular-cli-ghpages
+        run: npm install -g angular-cli-ghpages
+
+      - name: Deploy to gh-pages branch
+        run: npx angular-cli-ghpages --dir=docs --name="GitHub Actions" --email=actions@github.com --no-silent --message="Deploy to GitHub pages" --no-dotfiles
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Angular build to MonsterHost
+        uses: SamKirkland/FTP-Deploy-Action@4.1.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./docs/docs/
+          server-dir: /wwwroot/
+          dangerous-clean-slate: true

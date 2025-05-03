@@ -177,16 +177,40 @@ if (this.isGuarded()) {
     return this.http.get<any>(`${this.apiUrl}/profile`, { headers });
   }
   
-  updateUser(data: any): Observable<any> {
-    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-    if (!token) {
-      console.error('Token not found!');
-      return throwError(() => new Error('Token missing'));
-    }
+  // updateUser(data: any): Observable<any> {
+  //   const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+  //   if (!token) {
+  //     console.error('Token not found!');
+  //     return throwError(() => new Error('Token missing'));
+  //   }
+  
+  //   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  //   return this.http.put<any>(`${this.apiUrl}/update`, data, { headers });
+  // }
+  updateUser(data: any, imageFile?: File): Observable<any> {
+    const token = this.getToken();
+    if (!token) return throwError(() => new Error('Token missing'));
   
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.put<any>(`${this.apiUrl}/update`, data, { headers });
+    const formData = new FormData();
+  
+    for (const key in data) {
+      if (data.hasOwnProperty(key)) {
+        formData.append(key, data[key]);
+      }
+    }
+  
+    if (imageFile) {
+      formData.append('profileImage', imageFile); // again, must match server-side param
+    }
+  
+    return this.http.put(`${this.apiUrl}/update`, formData, { headers });
   }
+  
+
+
+
+
 
   deleteUser(password: string): Observable<any> {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
@@ -203,6 +227,14 @@ if (this.isGuarded()) {
       console.error('Password does not match!');
       return throwError(() => new Error('Password does not match'));
     }
+  }
+
+
+  uploadUserProfileImage(formData: FormData) {
+    return this.http.post<{ imageUrl: string }>(
+      'https://localhost:7176/api/Auth/upload-profile-image',
+      formData
+    );
   }
 
 

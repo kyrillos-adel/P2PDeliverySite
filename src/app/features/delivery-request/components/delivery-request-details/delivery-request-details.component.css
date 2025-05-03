@@ -17,4 +17,90 @@
   .custom-reject-btn:hover {
     background-color: #c82333; /* Darker red on hover */
     border-color: #bd2130;
+}
+.card-custom {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.profile-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.status-badge {
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 12px;
+    display: inline-block;
+    margin-bottom: 5px;
+}
+.left-section {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    flex: 1;
+}
+.info {
+    margin-left: 15px;
+}
+.stars {
+    color: var(--yellow);
+    font-size: 16px;
+}
+.triangle-section {
+    background-color: var(--yellow);
+    height: 100%;
+    width: fit-content;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--dark);
+    font-weight: bold;
+}
+.triangle-section div:first-child {
+    font-size: 48px;
+}
+.triangle-section div:last-child {
+    font-size: 14px;
+}
+.right-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 20px;
+    justify-content: center;
+}
+.chat-btn, .save-btn {
+    background-color: var(--yellow);
+    color:var(--dark);
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.status-input {
+    border: 2px solid var(--yellow);
+    border-radius: 8px;
+    width: 80px;
+    text-align: center;
+}
+
+
+@media (max-width: 767.98px) {
+    .price-section {
+      background-color:var(--yellow);
+      text-align: center;
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    .triangle-section {
+      width: 100%;
+    }
   }

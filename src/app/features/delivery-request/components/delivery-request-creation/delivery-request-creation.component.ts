@@ -18,7 +18,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class DeliveryRequestCreationComponent implements OnInit {
   createForm!: FormGroup;
   egyptGovernorates = egyptGovernorates;
-  
+  minDate: string = '';
 
   constructor (
     private fb: FormBuilder,
@@ -30,7 +30,8 @@ export class DeliveryRequestCreationComponent implements OnInit {
     this.initForm();
   }
   ngOnInit(): void {
-   
+    const today = new Date();
+  this.minDate = today.toISOString().split('T')[0];
   }
 
   initForm(): void {
@@ -59,7 +60,6 @@ export class DeliveryRequestCreationComponent implements OnInit {
 ({
         next: (response) => {
           console.log(response);
-          this.router.navigate(['deliveryrequests/getMyDeliveryRequests']);
         },
         error: (error) => {
           console.error('Error creating delivery request:', error);

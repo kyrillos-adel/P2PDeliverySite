@@ -10,12 +10,13 @@ import { RouterModule,Router } from '@angular/router';
 import { AddApplicationComponent } from '../../../DRApplication/components/add-application/add-application.component';
 
 import {ChatModalComponent} from '../../../chat/components/chat-modal/chat-modal.component';
+import { TrackingProgressComponent } from "../tracking-progress/tracking-progress.component";
 
 @Component({
   selector: 'app-delivery-request-details',
   standalone: true,
-  imports: [NgIf,RouterModule, CommonModule,
-    FormsModule ],
+  imports: [NgIf, RouterModule, CommonModule,
+    FormsModule, TrackingProgressComponent],
   templateUrl:'./delivery-request-details.component.html',
   styleUrl: './delivery-request-details.component.css'
 })
@@ -44,6 +45,12 @@ export class DeliveryRequestDetailsComponent {
       console.log(response);
       if (response.isSuccess) {
         this.deliveryRequestDetails = response.data;
+        this.deliveryRequestDetails.pickUpDate = response.data.pickUpDate.split('T')[0];
+        this.deliveryRequestDetails.applicationDTOs.forEach(app => {
+          if (app.date) {
+            app.date = app.date.split('T')[0];
+          }
+        })
         console.log(this.deliveryRequestDetails);
       } else {
         this.errorMessage = response.message || 'An error occurred while fetching request details.';

@@ -1,0 +1,67 @@
+<div class="container pb-5">
+    <div class="card">
+      <div class="row text-center justify-content-between align-items-center top">
+        <div class="col  mb-5">
+          <h2>Delivery Progress</h2>
+        </div>
+      </div>
+  
+      <ul id="progressbar">
+        <li [class.active]="actualStep >= 0">
+          <span><a class="btn step-label" (click)="selectStep(0)">Step 1: Offer Accept</a></span>
+        </li>
+        <li [class.active]="actualStep >= 1">
+          <span><a class="btn step-label" (click)="selectStep(1)">Step 2: Item Collected</a></span>
+        </li>
+        <li [class.active]="actualStep >= 2">
+          <span><a class="btn step-label" (click)="selectStep(2)">Step 3: Delivered</a></span>
+        </li>
+        <li [class.active]="actualStep >= 2">
+            <span class="btn step-label" (click)="selectStep(3)">Completed</span>
+          </li>
+      </ul>
+        
+  
+      <div class="step-details p-3 rounded text-center mt-5" [ngSwitch]="currentStep">
+  
+        <!-- Step 0: Accept -->
+        @if(currentStep == 0){
+            <div>
+                <i class="fa-regular fa-handshake  mb-4" style="color: var(--dark); font-size: 5rem;"></i>
+                <h6>You've been matched to deliver this order.</h6>
+                <p>Price offered: <strong>{{ offerPrice }} EGP</strong></p>
+                @if(IsAccepted){
+                  <h5 style="color: green">You have accepted this offer</h5>
+                }
+                @else{
+                  <button class="btn btn-warning me-3" (click)="advanceStep()" [disabled]="IsAccepted">Accept to Deliver</button>
+                  <button class="btn btn-secondary" (click)="Reject()" [disabled]="IsAccepted">Reject to Deliver</button>
+                }
+            </div>
+        }
+        @else if (currentStep == 1){
+            <div>
+                <i class="fa-solid fa-hand-holding-hand mb-4" style="color: var(--dark); font-size: 5rem;"></i>
+                <h6>Pick up the item from the sender.</h6>
+                <p>Once you have received the item from the sender's location, confirm below.</p>
+                <button class="btn btn-warning" (click)="advanceStep()"  [disabled]="actualStep>1">Confirm Item Received</button>
+            </div>
+        }
+        @else if (currentStep == 2){
+            <div>
+                <i class="fa-solid fa-hand-holding-hand mb-4" style="color: var(--dark); font-size: 5rem;"></i>
+                <h6>Deliver the item to the recipient.</h6>
+                <p>After successfully delivering the item to the recipient, confirm the delivery below.</p>
+                <button class="btn btn-warning" (click)="advanceStep()"  [disabled]="actualStep>=2">Mark as Delivered</button>
+            </div>
+        }  
+        @else if (currentStep >= 3){
+            <div>
+                <i class="fa-solid fa-circle-check mb-3" style="color: var(--yellow); font-size: 5rem;"></i>                <h6>Delivery Completed</h6>
+                <p>Thank you! You have successfully completed the delivery.</p>            </div>
+        }        
+      
+      </div>
+    </div>
+  </div>
+  

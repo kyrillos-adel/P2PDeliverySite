@@ -12,6 +12,8 @@ import { LoginComponent } from './features/User/Components/login/login.component
 import { DeliveryRequestsByUserIdComponent } from './features/delivery-request/components/delivery-requests-by-user-id/delivery-requests-by-user-id.component';
 import { DRApplictionsByUserIdComponent } from './features/DRApplication/components/drapplictions-by-user-id/drapplictions-by-user-id.component';
 import { AddApplicationComponent } from './features/DRApplication/components/add-application/add-application.component';
+import { AcceptedApplicationsComponent } from './features/DRApplication/components/accepted-applications/accepted-applications.component';
+import { TrackingProgressComponent } from './features/delivery-request/components/tracking-progress/tracking-progress.component';
 
 export const routes: Routes = [
   {
@@ -80,6 +82,18 @@ export const routes: Routes = [
     component:DRApplictionsByUserIdComponent,
     canActivate: [AuthGuard],
 
+  },
+  {
+    path:'DRApplications/AcceptedApplications',
+    pathMatch: 'full',
+    component:AcceptedApplicationsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path:'DRApplications/track/:id',
+    pathMatch: 'full',
+    component:TrackingProgressComponent,
+    canActivate: [AuthGuard],
   },
   {
     path:"Application/add",

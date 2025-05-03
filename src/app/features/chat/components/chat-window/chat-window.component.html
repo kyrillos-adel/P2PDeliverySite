@@ -1,38 +1,36 @@
-<div class="chat-window-container shadow-sm" *ngIf="isWindowVisible && activeChat"
+<div class="chat-window-container shadow" *ngIf="isWindowVisible && activeChat"
      [ngClass]="{'minimized': isMinimized}">
   <div class="window-header d-flex justify-content-between align-items-center" (click)="toggleMinimize()">
     <div class="chat-details d-flex align-items-center">
-<!--      <div class="avatar me-2">-->
-<!--        <img [src]="activeChat.avatar || 'assets/default-avatar.png'" alt="avatar" class="img-fluid">-->
-<!--      </div>-->
-<!--      <div class="name">{{ activeChat.name }}</div>-->
+      <div class="name text-white">{{ activeChat.chattingWith }}</div>
     </div>
     <div class="window-controls">
-      <button class="btn btn-link p-0 me-2" (click)="minimizeWindow($event)">
-        <i class="bi" [ngClass]="isMinimized ? 'bi-chevron-up' : 'bi-dash'"></i>
+      <button class="btn btn-link p-1" (click)="minimizeWindow($event)">
+        <i class="bi text-yellow" [ngClass]="isMinimized ? 'bi-chevron-up' : 'bi-dash-lg'"></i>
       </button>
-      <button class="btn btn-link p-0" (click)="closeWindow($event)">
-        <i class="bi bi-x-lg"></i>
+      <button class="btn btn-link p-1" (click)="closeWindow($event)">
+        <i class="bi bi-x-lg text-yellow"></i>
       </button>
     </div>
   </div>
-  <div class="messages-container" *ngIf="!isMinimized">
-    <div class="messages" #messagesContainer>
-      @for (message of  messages; track message.id;){
-        <div class="message"
+  <div class="messages-container bg-white" *ngIf="!isMinimized">
+    <div class="messages px-3 py-2" #messagesContainer>
+      @for (message of messages; track message.id;) {
+        <div class="message mb-3"
              [ngClass]="{'own-message': message.senderId == currentUserId}">
-          <div class="message-content">{{ message.message }}</div>
-          <div class="message-time small">{{ message.date | date:'shortTime' }}</div>
+          <div class="message-content p-2">{{ message.message }}</div>
+          <div class="message-time small text-muted mt-1">
+            {{ message.date | date:'shortTime' }}
+          </div>
         </div>
       }
     </div>
-    <div class="message-input d-flex p-2">
-      <input
-        class="form-control me-2"
-        [formControl]="messageInput"
-        type="text"
-        placeholder="Type a message..."
-        (keyup.enter)="sendMessage()">
+    <div class="message-input d-flex p-2 border-top">
+      <input class="form-control me-2"
+             [formControl]="messageInput"
+             type="text"
+             placeholder="Type a message..."
+             (keyup.enter)="sendMessage()">
       <button class="btn btn-main" (click)="sendMessage()">
         <i class="bi bi-send-fill"></i>
       </button>

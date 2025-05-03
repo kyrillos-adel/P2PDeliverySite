@@ -19,9 +19,34 @@
   border-radius: 12px;
   background-color: #fff;
   padding: 1rem;
-  transition: transform 0.2s ease-in-out;
 }
 
-.post-card:hover {
-  transform: translateY(-3px);
+
+.link-button {
+
+  background: none;
+  border: none;
+  color: #6c757d; /* muted gray */
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+}
+
+
+.link-button:hover {
+  background-color: #f0f0f0;
+  color: var(--dark); 
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn-main:disabled{
+  background-color: aqua ;
 }
