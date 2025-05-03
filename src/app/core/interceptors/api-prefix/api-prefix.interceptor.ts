@@ -17,7 +17,7 @@ export const apiPrefixInterceptor: HttpInterceptorFn = (req, next) => {
     spinner.show();
     // return next(apiRequest);
     return next(apiRequest).pipe(
-      finalize(() => {spinner.hide(); console.log('hidiiiiind');})
+      finalize(() => spinner.hide())
     );
   }
 

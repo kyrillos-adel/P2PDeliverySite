@@ -66,8 +66,8 @@ export class DeliveryRequestsRetriveComponent implements OnInit {
       filters=filter;
       this.deliveryRequestService.getallDRs(filters,this.currentPage).subscribe(response => {
         if (response.isSuccess) {
-          
-          this.deliveryRequests = response.data.data.reverse();
+
+          this.deliveryRequests = response.data.data;
           this.dataLoaded=true;
           this.currentPage = response.data.currentPage;
           this.totalItems = response.data.totalCount;

@@ -13,7 +13,6 @@ export class SpinnerComponent {
 
   constructor(private spinnerService: SpinnerService) {
     this.spinnerService.loading$.subscribe(value => {
-      console.log('Spinner loading state:', value);
       this.isLoading = value;
     });
   }
