@@ -22,6 +22,7 @@ export class DeliveryRequestUpdateComponent implements OnInit {
   updateForm!: FormGroup;
   deliveryRequestId!: number;
   egyptGovernorates = egyptGovernorates;
+  currentImageUrl: string | null = null;
 
   constructor(
     private deliveryRequestService: DeliveryRequestService,
@@ -49,20 +50,21 @@ export class DeliveryRequestUpdateComponent implements OnInit {
       }, { validators: [DeliveryRequestValidators.priceRangeValidator('minPrice', 'maxPrice')] }
     );
   }
-  
+
   onFileChange(event: any) {
     const file = event.target.files[0];
     if (file) {
       this.updateForm.patchValue({ DRimage: file });
     }
   }
-  
+
 
   loadDeliveryRequest(): void {
     this.deliveryRequestService.getRequestDetails(this.deliveryRequestId).subscribe({
       next: (response) => {
         if (response.isSuccess) {
           const data = response.data;
+          this.currentImageUrl = data.drImageUrl;
           this.updateForm.patchValue({
             title: data.title,
             description: data.description,
@@ -93,7 +95,8 @@ export class DeliveryRequestUpdateComponent implements OnInit {
         pickUpDate: new Date(this.updateForm.value.pickUpDate),
         minPrice: this.updateForm.value.minPrice,
         maxPrice: this.updateForm.value.maxPrice,
-        totalWeight: this.updateForm.value.weight
+        totalWeight: this.updateForm.value.weight,
+        DRimage: null
       }
 
       this.deliveryRequestService.update(this.deliveryRequestId, data).subscribe({

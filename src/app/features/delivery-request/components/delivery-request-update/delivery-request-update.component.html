@@ -134,13 +134,32 @@
           </div>
         }
       </div>
+    </div>
 
-      <!-- Delivery Request Image -->
-  <div class="mb-3">
-    <label for="DRimage" class="form-label">Update Image</label>
-    <input type="file" class="form-control" id="DRimage" (change)="onFileChange($event)" accept="image/*">
-  </div>
+    <!-- Delivery Request Image -->
+    <div class="mb-4">
+      <h5 class="mb-3">Request Image</h5>
+      
+      <!-- Current Image Preview -->
+      <div class="current-image mb-3" *ngIf="currentImageUrl">
+        <label class="form-label">Current Image:</label>
+        <div class="image-container">
+          <img [src]="'https://localhost:7176' + currentImageUrl" 
+               alt="Current Request Image"
+               class="img-fluid rounded">
+        </div>
+      </div>
 
+      <!-- New Image Upload -->
+      <div class="new-image">
+        <label for="DRimage" class="form-label">Upload New Image:</label>
+        <input type="file" 
+               class="form-control" 
+               id="DRimage" 
+               (change)="onFileChange($event)" 
+               accept="image/*">
+        <small class="text-muted">Leave empty to keep current image</small>
+      </div>
     </div>
 
     <!-- Form-level validation -->
