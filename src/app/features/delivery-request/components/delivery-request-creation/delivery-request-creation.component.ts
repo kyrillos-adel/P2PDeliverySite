@@ -26,8 +26,8 @@ export class DeliveryRequestCreationComponent implements OnInit {
     private deliveryRequestService: DeliveryRequestService,
     private router: Router,
     private activeModal: NgbActiveModal
-  
-  ){ 
+
+  ){
     this.initForm();
   }
   ngOnInit(): void {
@@ -73,7 +73,7 @@ export class DeliveryRequestCreationComponent implements OnInit {
           console.log(response);
         },
         error: (error) => {
-          console.error('Error creating delivery request:', error);
+          console.error('Error creating delivery request:');
         }
       });
 
@@ -81,7 +81,7 @@ export class DeliveryRequestCreationComponent implements OnInit {
     }
   }
   closeModal(): void {
-    this.activeModal.close(); 
+    this.activeModal.close();
   }
 
 

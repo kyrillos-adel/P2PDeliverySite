@@ -6,7 +6,7 @@ export const environment = {
   //enableDebug: true
   apiBaseUrl: 'http://p2pdelivery.runasp.net/',
   chatHubUrl: 'http://p2pdelivery.runasp.net/hub/chat',
-  imageBaseUrl: 'http://p2pdelivery.runasp.net/images/',
+  imageBaseUrl: 'http://p2pdelivery.runasp.net',
   notificationHubUrl: 'http://p2pdelivery.runasp.net/hub/notification',
   enableDebug: true,
 };
