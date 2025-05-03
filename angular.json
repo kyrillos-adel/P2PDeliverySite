@@ -115,6 +115,13 @@
 
             ]
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {
+            "baseHref": "/",
+            "noSilent": true
+          }
         }
       }
     }
