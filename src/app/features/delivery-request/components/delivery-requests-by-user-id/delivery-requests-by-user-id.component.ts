@@ -41,28 +41,7 @@ export class DeliveryRequestsByUserIdComponent implements OnInit {
     this.loadDeliveryRequests();
   }
 
-<<<<<<< HEAD
   loadDeliveryRequests() {
-=======
-    openPopup(deliveryRequestId: number) {
-      const token = localStorage.getItem('token') || sessionStorage.getItem('token'); 
-  
-      if (token) {
-       
-        const modalRef = this.modalService.open(AddApplicationComponent, {
-          centered: true,
-          size: 'm'
-        });
-  
-        modalRef.componentInstance.deliveryRequestID = deliveryRequestId;
-      } else {
-        
-        this.router.navigate(['/login']);
-      }
-    }
-  loadDeliveryRequests() 
-  {
->>>>>>> 5f7188c97e76e22f71d2b30bda646fc0da352c42
     this.deliveryRequestService.getMyDeliveryRequests().subscribe({
       next: (response) => {
         if (response.isSuccess) {
