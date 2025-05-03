@@ -99,6 +99,13 @@
         <small>Maximum price must be greater than minimum price</small>
       </div>
 
+      <div class="form-group">
+        <label for="drImage">Delivery Request Image</label>
+        <input type="file" id="drImage" (change)="onFileSelected($event)" accept="image/*" />
+      </div>
+      
+
+
       <div class="d-grid gap-2 mt-4">
         <button type="submit" class="btn btn-warning btn-lg" [disabled]="createForm.invalid">
           <i class="bi bi-truck"></i> Create Delivery Request

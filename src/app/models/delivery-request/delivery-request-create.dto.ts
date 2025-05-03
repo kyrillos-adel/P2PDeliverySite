@@ -7,4 +7,5 @@ export interface DeliveryRequestCreateDto {
     pickUpDate: Date;
     minPrice: number;
     maxPrice: number;
+    DRimage:File|null;
   }

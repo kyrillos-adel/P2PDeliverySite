@@ -1,10 +1,17 @@
 <div class="position-relative">
   <div class="profile-icon text-white text-center fw-bold" (click)="togglePopup()">
-    <img 
-    [src]="'https://localhost:7176' + user?.profileImageUrl"
-    alt="Profile Image" 
-    *ngIf="user?.profileImageUrl"
-    style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
+  <img 
+  [src]="'https://localhost:7176' + user?.profileImageUrl"
+  alt="Profile Image" 
+  *ngIf="user?.profileImageUrl"
+  style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
+
+
+<div *ngIf="!user?.profileImageUrl && user?.userName"
+  class="d-flex justify-content-center align-items-center rounded-circle bg-#e99a42 text-white fw-bold"
+  style="width: 50px; height: 50px; font-size: 1.3rem;">
+  {{ user.userName.charAt(0).toUpperCase() }}
+</div>
   
   </div>
 
@@ -21,12 +28,7 @@
       <button class="btn btn-outline-warning w-100 mb-2" (click)="openDeleteModal()">Delete Account</button>
       <button class="btn btn-outline-danger w-100 mb-2" (click)="logout()">Logout</button>
 
-      <!-- <img 
-      [src]="'https://localhost:7176' + user?.profileImageUrl"
-      alt="Profile Image" 
-      *ngIf="user?.profileImageUrl"
-      style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%;">
-    </div> -->
+     
 
     <div *ngIf="editingProfile">
       <div class="mb-3 text-start">

@@ -29,7 +29,7 @@ export class DeliveryRequestService {
     return new HttpHeaders({ 'Authorization': `Bearer ${token}` });
   }
 
-  create(data: DeliveryRequestCreateDto) {
+  create(data: FormData) {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
     if (!token) {
       console.error('No token found');
@@ -98,8 +98,8 @@ if(filters){
     return this.http.get<DeliveryRequestUpdateDto>(`${this.endpoint}/${id}`);
   }
 
-  update(id: number, data: DeliveryRequestUpdateDto) {
-    return this.http.put(`${this.endpoint}/${id}`, data);
+  update(id: number, data: FormData) {
+    return this.http.put(`${this.endpoint}/${id}`,data);
   }
 
   // Use this function in the delete button in Delivery request card

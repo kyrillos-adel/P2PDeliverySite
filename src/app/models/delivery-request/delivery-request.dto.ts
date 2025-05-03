@@ -3,6 +3,8 @@ export interface PaginatedDeliveryRequestDto{
     pageSize: number,
     totalCount: number,
     totalPages: number,
+    profileImageUrl: string,
+    drImageUrl: string,
     data: DeliveryRequestDto[]
 }
 export interface DeliveryRequestDto {
@@ -18,4 +20,6 @@ export interface DeliveryRequestDto {
     userId: number;
     userName: string;
     status: string;
+    profileImageUrl: string;
+    drImageUrl: string;
 }
