@@ -6,6 +6,8 @@ import { AuthService } from '../../../User/Services/Login.auth.service';
 import { Router, RouterModule } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DeliveryRequestCreationComponent } from '../delivery-request-creation/delivery-request-creation.component';
+import { environment } from '../../../../../environments/environment';
+
 @Component({
   selector: 'app-delivery-requests-by-user-id',
   imports: [CommonModule, RouterModule],
@@ -13,6 +15,7 @@ import { DeliveryRequestCreationComponent } from '../delivery-request-creation/d
   styleUrl: './delivery-requests-by-user-id.component.css'
 })
 export class DeliveryRequestsByUserIdComponent implements OnInit {
+  imageBaseUrl = environment.imageBaseUrl;
   deliveryRequests: DeliveryRequestDto[] = [];
   user: any = {};
 

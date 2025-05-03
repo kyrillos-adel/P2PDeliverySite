@@ -6,6 +6,7 @@ import {DeliveryRequestUpdateDto} from '../../../../models/delivery-request/deli
 import {ActivatedRoute, Router} from '@angular/router';
 import { egyptGovernorates } from '../../../../models/Register/register.model';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../../../../environments/environment';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class DeliveryRequestUpdateComponent implements OnInit {
   deliveryRequestId!: number;
   egyptGovernorates = egyptGovernorates;
   currentImageUrl: string | null = null;
+  imageBaseUrl = environment.imageBaseUrl;
 
   constructor(
     private deliveryRequestService: DeliveryRequestService,

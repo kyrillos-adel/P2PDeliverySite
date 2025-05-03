@@ -1,4 +1,3 @@
-
 <div class="container my-5">
   <!-- Error Message -->
   <div *ngIf="errorMessage" class="alert alert-danger text-center fw-bold animate__animated animate__fadeIn">
@@ -130,7 +129,7 @@
     <div class="col-lg-4 col-12">
       <div class="card shadow-sm mb-4">
         <div class="card-body d-flex align-items-center">
-          <img [src]="'https://localhost:7176'+deliveryRequestDetails.profileImageUrl"
+          <img [src]="imageBaseUrl + deliveryRequestDetails.profileImageUrl"
                alt="User"
                width="50"
                height="50"
@@ -164,7 +163,7 @@
           
           <div *ngIf="deliveryRequestDetails.drImageUrl" class="text-center my-3">
             <img 
-              [src]="'https://localhost:7176'+deliveryRequestDetails.drImageUrl" 
+              [src]="imageBaseUrl + deliveryRequestDetails.drImageUrl" 
               alt="Delivery Request Image" 
               class="img-fluid rounded" 
               style="max-height: 300px; object-fit: cover;"
@@ -188,11 +187,11 @@
             <!-- Left Section: Profile and Info -->
             <div class="col-12 col-md-4 d-flex flex-column flex-md-row align-items-center">
               <!-- applicant profile -->
-              <!-- <img [src]="'https://localhost:7176'+deliveryRequestDetails.profileImageUrl"
+              <img [src]="imageBaseUrl + deliveryRequestDetails.profileImageUrl"
                alt="User"
                width="50"
                height="50"
-               class="rounded-circle me-3"> -->
+               class="rounded-circle me-3">
               <div class="text-center text-md-start">
                 <span class="badge bg-success status-badge" *ngIf="app.applicationStatus === 'Accepted'">{{ app.applicationStatus }}</span>
                 <span class="badge bg-warning text-dark status-badge" *ngIf="app.applicationStatus === 'Pending'">{{ app.applicationStatus }}</span>

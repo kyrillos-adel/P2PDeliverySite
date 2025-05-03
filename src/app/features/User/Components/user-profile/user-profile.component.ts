@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { egyptGovernorates } from '../../../../models/Register/register.model';
 import { RouterLink } from '@angular/router';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-user-profile',
@@ -17,6 +18,7 @@ export class UserProfileComponent implements OnInit {
   private authService = inject(AuthService);
   constructor(private router: Router, private eRef: ElementRef) {}
 
+  imageBaseUrl = environment.imageBaseUrl;
 
   user: any = {};
   showPopup = false;

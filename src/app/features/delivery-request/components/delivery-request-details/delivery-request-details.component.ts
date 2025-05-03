@@ -11,6 +11,7 @@ import { AddApplicationComponent } from '../../../DRApplication/components/add-a
 
 import {ChatModalComponent} from '../../../chat/components/chat-modal/chat-modal.component';
 import { TrackingProgressComponent } from "../tracking-progress/tracking-progress.component";
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-delivery-request-details',
@@ -21,6 +22,7 @@ import { TrackingProgressComponent } from "../tracking-progress/tracking-progres
   styleUrl: './delivery-request-details.component.css'
 })
 export class DeliveryRequestDetailsComponent {
+  imageBaseUrl = environment.imageBaseUrl;
 
   deliveryRequestService = inject(DeliveryRequestService);
   route = inject(ActivatedRoute);
