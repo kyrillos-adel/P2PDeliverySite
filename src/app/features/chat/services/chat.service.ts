@@ -11,7 +11,7 @@ import {ApiResponse} from '../../../models/api-response';
 })
 export class ChatService {
 
-  private apiUrl = 'api/Chat';
+  private apiUrl = 'api/chat';
 
   private chatsSubject : BehaviorSubject<ChatDto[]> = new BehaviorSubject<ChatDto[]>([]);
   public chats$ = this.chatsSubject.asObservable();
