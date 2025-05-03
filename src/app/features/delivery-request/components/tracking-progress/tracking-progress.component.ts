@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-tracking-progress',
-  imports: [NgSwitch, NgClass],
+  imports: [NgSwitch],
   templateUrl: './tracking-progress.component.html',
   styleUrl: './tracking-progress.component.css'
 })

@@ -17,7 +17,7 @@ import { environment } from '../../../../../environments/environment';
   selector: 'app-delivery-request-details',
   standalone: true,
   imports: [NgIf, RouterModule, CommonModule,
-    FormsModule, TrackingProgressComponent],
+    FormsModule],
   templateUrl:'./delivery-request-details.component.html',
   styleUrl: './delivery-request-details.component.css'
 })

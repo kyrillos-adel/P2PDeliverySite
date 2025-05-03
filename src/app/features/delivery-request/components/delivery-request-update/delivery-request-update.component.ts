@@ -1,42 +1,38 @@
-import {Component, OnInit} from '@angular/core';
-import {DeliveryRequestService} from '../../services/delivery-request.service';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {DeliveryRequestValidators} from '../../../../core/validators/delivery-request-validators';
-import {DeliveryRequestUpdateDto} from '../../../../models/delivery-request/delivery-request-update.dto';
-import {ActivatedRoute, Router} from '@angular/router';
-import { egyptGovernorates } from '../../../../models/Register/register.model';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { DeliveryRequestService } from '../../services/delivery-request.service';
+import { DeliveryRequestUpdateDto } from '../../../../models/delivery-request/delivery-request-update.dto';
+import { egyptGovernorates } from '../../../../models/Register/register.model';
 import { environment } from '../../../../../environments/environment';
-
+import { DeliveryRequestValidators } from '../../../../core/validators/delivery-request-validators';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-delivery-request-update',
-  imports: [
-    ReactiveFormsModule,
-    CommonModule
-  ],
+  standalone: true,
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './delivery-request-update.component.html',
   styleUrl: './delivery-request-update.component.css'
 })
 export class DeliveryRequestUpdateComponent implements OnInit {
 
+  @Input() requestId!: number;
+
   updateForm!: FormGroup;
-  deliveryRequestId!: number;
   egyptGovernorates = egyptGovernorates;
   currentImageUrl: string | null = null;
   imageBaseUrl = environment.imageBaseUrl;
 
   constructor(
-    private deliveryRequestService: DeliveryRequestService,
     private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router
-  ) { }
+    private deliveryRequestService: DeliveryRequestService,
+    public activeModal: NgbActiveModal
+  ) {}
 
   ngOnInit(): void {
-    this.deliveryRequestId = this.route.snapshot.params['id'];
     this.initForm();
-    this.loadDeliveryRequest()
+    this.loadDeliveryRequest(this.requestId);
   }
 
   initForm(): void {
@@ -48,11 +44,17 @@ export class DeliveryRequestUpdateComponent implements OnInit {
       pickUpDate: ['', [Validators.required]],
       minPrice: [0, [Validators.required, Validators.min(0)]],
       maxPrice: [0, [Validators.required, Validators.min(0)]],
-      weight: [0, [Validators.required, Validators.min(0)]]
-      }, { validators: [DeliveryRequestValidators.priceRangeValidator('minPrice', 'maxPrice')] }
-    );
+      weight: [0, [Validators.required, Validators.min(0)]],
+      DRimage: [null]
+    }, {
+      validators: [DeliveryRequestValidators.priceRangeValidator('minPrice', 'maxPrice')]
+    });
   }
-
+  closeModal(): void {
+    // Logic to close the modal
+    this.activeModal.close();
+    console.log('Modal closed');
+  }
   onFileChange(event: any) {
     const file = event.target.files[0];
     if (file) {
@@ -60,9 +62,8 @@ export class DeliveryRequestUpdateComponent implements OnInit {
     }
   }
 
-
-  loadDeliveryRequest(): void {
-    this.deliveryRequestService.getRequestDetails(this.deliveryRequestId).subscribe({
+  loadDeliveryRequest(id: number): void {
+    this.deliveryRequestService.getRequestDetails(id).subscribe({
       next: (response) => {
         if (response.isSuccess) {
           const data = response.data;
@@ -72,7 +73,7 @@ export class DeliveryRequestUpdateComponent implements OnInit {
             description: data.description,
             pickUpLocation: data.pickUpLocation,
             dropOffLocation: data.dropOffLocation,
-            pickUpDate: data.pickUpDate.split('T')[0], // Format date for input[type="date"]
+            pickUpDate: data.pickUpDate.split('T')[0],
             minPrice: data.minPrice,
             maxPrice: data.maxPrice,
             weight: data.totalWeight
@@ -87,24 +88,26 @@ export class DeliveryRequestUpdateComponent implements OnInit {
     });
   }
 
-  onSubmit(){
-    if(this.updateForm.valid){
-      const data: DeliveryRequestUpdateDto = {
-        title: this.updateForm.value.title,
-        description: this.updateForm.value.description,
-        pickUpLocation: this.updateForm.value.pickUpLocation,
-        dropOffLocation: this.updateForm.value.dropOffLocation,
-        pickUpDate: new Date(this.updateForm.value.pickUpDate),
-        minPrice: this.updateForm.value.minPrice,
-        maxPrice: this.updateForm.value.maxPrice,
-        totalWeight: this.updateForm.value.weight,
-        DRimage: null
-      }
+  onSubmit() {
+    if (this.updateForm.valid) {
+      const formValues = this.updateForm.value;
 
-      this.deliveryRequestService.update(this.deliveryRequestId, data).subscribe({
+      const data: DeliveryRequestUpdateDto = {
+        title: formValues.title,
+        description: formValues.description,
+        pickUpLocation: formValues.pickUpLocation,
+        dropOffLocation: formValues.dropOffLocation,
+        pickUpDate: new Date(formValues.pickUpDate),
+        minPrice: formValues.minPrice,
+        maxPrice: formValues.maxPrice,
+        totalWeight: formValues.weight,
+        DRimage: formValues.DRimage
+      };
+
+      this.deliveryRequestService.update(this.requestId, data).subscribe({
         next: (response) => {
           if (response) {
-            this.router.navigate(['/deliveryrequests/getMyDeliveryRequests']);
+            this.activeModal.close();
           } else {
             console.error('Update failed:', response);
           }
