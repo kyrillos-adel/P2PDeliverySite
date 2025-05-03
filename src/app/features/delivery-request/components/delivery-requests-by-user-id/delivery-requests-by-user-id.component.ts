@@ -9,6 +9,7 @@ import { DeliveryRequestCreationComponent } from '../delivery-request-creation/d
 import { DeliveryRequestUpdateComponent } from '../delivery-request-update/delivery-request-update.component';
 import { ConfirmDialogComponent } from '../../../../shared/components/confirm-dialog/confirm-dialog.component'; // Adjust the path as needed
 import { environment } from '../../../../../environments/environment';
+import { AddApplicationComponent } from '../../../DRApplication/components/add-application/add-application.component';
 
 @Component({
   selector: 'app-delivery-requests-by-user-id',
@@ -40,7 +41,28 @@ export class DeliveryRequestsByUserIdComponent implements OnInit {
     this.loadDeliveryRequests();
   }
 
+<<<<<<< HEAD
   loadDeliveryRequests() {
+=======
+    openPopup(deliveryRequestId: number) {
+      const token = localStorage.getItem('token') || sessionStorage.getItem('token'); 
+  
+      if (token) {
+       
+        const modalRef = this.modalService.open(AddApplicationComponent, {
+          centered: true,
+          size: 'm'
+        });
+  
+        modalRef.componentInstance.deliveryRequestID = deliveryRequestId;
+      } else {
+        
+        this.router.navigate(['/login']);
+      }
+    }
+  loadDeliveryRequests() 
+  {
+>>>>>>> 5f7188c97e76e22f71d2b30bda646fc0da352c42
     this.deliveryRequestService.getMyDeliveryRequests().subscribe({
       next: (response) => {
         if (response.isSuccess) {

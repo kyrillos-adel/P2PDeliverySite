@@ -116,7 +116,7 @@ export class RegisterComponent {
       this.authService.register(formData).subscribe({
         next: (response) => {
           if (response.isSuccess) {
-            alert('Registration successful!');
+            // alert('Registration successful!');
             this.router.navigate(['/login']);
           }
         },

@@ -14,7 +14,10 @@ export const apiPrefixInterceptor: HttpInterceptorFn = (req, next) => {
 
     const apiUrl = environment.apiBaseUrl;
     const apiRequest = req.clone({ url: `${apiUrl}${req.url}` });
-    spinner.show();
+    
+    if (!(req.url.includes('chat') || req.url.includes('notification'))) {
+      spinner.show();
+    }
     // return next(apiRequest);
     return next(apiRequest).pipe(
       finalize(() => spinner.hide())

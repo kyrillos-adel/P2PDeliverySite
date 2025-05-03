@@ -67,11 +67,11 @@ html {
   border-color: var(--dark);
   color: var(--yellow);
 }
-.rounded-circle
+/* .rounded-circle
 {
   background-color: var(--yellow);
 
-}
+} */
 
 .link-button {
 
