@@ -84,30 +84,31 @@ export class DeliveryRequestUpdateComponent implements OnInit {
   }
 
   onSubmit(){
-    if(this.updateForm.valid){
-      const data: DeliveryRequestUpdateDto = {
-        title: this.updateForm.value.title,
-        description: this.updateForm.value.description,
-        pickUpLocation: this.updateForm.value.pickUpLocation,
-        dropOffLocation: this.updateForm.value.dropOffLocation,
-        pickUpDate: new Date(this.updateForm.value.pickUpDate),
-        minPrice: this.updateForm.value.minPrice,
-        maxPrice: this.updateForm.value.maxPrice,
-        totalWeight: this.updateForm.value.weight
-      }
+    // if(this.updateForm.valid){
+    //   const data: DeliveryRequestUpdateDto = {
+    //     title: this.updateForm.value.title,
+    //     description: this.updateForm.value.description,
+    //     pickUpLocation: this.updateForm.value.pickUpLocation,
+    //     dropOffLocation: this.updateForm.value.dropOffLocation,
+    //     pickUpDate: new Date(this.updateForm.value.pickUpDate),
+    //     minPrice: this.updateForm.value.minPrice,
+    //     maxPrice: this.updateForm.value.maxPrice,
+    //     totalWeight: this.updateForm.value.weight,
+    //     Image: this.updateForm.value.DRimage
+    //   }
 
-      this.deliveryRequestService.update(this.deliveryRequestId, data).subscribe({
-        next: (response) => {
-          if (response) {
-            this.router.navigate(['/deliveryrequests/getMyDeliveryRequests']);
-          } else {
-            console.error('Update failed:', response);
-          }
-        },
-        error: (err) => {
-          console.error('Failed to update delivery request:', err);
-        }
-      });
-    }
+    //   this.deliveryRequestService.update(this.deliveryRequestId, data).subscribe({
+    //     next: (response) => {
+    //       if (response) {
+    //         this.router.navigate(['/deliveryrequests/getMyDeliveryRequests']);
+    //       } else {
+    //         console.error('Update failed:', response);
+    //       }
+    //     },
+    //     error: (err) => {
+    //       console.error('Failed to update delivery request:', err);
+    //     }
+    //   });
+    // }
   }
 }

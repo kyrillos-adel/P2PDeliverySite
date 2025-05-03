@@ -34,10 +34,10 @@
       </div>
       <hr class="my-3" />
           <div class="d-flex flex-column flex-sm-row justify-content-center gap-2 px-2">
-            <button class="link-button">
+            <button class="link-button" (click)="confirmUpdate(application)">
               <i class="bi bi-pencil-square me-1"></i> Update
             </button>
-            <button class="link-button">
+            <button class="link-button" (click)="confirmDelete(application.id)">
               <i class="bi bi-trash me-1"></i> Delete
             </button>
           </div>
