@@ -43,3 +43,12 @@ jobs:
         run: npx angular-cli-ghpages --dir=docs --name="GitHub Actions" --email=actions@github.com --no-silent --message="Deploy to GitHub pages" --no-dotfiles
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload to MonsterHost via FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.1.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./docs
+          server-dir: /
