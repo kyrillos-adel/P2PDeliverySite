@@ -4,12 +4,15 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {DeliveryRequestValidators} from '../../../../core/validators/delivery-request-validators';
 import {DeliveryRequestUpdateDto} from '../../../../models/delivery-request/delivery-request-update.dto';
 import {ActivatedRoute, Router} from '@angular/router';
+import { egyptGovernorates } from '../../../../models/Register/register.model';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-delivery-request-update',
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CommonModule
   ],
   templateUrl: './delivery-request-update.component.html',
   styleUrl: './delivery-request-update.component.css'
@@ -18,6 +21,7 @@ export class DeliveryRequestUpdateComponent implements OnInit {
 
   updateForm!: FormGroup;
   deliveryRequestId!: number;
+  egyptGovernorates = egyptGovernorates;
 
   constructor(
     private deliveryRequestService: DeliveryRequestService,
@@ -41,10 +45,11 @@ export class DeliveryRequestUpdateComponent implements OnInit {
       pickUpDate: ['', [Validators.required]],
       minPrice: [0, [Validators.required, Validators.min(0)]],
       maxPrice: [0, [Validators.required, Validators.min(0)]],
-      DRimage: [null]  
-    }, { validators: [DeliveryRequestValidators.priceRangeValidator('minPrice', 'maxPrice')] }
+      weight: [0, [Validators.required, Validators.min(0)]]
+      }, { validators: [DeliveryRequestValidators.priceRangeValidator('minPrice', 'maxPrice')] }
     );
   }
+  
   onFileChange(event: any) {
     const file = event.target.files[0];
     if (file) {
@@ -54,42 +59,54 @@ export class DeliveryRequestUpdateComponent implements OnInit {
   
 
   loadDeliveryRequest(): void {
-    this.deliveryRequestService.getById(this.deliveryRequestId).subscribe({
-      next: (data) => {
-        this.updateForm.patchValue({
-          title: data.title,
-          description: data.description,
-          pickUpLocation: data.pickUpLocation,
-          dropOffLocation: data.dropOffLocation,
-          pickUpDate: data.pickUpDate,
-          minPrice: data.minPrice,
-          maxPrice: data.maxPrice
-        });
+    this.deliveryRequestService.getRequestDetails(this.deliveryRequestId).subscribe({
+      next: (response) => {
+        if (response.isSuccess) {
+          const data = response.data;
+          this.updateForm.patchValue({
+            title: data.title,
+            description: data.description,
+            pickUpLocation: data.pickUpLocation,
+            dropOffLocation: data.dropOffLocation,
+            pickUpDate: data.pickUpDate.split('T')[0], // Format date for input[type="date"]
+            minPrice: data.minPrice,
+            maxPrice: data.maxPrice,
+            weight: data.totalWeight
+          });
+        } else {
+          console.error('Error loading delivery request:', response.message);
+        }
+      },
+      error: (err) => {
+        console.error('Failed to load delivery request:', err);
       }
     });
   }
 
-  onSubmit() {
-    if (this.updateForm.valid) {
-      const formData = new FormData();
-  
-      formData.append('title', this.updateForm.value.title);
-      formData.append('description', this.updateForm.value.description);
-      formData.append('totalWeight', '0'); // default or calculated if needed
-      formData.append('pickUpLocation', this.updateForm.value.pickUpLocation);
-      formData.append('dropOffLocation', this.updateForm.value.dropOffLocation);
-      formData.append('pickUpDate', this.updateForm.value.pickUpDate);
-      formData.append('minPrice', this.updateForm.value.minPrice);
-      formData.append('maxPrice', this.updateForm.value.maxPrice);
-  
-      const image = this.updateForm.get('DRimage')?.value;
-      if (image) {
-        formData.append('DRimage', image);
+  onSubmit(){
+    if(this.updateForm.valid){
+      const data: DeliveryRequestUpdateDto = {
+        title: this.updateForm.value.title,
+        description: this.updateForm.value.description,
+        pickUpLocation: this.updateForm.value.pickUpLocation,
+        dropOffLocation: this.updateForm.value.dropOffLocation,
+        pickUpDate: new Date(this.updateForm.value.pickUpDate),
+        minPrice: this.updateForm.value.minPrice,
+        maxPrice: this.updateForm.value.maxPrice,
+        totalWeight: this.updateForm.value.weight
       }
-  
-      this.deliveryRequestService.update(this.deliveryRequestId, formData).subscribe({
-        next: () => this.router.navigate(['/deliveryrequest']),
-        error: (error) => console.error('Error updating delivery request:', error)
+
+      this.deliveryRequestService.update(this.deliveryRequestId, data).subscribe({
+        next: (response) => {
+          if (response) {
+            this.router.navigate(['/deliveryrequests/getMyDeliveryRequests']);
+          } else {
+            console.error('Update failed:', response);
+          }
+        },
+        error: (err) => {
+          console.error('Failed to update delivery request:', err);
+        }
       });
     }
   }

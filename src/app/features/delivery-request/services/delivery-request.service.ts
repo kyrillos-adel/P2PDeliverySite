@@ -6,8 +6,9 @@ import { ApplicationDTO, DeliveryRequestDetails } from '../../../models/delivery
 import { DeliveryRequestCreateDto } from '../../../models/delivery-request/delivery-request-create.dto';
 import { DeliveryRequestDto, PaginatedDeliveryRequestDto } from '../../../models/delivery-request/delivery-request.dto';
 import { HttpHeaders } from '@angular/common/http';
-import { throwError } from 'rxjs';
+import { throwError } 
 import { ApplicationstatusDTO } from '../../../models/delivery-request/delivery-request-details';
+
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +44,7 @@ export class DeliveryRequestService {
 
     return this.http.post(`${this.endpoint}`, data,{ headers });
    }
- 
+
 
   getallDRs(filters:any, pageNum:number){
     let params = new HttpParams();
@@ -76,7 +77,7 @@ if(filters){
   }
   if(pageNum>0){
     params = params.set('pageNumber', pageNum);
-    
+
   }
     // return this.http.get(`${this.apiUrl}/filter`, { params });
 
@@ -88,15 +89,8 @@ if(filters){
 
   getMyDeliveryRequests() {
     const headers= this.getAuthHeaders();
-  
+
     return this.http.get<ApiResponse<DeliveryRequestDto[]>>(`${this.endpoint}/my`, { headers });
-  }
-  
-  
-
-
-  getById(id: number) {
-    return this.http.get<DeliveryRequestUpdateDto>(`${this.endpoint}/${id}`);
   }
 
   update(id: number, data: FormData) {

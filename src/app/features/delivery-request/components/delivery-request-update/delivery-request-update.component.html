@@ -1,4 +1,3 @@
-
 <div class="container mt-4">
   <form [formGroup]="updateForm" (ngSubmit)="onSubmit()" novalidate>
     <!-- Title -->
@@ -38,7 +37,12 @@
     <!-- Pickup Location -->
     <div class="mb-3">
       <label for="pickUpLocation" class="form-label">Pickup Location</label>
-      <input type="text" class="form-control" id="pickUpLocation" formControlName="pickUpLocation">
+      <select class="form-select" id="pickUpLocation" formControlName="pickUpLocation">
+        <option value="" disabled>Select pickup location</option>
+        <option *ngFor="let location of egyptGovernorates" [value]="location">
+          {{ location }}
+        </option>
+      </select>
 
       @if (updateForm.get('pickUpLocation')?.invalid && (updateForm.get('pickUpLocation')?.dirty || updateForm.get('pickUpLocation')?.touched)) {
         <div class="text-danger">
@@ -52,7 +56,12 @@
     <!-- Dropoff Location -->
     <div class="mb-3">
       <label for="dropOffLocation" class="form-label">Dropoff Location</label>
-      <input type="text" class="form-control" id="dropOffLocation" formControlName="dropOffLocation">
+      <select class="form-select" id="dropOffLocation" formControlName="dropOffLocation">
+        <option value="" disabled>Select dropoff location</option>
+        <option *ngFor="let location of egyptGovernorates" [value]="location">
+          {{ location }}
+        </option>
+      </select>
 
       @if (updateForm.get('dropOffLocation')?.invalid && (updateForm.get('dropOffLocation')?.dirty || updateForm.get('dropOffLocation')?.touched)) {
         <div class="text-danger">
@@ -75,6 +84,22 @@
           }
         </div>
       }
+    </div>
+
+    <!-- Package Weight -->
+    <div class="mb-3">
+      <label for="weight" class="form-label">Package Weight (kg)</label>
+      <input
+        type="number"
+        class="form-control"
+        id="weight"
+        formControlName="weight"
+        min="0"
+        step="0.1">
+      <div *ngIf="updateForm.get('weight')?.invalid && updateForm.get('weight')?.touched" class="text-danger">
+        <small *ngIf="updateForm.get('weight')?.errors?.['required']">Weight is required</small>
+        <small *ngIf="updateForm.get('weight')?.errors?.['min']">Weight must be greater than 0</small>
+      </div>
     </div>
 
     <!-- Price Range -->
@@ -132,4 +157,5 @@
       </button>
     </div>
   </form>
+  <br><br>
 </div>
