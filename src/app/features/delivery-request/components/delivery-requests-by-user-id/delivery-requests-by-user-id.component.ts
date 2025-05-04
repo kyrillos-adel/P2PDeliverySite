@@ -7,13 +7,13 @@ import { Router, RouterModule } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DeliveryRequestCreationComponent } from '../delivery-request-creation/delivery-request-creation.component';
 import { DeliveryRequestUpdateComponent } from '../delivery-request-update/delivery-request-update.component';
-import { ConfirmDialogComponent } from '../../../../shared/components/confirm-dialog/confirm-dialog.component'; // Adjust the path as needed
 import { environment } from '../../../../../environments/environment';
-import { AddApplicationComponent } from '../../../DRApplication/components/add-application/add-application.component';
+import { ConfirmDialogComponent } from '../../../../shared/components/confirm-dialog/confirm-dialog.component';
+
 
 @Component({
   selector: 'app-delivery-requests-by-user-id',
-  imports: [CommonModule, RouterModule, ConfirmDialogComponent],
+  imports: [CommonModule, RouterModule,ConfirmDialogComponent],
   templateUrl: './delivery-requests-by-user-id.component.html',
   styleUrl: './delivery-requests-by-user-id.component.css'
 })

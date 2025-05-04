@@ -175,7 +175,9 @@
           </li>
       
           <li class="page-item">
-            <button class="page-link card-opacity" (click)="onPageChange(currentPage + 1)"  [class.disabled]="currentPage === totalPages">Next</button>
+            <button class="page-link card-opacity" (click)="onPageChange(currentPage + 1)" [class.disabled]="currentPage === totalPages" style="background-color: #fff; color: #007bff; border: 1px solid #007bff; padding: 0.375rem 0.75rem; border-radius: 0.25rem; transition: all 0.2s ease;">
+              Next
+            </button>
           </li>
         </ul>
       </nav>

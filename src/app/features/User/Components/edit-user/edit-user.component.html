@@ -77,7 +77,11 @@
       <div class="profile-section">
        
       
-        <input type="file" (change)="onFileSelected($event)">
+        <div class="file-input-container  align-items-center justify-content-center mt-3">
+          <input type="file" (change)="onFileSelected($event)" id="fileInput" class="file-input" style="display: none;">
+          <label for="fileInput" class="file-label">Profile Photo</label>
+          <span class="file-name" style="margin-left: 10px; color: #6c757d;">No file selected</span>
+        </div>
 
       </div>
       

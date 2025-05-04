@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {ChatDto} from '../../../models/chat/chatDto';
 import {HttpClient} from '@angular/common/http';
@@ -26,13 +26,13 @@ export class ChatService {
   public chatWindowVisible$ = this.chatWindowVisibleSubject.asObservable();
 
   constructor(
-    private readonly signalRService: SignalRService,
-    private readonly http : HttpClient
-  ) {
-    this.signalRService.newMessage$.subscribe(message => {
-      this.addMessageToChat(message);
-    });
-  }
+      @Inject(SignalRService) private readonly signalRService: SignalRService,
+      private readonly http : HttpClient
+    ) {
+      this.signalRService.newMessage$.subscribe(message => {
+        this.addMessageToChat(message);
+      });
+    }
 
   toggleChatsPanel() {
     this.chatsPanelVisibleSubject.next(!this.chatsPanelVisibleSubject.value);

@@ -1,19 +1,22 @@
 import { RouterLink ,RouterLinkActive} from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { Component,OnInit } from '@angular/core';
 import { AuthService } from '../../../features/User/Services/Login.auth.service';
 import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { UserProfileComponent } from '../../../features/User/Components/user-profile/user-profile.component';
-import {ChatIconComponent} from '../../../features/chat/components/chat-icon/chat-icon.component';
+
 import {
   NotificationIconComponent
 } from '../../../features/notifications/components/notification-icon/notification-icon.component';
+import { ChatIconComponent } from '../../../features/chat/components/chat-icon/chat-icon.component';
+
 
 @Component({
+  imports: [CommonModule, RouterLink, RouterLinkActive, NgIf, FormsModule, NotificationIconComponent,ChatIconComponent, UserProfileComponent],
   selector: 'app-header',
-  imports: [RouterLink, RouterLinkActive, NgIf, FormsModule, UserProfileComponent, HttpClientModule, ChatIconComponent, NotificationIconComponent],
+  // Removed invalid 'imports' property
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })

@@ -1,20 +1,15 @@
-import { Component } from '@angular/core';
-import {ChatService} from '../../services/chat.service';
-import {NgIf} from '@angular/common';
+import { Component, Inject } from '@angular/core';
+import { ChatService } from '../../services/chat.service';
 
 @Component({
   selector: 'app-chat-icon',
-  imports: [
-    NgIf
-  ],
   templateUrl: './chat-icon.component.html',
-  styleUrl: './chat-icon.component.css'
+  styleUrls: ['./chat-icon.component.css']
 })
 export class ChatIconComponent {
-
   totalUnreadMessages: number = 0;
 
-  constructor(private chatService: ChatService) {
+  constructor(@Inject(ChatService) private chatService: ChatService) {
     this.chatService.chats$.subscribe(chats => {
       this.totalUnreadMessages = chats.reduce((acc, chat) => {
         return acc + chat.unreadMessagesCount;

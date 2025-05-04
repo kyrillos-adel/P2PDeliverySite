@@ -28,8 +28,6 @@
               <app-chat-icon></app-chat-icon>
             </a>
           </li>
-
-
           <li class="nav-item position-relative">
             <a class="nav-link custom-link d-flex align-items-center gap-1">
               <app-notification-icon></app-notification-icon>
@@ -42,18 +40,16 @@
       </ul>
 
       <ng-container *ngIf="!isLoggedIn">
-        <div class="d-flex gap-2 ps-3">
+        <div class="d-flex gap-2 ps-3 flex-column flex-sm-row">
           <ul class="navbar-nav ms-auto align-items-center gap-2 pe-3">
-          <li class="nav-item">
-            <a class="nav-link custom-link" routerLink="deliveryrequests/getallDRs" routerLinkActive="active">Delivery Requests</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link custom-link " routerLink="deliveryrequests/getallDRs" routerLinkActive="active">Delivery Requests</a>
+            </li>
           </ul>
-
-          <a routerLink="/login" routerLinkActive="active-link" class="btn btn-main rounded-pill px-4 py-1">Login</a>
-          <a routerLink="/Register" routerLinkActive="active-link" class="btn btn-main rounded-pill px-4 py-1">Register</a>
+          <a routerLink="/login" routerLinkActive="active-link" class="btn btn-main rounded-5 ">Login</a>
+          <a routerLink="/Register" routerLinkActive="active-link" class="btn btn-main rounded-5">Register</a>
         </div>
       </ng-container>
     </div>
   </div>
 </nav>
-
