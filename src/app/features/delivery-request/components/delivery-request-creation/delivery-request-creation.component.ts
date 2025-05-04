@@ -70,7 +70,7 @@ export class DeliveryRequestCreationComponent implements OnInit {
 
       this.deliveryRequestService.create(formData).subscribe({
         next: (response) => {
-          console.log(response);
+          console.log("added",response); 
         },
         error: (error) => {
           console.error('Error creating delivery request:');
@@ -82,6 +82,7 @@ export class DeliveryRequestCreationComponent implements OnInit {
   }
   closeModal(): void {
     this.activeModal.close();
+    this.router.navigate(['/delivery-requests']);
   }
 
 

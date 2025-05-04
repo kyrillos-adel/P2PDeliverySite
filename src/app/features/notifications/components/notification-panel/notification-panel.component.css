@@ -10,6 +10,15 @@
   overflow: hidden;
 }
 
+@media (max-width: 400px) {
+  .notifications-panel-container {
+    width: 80%;
+    right: 10%;
+    top: 10%;
+    height: 40%;
+  }
+}
+
 .panel-header {
   padding: 12px 16px;
   background-color: var(--dark);
