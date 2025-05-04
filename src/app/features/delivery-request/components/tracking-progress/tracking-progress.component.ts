@@ -14,7 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 export class TrackingProgressComponent {
   trackingService = inject(TrackingService);
   route = inject(ActivatedRoute);
-
+  
   actualStep:number = 0;
   currentStep: number = 0;
   offerPrice: number = 80; // value from request
