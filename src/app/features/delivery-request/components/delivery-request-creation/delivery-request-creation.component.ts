@@ -71,8 +71,6 @@ export class DeliveryRequestCreationComponent implements OnInit {
       this.deliveryRequestService.create(formData).subscribe({
         next: (response) => {
           console.log("added",response);
-          this.router.navigate([this.router.url]);
-          // this.router.navigate(['/delivery-requests']);
  
         },
         error: (error) => {
