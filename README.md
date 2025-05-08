@@ -1,59 +1,112 @@
-# P2PDeliveryClientSide
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.7.
+# P2PDeliverySite
 
-## Development server
+**Frontend of the P2PDelivery Project**  
+This Angular-based frontend interfaces with the [P2PDelivery](https://github.com/minamichael14/P2PDelivery), a peer-to-peer delivery platform built with ASP.NET Core. Together, they provide a full-stack solution for creating, managing, and tracking delivery requests in real time.
 
-To start a local development server, run:
+## Overview
+
+P2PDeliverySite is a peer-to-peer delivery platform built with Angular that connects people who need items delivered with individuals willing to provide delivery services. The application facilitates the creation of delivery requests, application to fulfill those requests, and communication between users.
+
+This project was developed as part of the graduation project for the Full Stack Web Development using .NET track at the Information Technology Institute (ITI), Egypt.
+
+## Technologies Used
+
+- **Angular (v19.2.x)** `README.md:3`
+- **Bootstrap 5** `package.json:28`
+- **SignalR** for real-time communication `package.json:24`
+- **FontAwesome** icons `package.json:21-23`
+- **JWT** for authentication `package.json:30`
+
+## Features
+
+### User Management
+
+- Registration and authentication system `login.component.ts:15-149`
+- User profile management `app.routes.ts:33-37`
+- Profile editing `app.routes.ts:65-71`
+
+### Delivery Requests
+
+- Create delivery requests with details including title, description, weight, locations, and price range `delivery-request-creation.component.ts:38-49`
+- Upload images for delivery items `delivery-request-creation.component.ts:52-57`
+- Browse all delivery requests `app.routes.ts:49-54`
+- View personal delivery requests `app.routes.ts:72-78`
+- Track delivery progress `app.routes.ts:92-97`
+
+### Delivery Applications
+
+- Apply to fulfill delivery requests `add-application.component.ts:26-52`
+- Offer custom prices `add-application.component.ts:28-31`
+- View personal applications `app.routes.ts:79-85`
+- Manage accepted applications `app.routes.ts:86-91`
+
+### Communication
+
+- Real-time chat between users `chat.service.ts:12-113`
+- Notifications system
+
+## Installation and Setup
+
+### Prerequisites
+
+- Node.js and npm
+- Angular CLI
+
+### Installation Steps
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/minamichael14/P2PDeliverySite.git
+cd P2PDeliverySite
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Start the development server:
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+4. Navigate to `http://localhost:4200/` in your browser. `README.md:13`
 
-## Code scaffolding
+## Building for Production
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+Run the following command to build the project:
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+The build artifacts will be stored in the `dist/` directory. `README.md:37`
 
-## Running unit tests
+## Project Structure
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+The application follows a feature-based structure:
 
-```bash
-ng test
-```
+- **Core**: Contains essential services, interceptors, and utilities
+- **Features**: Organized by domain functionality
+  - User management
+  - Delivery requests
+  - Applications for delivery requests
+  - Chat functionality
+  - Notifications
+- **Shared**: Reusable components, directives, and pipes
+- **Models**: Data transfer objects and interfaces
 
-## Running end-to-end tests
+## Collaborators
+- [Kyrillos Adel](https://github.com/kyrillos-adel)
+- [Mina Michael](https://github.com/minamichael14)
+- [Omnia Nassef](https://github.com/omn22)
+- [Rahil Raafat](https://github.com/RahilRafat)
+- [Rawan Ragab](https://github.com/rawanragab44)
 
-For end-to-end (e2e) testing, run:
+## Contact
+For any issues or inquiries, contact **Kyrillos Adel** at kyrillosadelfahim@gmail.com
 
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
